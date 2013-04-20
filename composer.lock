@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2a47c2aa4eba15df533fd66e741b5e29",
+    "hash": "187ccc9488158e6d9555248ef94f4d73",
     "packages": [
         {
             "name": "cboden/ratchet",
@@ -291,6 +291,32 @@
                 "stream"
             ],
             "time": "2013-04-06 18:28:51"
+        },
+        {
+            "name": "pear-phpsavant.com/Savvy",
+            "version": "0.7.3",
+            "dist": {
+                "type": "file",
+                "url": "http://phpsavant.com/get/Savvy-0.7.3.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "php": ">=5.2.0.0"
+            },
+            "replace": {
+                "pear-savant/savvy": "== 0.7.3.0"
+            },
+            "type": "pear-library",
+            "autoload": {
+                "classmap": [
+                    ""
+                ]
+            },
+            "include-path": [
+                "/"
+            ],
+            "description": "\nUnlike other template systems, Savvy by default does not compile your\ntemplates into PHP; instead, it uses PHP itself as its template language so you\ndon't need to learn a new markup system."
         },
         {
             "name": "react/event-loop",

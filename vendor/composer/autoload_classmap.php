@@ -6,5 +6,23 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Savvy' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy.php',
+    'Savvy_Autoload' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/Autoload.php',
+    'Savvy_BadMethodCallException' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/BadMethodCallException.php',
+    'Savvy_BasicFastCompiler' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/BasicFastCompiler.php',
+    'Savvy_ClassToTemplateMapper' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/ClassToTemplateMapper.php',
+    'Savvy_CompilerException' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/CompilerException.php',
+    'Savvy_CompilerInterface' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/CompilerInterface.php',
+    'Savvy_Exception' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/Exception.php',
+    'Savvy_FastCompilerInterface' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/FastCompilerInterface.php',
+    'Savvy_FilterAbstract' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/FilterAbstract.php',
+    'Savvy_MapperInterface' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/MapperInterface.php',
+    'Savvy_ObjectProxy' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/ObjectProxy.php',
+    'Savvy_ObjectProxy_ArrayAccess' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/ObjectProxy/ArrayAccess.php',
+    'Savvy_ObjectProxy_ArrayIterator' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/ObjectProxy/ArrayIterator.php',
+    'Savvy_ObjectProxy_ArrayObject' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/ObjectProxy/ArrayObject.php',
+    'Savvy_ObjectProxy_Traversable' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/ObjectProxy/Traversable.php',
+    'Savvy_TemplateException' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/TemplateException.php',
+    'Savvy_UnexpectedValueException' => $vendorDir . '/pear-phpsavant.com/Savvy/src/Savvy/UnexpectedValueException.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
 );

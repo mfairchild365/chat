@@ -541,5 +541,33 @@
             "server",
             "sockets"
         ]
+    },
+    {
+        "name": "pear-phpsavant.com/Savvy",
+        "version": "0.7.3",
+        "version_normalized": "0.7.3.0",
+        "dist": {
+            "type": "file",
+            "url": "http://phpsavant.com/get/Savvy-0.7.3.tgz",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "php": ">=5.2.0.0"
+        },
+        "replace": {
+            "pear-savant/savvy": "== 0.7.3.0"
+        },
+        "type": "pear-library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                ""
+            ]
+        },
+        "include-path": [
+            "/"
+        ],
+        "description": "\nUnlike other template systems, Savvy by default does not compile your\ntemplates into PHP; instead, it uses PHP itself as its template language so you\ndon't need to learn a new markup system."
     }
 ]
