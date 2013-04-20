@@ -1,0 +1,56 @@
+#user-list {
+    margin-left: 0px;
+}
+
+#user-list li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+#user-list li ul {
+    margin-left: 0px;
+    padding-left: 10px;
+}
+
+li.them {
+    border-left: #FEF5CA solid 2px;
+}
+
+li.me {
+    border-left: #33B5E5 solid 2px;
+}
+
+#user-list li li {
+    margin-bottom: 0px;
+    border: none;
+}
+
+#message {
+    width: 100%;
+}
+
+#message-list {
+    margin-left: 0px;
+    max-height: 500px;
+    overflow: auto;
+}
+
+#message-list li {
+    list-style: none;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    border-bottom: black 1px solid;
+}
+
+#message-list .info {
+    font-size: .75em;
+}
+
+.page-header {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#show-notifications {
+    visibility: hidden;
+}

@@ -4,12 +4,10 @@ namespace Chat;
 class ConnectionContainer
 {
     protected $connection = false; // \Wrench\Connection object
-    protected $mac        = false; // Cash the MAC address as arp lookup may be slow.
 
     function __construct(\Ratchet\ConnectionInterface $connection)
     {
         $this->setConnection($connection);
-        $this->mac = \LAN\Util::getMac($connection->remoteAddress);
     }
 
     public function getConnection()
