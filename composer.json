@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-0": {
+            "LAN": "src",
+            "DB": "vendor/unl",
+            "RegExpRouter": "vendor/unl"
+        }
+    },
+    "require": {
+        "cboden/Ratchet": "0.2.*"
+    }
+}
