@@ -2,25 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20549ee4-8570-4f82-82c4-bca19df107f8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/img/alert.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/img/glyphicons-halflings-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/img/glyphicons-halflings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/img/steam.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/css/bootstrap-responsive.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/css/bootstrap-responsive.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/css/bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/css/bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/css/main.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/js/bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/js/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/js/jquery.cookie.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/js/jquery.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/js/main.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/js/moment.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/chat.iml" afterPath="$PROJECT_DIR$/.idea/chat.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Chat/Chat/Routes.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Chat/Chat/View.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/Chat/Chat/View.tpl.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Chat/ConnectionContainer.php" afterPath="$PROJECT_DIR$/src/Chat/ConnectionContainer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/html/Chat/Controller.tpl.php" afterPath="$PROJECT_DIR$/www/templates/html/Chat/Controller.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Chat/Message/Message.php" afterPath="$PROJECT_DIR$/src/Chat/Message/Message.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Chat/User/User.php" afterPath="$PROJECT_DIR$/src/Chat/User/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.php" afterPath="$PROJECT_DIR$/www/index.php" />
     </list>
     <ignored path="chat.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,28 +28,46 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Controller.tpl.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/templates/html/Chat/Controller.tpl.php">
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="97" selection-start="736" selection-end="736" vertical-scroll-proportion="0.19502617">
+            <state line="14" column="2" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Config.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Chat/Config.php">
+      <file leaf-file-name="View.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Chat/Chat/View.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="20" selection-start="700" selection-end="700" vertical-scroll-proportion="-13.125">
+            <state line="2" column="0" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.inc.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.inc.php">
+      <file leaf-file-name="View.tpl.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/templates/html/Chat/Chat/View.tpl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="1" selection-start="365" selection-end="365" vertical-scroll-proportion="-6.25">
+            <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Routes.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Chat/Chat/Routes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="1" selection-start="218" selection-end="218" vertical-scroll-proportion="0.2552356">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Message.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Chat/Message/Message.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="52" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -80,12 +86,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Chat/ActionHandlerInterface.php" />
-        <option value="$PROJECT_DIR$/src/Chat/Application.php" />
-        <option value="$PROJECT_DIR$/src/Chat/Renderable.php" />
-        <option value="$PROJECT_DIR$/src/Chat/Message/ActionHandler.php" />
-        <option value="$PROJECT_DIR$/src/Chat/Message/Record.php" />
-        <option value="$PROJECT_DIR$/src/Chat/User/ActionHandler.php" />
         <option value="$PROJECT_DIR$/src/Chat/User/Record.php" />
         <option value="$PROJECT_DIR$/src/Chat/Message/RecordList.php" />
         <option value="$PROJECT_DIR$/src/Chat/User/RecordList.php" />
@@ -96,6 +96,12 @@
         <option value="$PROJECT_DIR$/config.inc.php" />
         <option value="$PROJECT_DIR$/www/templates/html/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/www/templates/html/Chat/Controller.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Chat/User/User.php" />
+        <option value="$PROJECT_DIR$/src/Chat/Message/Message.php" />
+        <option value="$PROJECT_DIR$/www/index.php" />
+        <option value="$PROJECT_DIR$/src/Chat/Chat/View.php" />
+        <option value="$PROJECT_DIR$/www/templates/html/Chat/Chat/View.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Chat/Chat/Routes.php" />
       </list>
     </option>
   </component>
@@ -247,69 +253,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="User" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Chat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Message" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -373,19 +347,31 @@
       <created>1366483873960</created>
       <updated>1366483873960</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add template files">
+      <created>1366499588839</created>
+      <updated>1366499588839</updated>
+    </task>
+    <task id="LOCAL-00006" summary="rename record classes">
+      <created>1366499672239</created>
+      <updated>1366499672239</updated>
+    </task>
+    <task id="LOCAL-00007" summary="update regexprouter">
+      <created>1366510325622</created>
+      <updated>1366510325622</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1926" height="963" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25506938" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26040554" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -435,7 +421,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="add basic classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="update regexprouter" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -451,74 +437,14 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="add savvy, set up basic controller" />
     <MESSAGE value="add basic classes" />
+    <MESSAGE value="add template files" />
+    <MESSAGE value="rename record classes" />
+    <MESSAGE value="update regexprouter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Chat/User/Record.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="14" selection-start="20" selection-end="20" vertical-scroll-proportion="-0.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chat/Message/Record.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="14" selection-start="20" selection-end="20" vertical-scroll-proportion="-0.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/unl/DB/RecordList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="15" selection-start="340" selection-end="340" vertical-scroll-proportion="0.07853403">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chat/Message/RecordList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="24" selection-start="371" selection-end="371" vertical-scroll-proportion="0.31413612">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chat/User/RecordList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="52" selection-start="196" selection-end="196" vertical-scroll-proportion="0.15706806">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chat/Util.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="33" selection-start="69" selection-end="69" vertical-scroll-proportion="-0.17801048">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chat/Exception.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.1615074">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chat/Renderable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="16" selection-start="39" selection-end="39" vertical-scroll-proportion="-1.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chat/Application.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="8" selection-start="2000" selection-end="2000" vertical-scroll-proportion="-28.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uml.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="34" selection-end="34" vertical-scroll-proportion="-1.25">
@@ -535,9 +461,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Chat/ActionHandlerInterface.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="1" selection-start="312" selection-end="312" vertical-scroll-proportion="0.21596858">
-          <folding />
-        </state>
+        <state line="11" column="1" selection-start="312" selection-end="312" vertical-scroll-proportion="0.21596858" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config.inc.php">
@@ -561,9 +485,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chat/Util.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="27" selection-start="471" selection-end="471" vertical-scroll-proportion="-8.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chat/User/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="34" selection-start="1134" selection-end="1134" vertical-scroll-proportion="-8.708333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chat/Renderable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="10" selection-start="33" selection-end="33" vertical-scroll-proportion="-1.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/unl/RegExpRouter/Router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/html/Chat/Controller.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="97" selection-start="736" selection-end="736" vertical-scroll-proportion="0.19502617">
+        <state line="11" column="97" selection-start="736" selection-end="736" vertical-scroll-proportion="-6.2083335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="2" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chat/Message/Message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="52" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chat/Chat/View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/html/Chat/Chat/View.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chat/Chat/Routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="1" selection-start="218" selection-end="218" vertical-scroll-proportion="0.2552356">
           <folding />
         </state>
       </provider>

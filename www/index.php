@@ -9,10 +9,15 @@ if (file_exists(__DIR__ . '/../config.inc.php')) {
 
 require_once $config_file;
 
-use RegExpRouter as RegExpRouter;
+$options = array(
+    'baseURL' => Config::get('URL'),
+    'srcDir'  => dirname(dirname(__FILE__)) . "/src/Chat/",
+);
+
+$router = new \RegExpRouter\Router($options);
 
 // Initialize App, and construct everything
-$app = new Controller($_GET);
+$app = new Controller($router->route($_SERVER['REQUEST_URI'], $_GET));
 
 //Render Away
 $savvy = new OutputController($app->options);
