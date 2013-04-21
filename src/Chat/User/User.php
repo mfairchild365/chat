@@ -1,7 +1,7 @@
 <?php
 namespace Chat\User;
 
-class Record extends \DB\Record implements \LAN\Renderable
+class Record extends \DB\Record implements \Chat\Renderable
 {
     protected $id;           //INT(32)
     protected $first_name;   //VARCHAR(256)
@@ -32,15 +32,15 @@ class Record extends \DB\Record implements \LAN\Renderable
 
     public function insert()
     {
-        $this->date_created = \LAN\Util::epochToDateTime();
-        $this->date_edited  = \LAN\Util::epochToDateTime();
+        $this->date_created = \Chat\Util::epochToDateTime();
+        $this->date_edited  = \Chat\Util::epochToDateTime();
 
         return parent::insert();
     }
 
     public function update()
     {
-        $this->date_edited = \LAN\Util::epochToDateTime();
+        $this->date_edited = \Chat\Util::epochToDateTime();
 
         return parent::update();
     }

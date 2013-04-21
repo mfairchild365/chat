@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20549ee4-8570-4f82-82c4-bca19df107f8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Chat/Chat/Routes.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Chat/Chat/View.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/html/Chat/Chat/View.tpl.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Chat/Message/Message.php" afterPath="$PROJECT_DIR$/src/Chat/Message/Message.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Chat/User/User.php" afterPath="$PROJECT_DIR$/src/Chat/User/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.php" afterPath="$PROJECT_DIR$/www/index.php" />
     </list>
     <ignored path="chat.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -359,7 +355,11 @@
       <created>1366510325622</created>
       <updated>1366510325622</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add routes and a chat view">
+      <created>1366510350807</created>
+      <updated>1366510350807</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -421,7 +421,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="update regexprouter" />
+    <option name="LAST_COMMIT_MESSAGE" value="add routes and a chat view" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -440,6 +440,7 @@
     <MESSAGE value="add template files" />
     <MESSAGE value="rename record classes" />
     <MESSAGE value="update regexprouter" />
+    <MESSAGE value="add routes and a chat view" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

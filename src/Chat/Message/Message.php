@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Message;
 
-class Record extends \DB\Record implements \LAN\Renderable
+class Record extends \DB\Record implements \Chat\Renderable
 {
     protected $id;           //INT(32)
     protected $users_id;     //VARCHAR(45)
@@ -26,15 +26,15 @@ class Record extends \DB\Record implements \LAN\Renderable
 
     public function insert()
     {
-        $this->date_created = \LAN\Util::epochToDateTime();
-        $this->date_edited  = \LAN\Util::epochToDateTime();
+        $this->date_created = \Chat\Util::epochToDateTime();
+        $this->date_edited  = \Chat\Util::epochToDateTime();
 
         return parent::insert();
     }
 
     public function update()
     {
-        $this->date_edited = \LAN\Util::epochToDateTime();
+        $this->date_edited = \Chat\Util::epochToDateTime();
 
         return parent::update();
     }
@@ -74,7 +74,7 @@ class Record extends \DB\Record implements \LAN\Renderable
 
         $data['date_created'] = date('c', strtotime($data['date_created']));
         $data['date_edited']  = date('c', strtotime($data['date_edited']));
-        $data['message']      = str_replace("&lt;br /&gt;", "<br />",  \LAN\Util::makeClickableLinks($data['message']));
+        $data['message']      = str_replace("&lt;br /&gt;", "<br />",  \Chat\Util::makeClickableLinks($data['message']));
 
         return $data;
     }
