@@ -5,6 +5,8 @@ class Controller
 {
 
     public $output = null;
+    
+    public static $dispatcher = null;
 
     public $options = array(
         'model'  => false,
@@ -14,6 +16,8 @@ class Controller
     public function __construct($options = array())
     {
         $this->options = $options + $this->options;
+        
+        self::$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
 
         try {
             if (!empty($_POST)) {

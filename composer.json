@@ -3,7 +3,7 @@
         "psr-0": {
             "Chat": "src",
             "DB": "vendor/unl",
-            "RegExpRouter": "vendor/unl",
+            "RegExpRouter": "vendor/unl"
         }
     },
     "repositories": [
@@ -14,6 +14,7 @@
     ],
     "require": {
         "cboden/Ratchet": "0.2.*",
-        "pear-savant/Savvy": "*"
+        "pear-savant/Savvy": "*",
+        "symfony/event-dispatcher": "2.2.*"
     }
 }

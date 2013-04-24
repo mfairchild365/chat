@@ -8,8 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symfony\\Component\\HttpFoundation\\' => $vendorDir . '/symfony/http-foundation',
     'Symfony\\Component\\EventDispatcher\\' => $vendorDir . '/symfony/event-dispatcher',
-    'Savvy_' => $vendorDir . '/saltybeagle/Savvy',
-    'Savvy' => $vendorDir . '/saltybeagle',
     'RegExpRouter' => $vendorDir . '/unl',
     'React\\Stream' => $vendorDir . '/react/stream',
     'React\\Socket' => $vendorDir . '/react/socket',
