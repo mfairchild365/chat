@@ -19,7 +19,7 @@ set_include_path(
 
 //Custom autoloader for plugins
 function autoload($class)
-{echo $class . PHP_EOL;
+{
     //take of the plugin namespace
     $tmp = str_replace("Chat\\Plugins\\", "", $class, $count);
 
@@ -50,18 +50,8 @@ function autoload($class)
 
 spl_autoload_register("autoload");
 
-
-$options = array(
-    'baseURL' => \Chat\Config::get('URL'),
-    'srcDir'  => dirname(__FILE__) . "/src/Chat/",
-);
-
-$router = new \RegExpRouter\Router($options);
-
 // Initialize App, and construct everything
-$app = new \Chat\Controller($router->route($_SERVER['REQUEST_URI'], $_GET));
-
-print_r($app->getRoutes());
+$app = new \Chat\Controller($_GET);
 
 //Render Away
 $savvy = new \Chat\OutputController($app->options);
