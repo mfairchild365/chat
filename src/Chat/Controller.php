@@ -6,18 +6,21 @@ class Controller
 
     public $output = null;
     
-    public static $dispatcher = null;
+    public $dispatcher = null;
 
     public $options = array(
         'model'  => false,
         'format' => 'html',
+        'enabled_plugins' => array('home'),
     );
 
     public function __construct($options = array())
     {
         $this->options = $options + $this->options;
         
-        self::$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+        $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+
+        $this->initializePlugins();
 
         try {
             if (!empty($_POST)) {
@@ -27,6 +30,26 @@ class Controller
         } catch (\Exception $e) {
             $this->output = $e;
         }
+    }
+
+    public function initializePlugins()
+    {
+        foreach ($this->options['enabled_plugins'] as $plugin) {
+
+            $class = "Chat\\Plugins\\" . ucfirst($plugin) . "\\Initialize";
+            $plugin = new $class($this->options);
+            $plugin->initialize();
+            foreach ($plugin->getEventListeners() as $listener) {
+                $this->dispatcher->addListener($listener['event'], $listener['listener']);
+            }
+        }
+    }
+
+    public function getRoutes()
+    {
+        $event = $this->dispatcher->dispatch('routes.compile', new \Chat\CompileRoutesEvent(array()));
+
+        return $event->getRoutes();
     }
 
     /**
