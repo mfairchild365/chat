@@ -21,6 +21,8 @@ class Controller
         $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
 
         $this->initializePlugins();
+        
+        $this->route();
 
         try {
             if (!empty($_POST)) {
@@ -50,6 +52,20 @@ class Controller
         $event = $this->dispatcher->dispatch('routes.compile', new \Chat\CompileRoutesEvent(array()));
 
         return $event->getRoutes();
+    }
+    
+    public function route()
+    {
+        $options = array(
+            'baseURL' => \Chat\Config::get('URL'),
+            'srcDir'  => dirname(__FILE__) . "/",
+        );
+
+        $router = new \RegExpRouter\Router($options);
+        $router->setRoutes($this->getRoutes());
+
+        // Initialize App, and construct everything
+        $this->options = $router->route($_SERVER['REQUEST_URI'], $this->options);
     }
 
     /**

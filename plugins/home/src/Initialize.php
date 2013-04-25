@@ -22,7 +22,7 @@ class Initialize
         $listeners[] = array(
             'event'    => 'routes.compile',
             'listener' => function (\Chat\CompileRoutesEvent $event) {
-                $event->addRoute("route2");
+                $event->addRoute('/^$/', 'Chat\Plugins\Home\View');
              }
         );
 

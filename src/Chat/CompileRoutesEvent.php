@@ -15,8 +15,8 @@ class CompileRoutesEvent extends \Symfony\Component\EventDispatcher\Event
         return $this->routes;
     }
     
-    public function addRoute($route)
+    public function addRoute($regex, $class)
     {
-        $this->routes[] = $route;
+        $this->routes[$regex] = $class;
     }
 }
