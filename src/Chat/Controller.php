@@ -47,7 +47,7 @@ class Controller
         }
     }
 
-    public function getRoutes()
+    public function getPluginRoutes()
     {
         $event = $this->dispatcher->dispatch('routes.compile', new \Chat\CompileRoutesEvent(array()));
 
@@ -62,7 +62,7 @@ class Controller
         );
 
         $router = new \RegExpRouter\Router($options);
-        $router->setRoutes($this->getRoutes());
+        $router->setRoutes($this->getPluginRoutes());
 
         // Initialize App, and construct everything
         $this->options = $router->route($_SERVER['REQUEST_URI'], $this->options);
