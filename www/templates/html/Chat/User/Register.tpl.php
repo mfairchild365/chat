@@ -1,4 +1,4 @@
-Register
+<h3>Register</h3>
 <script language='javascript' type='text/javascript'>
     function verifyPasswordCheck(input) {
         if (input.value != document.getElementById('input-password').value) {

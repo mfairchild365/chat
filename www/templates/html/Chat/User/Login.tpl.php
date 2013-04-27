@@ -1,5 +1,4 @@
-Login
-
+<h3>Login</h3>
 <form action="<?php echo \Chat\Config::get('URL') ?>login" method="post" class="form-horizontal">
     <div class="control-group">
         <label class="control-label" for="login-username">Username Or Email</label>
