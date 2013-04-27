@@ -19,6 +19,6 @@ class RecordList extends \DB\RecordList
                            FROM messages
                            ORDER BY date_created ASC";
 
-        return self::getBySql($options);
+        return new self($options);
     }
 }

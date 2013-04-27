@@ -19,7 +19,7 @@ class RecordList extends \DB\RecordList
                            FROM users
                            WHERE status = 'ONLINE'";
 
-        return self::getBySql($options);
+        return new self($options);
     }
 
     public static function getAll($options = array())
@@ -28,7 +28,7 @@ class RecordList extends \DB\RecordList
         $options['sql'] = "SELECT id
                            FROM users";
 
-        return self::getBySql($options);
+        return new self($options);
     }
 
     public static function getAllByEmail($email, $options = array())
