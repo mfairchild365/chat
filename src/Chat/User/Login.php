@@ -28,7 +28,7 @@ class Login extends User
             throw new \Exception("We were not able to find that user.  Are you sure you have an account?", 400);
         }
 
-        if (!$user->password == $post['password']) {
+        if (!password_verify($post['password'], $user->password)) {
             throw new \Exception("Sorry, we could not find that account.", 400);
         }
 

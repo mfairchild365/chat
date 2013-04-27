@@ -38,6 +38,11 @@ class Register extends User
             $post['username'] = $post['email'];
         }
 
+        //hash the password
+        if (!$post['password'] = password_hash($post['password'], PASSWORD_BCRYPT)) {
+            throw new \Exception("There was an error handling the password.", 500);
+        }
+
         $this->synchronizeWithArray($post);
 
         //Set some defaults
