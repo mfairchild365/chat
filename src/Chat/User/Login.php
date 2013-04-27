@@ -1,7 +1,9 @@
 <?php
 namespace Chat\User;
 
-class Login extends User
+use Chat\PostHandlerInterface;
+
+class Login extends User implements PostHandlerInterface
 {
     public function handlePost($get, $post, $files)
     {

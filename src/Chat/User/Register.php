@@ -1,7 +1,9 @@
 <?php
 namespace Chat\User;
 
-class Register extends User
+use Chat\PostHandlerInterface;
+
+class Register extends User implements PostHandlerInterface
 {
     function __construct($options = array())
     {

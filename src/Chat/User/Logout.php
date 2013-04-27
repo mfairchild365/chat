@@ -1,7 +1,9 @@
 <?php
 namespace Chat\User;
 
-class Logout
+use Chat\PostHandlerInterface;
+
+class Logout implements PostHandlerInterface
 {
     function handlePost($get, $post, $files)
     {

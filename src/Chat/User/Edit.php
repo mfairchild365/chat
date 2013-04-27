@@ -1,7 +1,9 @@
 <?php
 namespace Chat\User;
 
-class Edit extends Record
+use Chat\PostHandlerInterface;
+
+class Edit extends User implements PostHandlerInterface
 {
     function __construct($options = array())
     {
