@@ -6,7 +6,7 @@ class Routes extends \RegExpRouter\RoutesInterface
     public function getGetRoutes()
     {
         return array(
-            '/^$/' => 'View'
+            '/^users\/(?P<id>[\d]+)$/i' => 'View'
         );
     }
 
