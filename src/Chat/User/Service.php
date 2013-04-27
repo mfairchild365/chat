@@ -38,8 +38,14 @@ class Service
 
     public static function getSession()
     {
+        //Create a memcache session because Ratched requires it...
         if (!self::$session) {
-            self::$session = new Session();
+            $memcache = new \Memcache;
+            $memcache->connect('localhost');
+
+            $handler = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHandler($memcache);
+            $storage = new \Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage(array(),$handler);
+            self::$session = new Session($storage);
         }
 
         return self::$session;

@@ -8,13 +8,14 @@ class Application implements MessageComponentInterface {
     public static $connections = array();
 
     public function onOpen(ConnectionInterface $connection) {
+        echo "COOKIE INTO: " . $connection->Session->get('user.id');
+
         //Save in array
         self::$connections[$connection->resourceId] = new ConnectionContainer($connection);
 
         //Set as online.
         $user = self::$connections[$connection->resourceId]->getUser();
-        $user->setStatus("ONLINE");
-        $user->setIP($connection->remoteAddress);
+        $user->chat_status("ONLINE");
         $user->save();
 
         //Display connection on server.
