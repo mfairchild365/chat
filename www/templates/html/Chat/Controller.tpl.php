@@ -4,6 +4,7 @@
     <title>LAN</title>
     <!-- Bootstrap using http://bootswatch.com/cyborg/ -->
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo \Chat\Config::get('URL');?>www/css/main.css" rel="stylesheet" media="screen">
 
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.min.js"></script>
