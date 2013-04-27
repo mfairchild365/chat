@@ -85,9 +85,9 @@ class Controller
 
     public function handlePost()
     {
-        $handler = new PostHandler($this->options, $_POST, $_FILES);
+        $object = new $this->options['model']($this->options);
 
-        return $handler->handle();
+        return $object->handlePost($this->options, $_POST, $_FILES);
     }
 
     public static function redirect($url, $exit = true)
