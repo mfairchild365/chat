@@ -1,1 +1,1 @@
-Welcome!
+<script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/chat.js"></script>

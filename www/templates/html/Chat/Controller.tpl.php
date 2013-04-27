@@ -11,7 +11,6 @@
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.cookie.js"></script>
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/bootstrap.min.js"></script>
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/moment.min.js"></script>
-    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/main.js"></script>
 </head>
 <body>
 <div id='container'>
