@@ -25,7 +25,7 @@ Register
     <div class="control-group">
         <label class="control-label" for="input-username">Username</label>
         <div class="controls">
-            <input type="text" id="input-username" name="user_name" placeholder="User Name">
+            <input type="text" id="input-username" name="username" placeholder="User Name">
         </div>
     </div>
     <div class="control-group">
