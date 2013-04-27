@@ -45,12 +45,9 @@
     </div>
 
     <div id='main-content-container' class='row-fluid'>
-        <div id='main-content' class='span12'>
         <?php
         echo $savvy->render($context->output);
-
         ?>
-        </div>
     </div>
 
     <div id='footer-container' class='row-fluid'>
