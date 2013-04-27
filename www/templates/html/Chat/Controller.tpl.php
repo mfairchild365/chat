@@ -23,7 +23,21 @@
                     <li class="active"><a href="#">Home</a></li>
                 </ul>
                 <ul class='nav pull-right'>
-                    <li><a href='#' id='edit-profile'><span id='edit-profile-link'>Your Name</span> (Edit Profile)</a></li>
+                    <?php
+                    if ($user) {
+                        ?>
+                        <li>
+                            <a href='#' id='edit-profile'><span id='edit-profile-link'><?php echo $user->username ?></span></a>
+                        </li>
+                        <li>
+                            <form action="<?php echo \Chat\Config::get('URL') ?>logout" method="post" class="form-inline">
+                                <button type="submit" class="btn">Log Out</button>
+                            </form>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
                 </ul>
             </div>
         </div>
