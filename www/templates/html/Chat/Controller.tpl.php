@@ -31,7 +31,7 @@
                         </li>
                         <li>
                             <form action="<?php echo \Chat\Config::get('URL') ?>logout" method="post" class="form-inline">
-                                <button type="submit" class="btn">Log Out</button>
+                                <button type="submit" name="logout" class="btn">Log Out</button>
                             </form>
                         </li>
                         <?php
