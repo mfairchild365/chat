@@ -13,7 +13,7 @@ class User extends \DB\Record implements \Chat\Renderable
     protected $username;     //VARCHAR(256)
     protected $role;         //ENUM('ADMIN', 'USER')
     protected $status;       //ENUM('ACTIVE', 'BANNED');
-    protected $chat_stats;   //ENUM('AVAILABLE', 'BUSY', 'OFFLINE')
+    protected $chat_status;  //ENUM('AVAILABLE', 'BUSY', 'OFFLINE')
 
     public static function getByID($id)
     {
