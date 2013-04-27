@@ -36,7 +36,7 @@ abstract class RecordList extends \LimitIterator implements \Countable
     function __construct($options = array())
     {
         $this->options = $options + $this->options;
-        
+
         $this->options = $this->options + $this->getDefaultOptions();
         
         if (!isset($this->options['listClass'])) {
@@ -46,7 +46,12 @@ abstract class RecordList extends \LimitIterator implements \Countable
         if (!isset($this->options['itemClass'])) {
             Throw New Exception("No Item Class was set", 500);
         }
-        
+
+        if (!isset($this->options['array']) && isset($this->options['sql'])) {
+            //get a lit of all of them by default.
+            $this->options['array'] = $this->getBySql(array('returnArray'=>true) + $this->options);
+        }
+
         if (!isset($this->options['array'])) {
             //get a lit of all of them by default.
             $this->options['array'] = $this->getAllForConstructor();
@@ -96,7 +101,7 @@ abstract class RecordList extends \LimitIterator implements \Countable
         }
         
         if (!isset($options['listClass'], $options['itemClass'])) {
-            throw new Exception("options['listClass'] or options['itemClass'] were not set!", 500);
+            throw new \Exception("options['listClass'] or options['itemClass'] were not set!", 500);
         }
         
         return new $options['listClass']($options);
