@@ -20,6 +20,24 @@ class User extends \DB\Record implements \Chat\Renderable
         return self::getByAnyField(__CLASS__, 'id', (int)$id);
     }
 
+    public static function getByUsername($username)
+    {
+        return self::getByAnyField(
+            __CLASS__,
+           'username',
+            \DB\RecordList::escapeString($username)
+        );
+    }
+
+    public static function getByEmail($email)
+    {
+        return self::getByAnyField(
+            __CLASS__,
+            'email',
+            \DB\RecordList::escapeString($email)
+        );
+    }
+
     public function keys()
     {
         return array('id');
