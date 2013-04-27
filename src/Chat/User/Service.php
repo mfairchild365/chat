@@ -16,6 +16,7 @@ class Service
     public static function logOut()
     {
         $session = new Session();
+        $session->clear();
         $session->invalidate();
     }
 
