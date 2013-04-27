@@ -15,6 +15,7 @@ class Routes extends \RegExpRouter\RoutesInterface
         return array(
             '/^users\/(?P<id>[\d]+)\/edit$/i' => 'Edit',
             '/^register$/i' => 'Register',
+            '/^logout/i' => 'Logout',
         );
     }
 
