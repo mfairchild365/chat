@@ -7,11 +7,6 @@ use Ratchet\ConnectionInterface;
 class Application implements MessageComponentInterface {
     public static $connections = array();
 
-    public function __construct()
-    {
-        Util::setDB(Config::get('DB_HOST'), Config::get('DB_USER'), Config::get('DB_PASSWORD'), Config::get('DB_NAME'));
-    }
-
     public function onOpen(ConnectionInterface $connection) {
         //Save in array
         self::$connections[$connection->resourceId] = new ConnectionContainer($connection);
