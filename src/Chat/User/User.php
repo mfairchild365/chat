@@ -1,7 +1,7 @@
 <?php
 namespace Chat\User;
 
-class Record extends \DB\Record implements \Chat\Renderable
+class User extends \DB\Record implements \Chat\Renderable
 {
     protected $id;           //INT(32)
     protected $first_name;   //VARCHAR(256)
