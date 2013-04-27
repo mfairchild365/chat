@@ -5,14 +5,12 @@ class Routes extends \RegExpRouter\RoutesInterface
 {
     public function getGetRoutes()
     {
-        return array();
+        return array('/^$/' => 'View');
     }
 
     public function getPostRoutes()
     {
-        return array(
-            '/^$/' => 'View'
-        );
+        return array();
     }
 
     public function getDeleteRoutes()
