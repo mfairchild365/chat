@@ -6,7 +6,7 @@ class RecordList extends \DB\RecordList
     public function getDefaultOptions()
     {
         $options = array();
-        $options['itemClass'] = '\Chat\User\Record';
+        $options['itemClass'] = '\Chat\User\User';
         $options['listClass'] = __CLASS__;
 
         return $options;
@@ -29,5 +29,15 @@ class RecordList extends \DB\RecordList
                            FROM users";
 
         return self::getBySql($options);
+    }
+
+    public static function getAllByEmail($email, $options = array())
+    {
+        //Build the list
+        $options['sql'] = "SELECT id
+                           FROM users
+                           WHERE email = '" . self::escapeString($email) . "'";
+
+        return new self($options);
     }
 }
