@@ -15,6 +15,7 @@
     "require": {
         "cboden/Ratchet": "0.2.*",
         "pear-savant/Savvy": "*",
-        "symfony/event-dispatcher": "2.2.*"
+        "symfony/event-dispatcher": "2.2.*",
+        "symfony/http-foundation": "2.2.*"
     }
 }
