@@ -50,6 +50,8 @@ function autoload($class)
 
 spl_autoload_register("autoload");
 
+\Chat\Util::connectDB();
+
 // Initialize App, and construct everything
 $app = new \Chat\Controller($_GET);
 
