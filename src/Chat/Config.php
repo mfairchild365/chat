@@ -5,10 +5,11 @@ class Config
 {
     protected static $data = array(
         //SERVER RELATED SETTINGS
-        'URL'              => false,  //base url for the application
-        'SERVER_PORT'      => '8000', //SERVER Port
-        'APPLICATION_NAME' => 'chat',  //APPLICATION NAME (ie 192.168.1.5:8000/APPLICATION_NAME)
-        'CACHE_DIR'        => false,  //The Cache Dir
+        'URL'              => false,        //base url for the application
+        'SERVER_ADDR'      => '127.0.0.1',  //the ip address of the socket server
+        'SERVER_PORT'      => '8000',       //SERVER Port
+        'APPLICATION_NAME' => 'chat',       //APPLICATION NAME (ie 192.168.1.5:8000/APPLICATION_NAME)
+        'CACHE_DIR'        => false,        //The Cache Dir
 
         //DB RELATED SETTINGS
         'DB_HOST'          => false,  //DATABASE HOST
