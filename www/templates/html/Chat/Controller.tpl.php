@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>LAN</title>
+    <title>Easy Chat</title>
     <!-- Bootstrap using http://bootswatch.com/cyborg/ -->
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
@@ -18,10 +18,10 @@
     <div id='nav-container' class='navbar row-fluid'>
         <div id='nav' class='span12'>
             <div class="navbar-inner">
-                <a class="brand" href="#">LAN</a>
+                <a class="brand" href="#">Easy Chat</a>
 
                 <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li class="active"><a href="<?php echo Chat\Config::Get('URL')?>">Home</a></li>
                 </ul>
                 <ul class='nav pull-right'>
                     <?php
