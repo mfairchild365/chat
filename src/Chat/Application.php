@@ -8,21 +8,18 @@ class Application implements MessageComponentInterface {
     public static $connections = array();
 
     public function onOpen(ConnectionInterface $connection) {
-        echo "COOKIE INTO: " . $connection->Session->get('user.id');
-
         //Save in array
         self::$connections[$connection->resourceId] = new ConnectionContainer($connection);
 
         //Set as online.
         $user = self::$connections[$connection->resourceId]->getUser();
-        $user->chat_status("ONLINE");
+        $user->chat_status = "ONLINE";
         $user->save();
 
         //Display connection on server.
         echo "--------NEW CONNECTION--------" . PHP_EOL;
-        echo "ID  : " . self::$connections[$connection->resourceId]->getConnection()->resourceId . PHP_EOL;
-        echo "IP  : " . $user->getIP() . PHP_EOL;
-        echo "MAC : " . $user->getMAC() . PHP_EOL;
+        echo "Resource ID  : " . self::$connections[$connection->resourceId]->getConnection()->resourceId . PHP_EOL;
+        echo "Users.id : " .  self::$connections[$connection->resourceId]->getUser()->id . PHP_EOL;
 
         //Update the client's list with all users currently online.
         foreach (User\RecordList::getAll() as $data) {
@@ -33,7 +30,7 @@ class Application implements MessageComponentInterface {
         self::$connections[$connection->resourceId]->send('USER_INFORMATION', $user);
 
         //Tell everyone else that this guy just came online.
-        if ($this->getUserConnectionCount($user->getID()) == 1) {
+        if ($this->getUserConnectionCount($user->id) == 1) {
             self::sendToAll("USER_CONNECTED", $user);
         }
 
@@ -47,7 +44,7 @@ class Application implements MessageComponentInterface {
         $user = self::$connections[$connection->resourceId]->getUser();
         
         echo "--------ACTION--------" . PHP_EOL;
-        echo "IP  : " . $user->getIP() . PHP_EOL;
+        echo "ID  : " . $user->id . PHP_EOL;
 
         $data = json_decode($msg, true);
 
@@ -59,13 +56,10 @@ class Application implements MessageComponentInterface {
 
         switch ($data['action']) {
             case 'UPDATE_USER':
-                $class = '\LAN\User\ActionHandler';
+                $class = '\Chat\User\ActionHandler';
                 break;
             case 'SEND_CHAT_MESSAGE':
-                $class = '\LAN\Message\ActionHandler';
-                break;
-            case 'GET_STEAM_PROFILES':
-                $class = '\LAN\Steam\ActionHandler';
+                $class = '\Chat\Message\ActionHandler';
                 break;
             default:
                 throw new Exception("Unknown action submitted by client", 400);
@@ -87,14 +81,14 @@ class Application implements MessageComponentInterface {
         
         //May not be a set connection if an error happened during connection.
         if (isset(self::$connections[$connection->resourceId])) {
-            echo "IP  : " . $user->getIP() . PHP_EOL;
+            echo "ID  : " . $user->id . PHP_EOL;
 
-            if ($this->getUserConnectionCount($user->getID()) == 1) {
+            if ($this->getUserConnectionCount($user->id) == 1) {
                 self::sendToAll("USER_DISCONNECTED", $user);
             }
 
             //Set as offline
-            $user->setStatus("OFFLINE");
+            $user->setStatus = "OFFLINE";
             $user->save();
         }
 
@@ -113,10 +107,10 @@ class Application implements MessageComponentInterface {
 
         //May not be a set connection if an error happened during connection.
         if (isset(self::$connections[$connection->resourceId])) {
-            echo "IP  : " . $user->getIP() . PHP_EOL;
+            echo "ID  : " . $user->id . PHP_EOL;
         }
 
-        if ($e instanceof \Lan\Renderable) {
+        if ($e instanceof \Chat\Renderable) {
             self::sendMessageToClient($connection, "ERROR", $e);
         }
 
@@ -137,7 +131,7 @@ class Application implements MessageComponentInterface {
         $count = 0;
 
         foreach (self::$connections as $connection) {
-            if ($connection->getUser()->getID() == $userID) {
+            if ($connection->getUser()->id == $userID) {
                 $count++;
             }
         }

@@ -26,7 +26,7 @@ class ConnectionContainer
      */
     public function getUser()
     {
-        return User\User::getUser($this->connection, $this->mac);
+        return User\User::getByID($this->connection->Session->get('user.id'));
     }
 
     /**
