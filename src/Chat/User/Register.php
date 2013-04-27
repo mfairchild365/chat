@@ -47,6 +47,8 @@ class Register extends User
 
         $this->save();
 
-        \Chat\Controller::redirect(\Chat\Config::get('URL') . "profile");
+        Service::logIn($this);
+
+        \Chat\Controller::redirect(\Chat\Config::get('URL') . "users/" . $this->id);
     }
 }
