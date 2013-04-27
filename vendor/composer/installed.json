@@ -569,5 +569,46 @@
             "/"
         ],
         "description": "\nUnlike other template systems, Savvy by default does not compile your\ntemplates into PHP; instead, it uses PHP itself as its template language so you\ndon't need to learn a new markup system."
+    },
+    {
+        "name": "ircmaxell/password-compat",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ircmaxell/password_compat.git",
+            "reference": "733c06c599bfeb511f54253ddb127701bce0917d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ircmaxell/password_compat/zipball/733c06c599bfeb511f54253ddb127701bce0917d",
+            "reference": "733c06c599bfeb511f54253ddb127701bce0917d",
+            "shasum": ""
+        },
+        "time": "2013-02-13 16:58:34",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "files": [
+                "lib/password.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Anthony Ferrara",
+                "email": "ircmaxell@php.net",
+                "homepage": "http://blog.ircmaxell.com"
+            }
+        ],
+        "description": "A compatibility library for the proposed simplified password hashing algorithm: https://wiki.php.net/rfc/password_hash",
+        "homepage": "https://github.com/ircmaxell/password_compat",
+        "keywords": [
+            "hashing",
+            "password"
+        ]
     }
 ]

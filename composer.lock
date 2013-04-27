@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3da3319e264fa43139463c0bd2b45539",
+    "hash": "d4e221767f9007d0ee197b692eb31293",
     "packages": [
         {
             "name": "cboden/ratchet",
@@ -293,6 +293,45 @@
             "time": "2013-04-06 18:28:51"
         },
         {
+            "name": "ircmaxell/password-compat",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ircmaxell/password_compat.git",
+                "reference": "733c06c599bfeb511f54253ddb127701bce0917d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ircmaxell/password_compat/zipball/733c06c599bfeb511f54253ddb127701bce0917d",
+                "reference": "733c06c599bfeb511f54253ddb127701bce0917d",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/password.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Ferrara",
+                    "email": "ircmaxell@php.net",
+                    "homepage": "http://blog.ircmaxell.com"
+                }
+            ],
+            "description": "A compatibility library for the proposed simplified password hashing algorithm: https://wiki.php.net/rfc/password_hash",
+            "homepage": "https://github.com/ircmaxell/password_compat",
+            "keywords": [
+                "hashing",
+                "password"
+            ],
+            "time": "2013-02-13 16:58:34"
+        },
+        {
             "name": "pear-phpsavant.com/Savvy",
             "version": "0.7.3",
             "dist": {
@@ -560,9 +599,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "ircmaxell/password-compat": 20
+    },
     "platform": [
 
     ],
