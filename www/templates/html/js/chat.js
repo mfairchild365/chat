@@ -13,10 +13,6 @@ var app = {
     {
         app.baseURL = baseURL;
 
-        if ($.browser.chrome == undefined) {
-            alert('This app was designed for google chrome.  Some features may not work in other browsers.  Please use google Chrome.  (browser compatibility will be added at a later date)');
-        }
-
         try {
             app.connection = new WebSocket(serverAddress);
 
