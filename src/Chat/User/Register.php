@@ -3,13 +3,34 @@ namespace Chat\User;
 
 use Chat\PostHandlerInterface;
 
-class Register extends User implements PostHandlerInterface
+class Register implements PostHandlerInterface
 {
-    function __construct($options = array())
+    public static function registerUser($email, $password, $firstName = '', $lastName = '', $role = 'USER')
     {
-        if (isset($options['id']) && $object = self::getByID($options['id'])) {
-            $this->synchronizeWithArray($object->toArray());
+        //Now check to see if we already have someone with the same email address.
+        if (count(RecordList::getAllByEmail($email))) {
+            throw new \Exception("That email address is already in use.", 400);
         }
+
+        //hash the password
+        if (!$password = password_hash($password, PASSWORD_BCRYPT)) {
+            throw new \Exception("There was an error handling the password.", 500);
+        }
+
+        $user              = new User();
+        $user->email       = $email;
+        $user->username    = $email;
+        $user->password    = $password;
+        $user->role        = $role;
+        $user->status      = "ACTIVE";
+        $user->chat_status = "OFFLINE";
+        $user->first_name  = $firstName;
+        $user->last_name   = $lastName;
+
+        //save the new user.
+        $user->save();
+
+        return $user;
     }
 
     function handlePost($get, $post, $files)
@@ -31,31 +52,27 @@ class Register extends User implements PostHandlerInterface
             throw new \Exception("You need to specify an email adddress", 400);
         }
 
-        //Now check to see if we already have someone with the same email address.
-        if (count(RecordList::getAllByEmail($post['email']))) {
-            throw new \Exception("That email address is already in use.", 400);
-        }
-
         if (!isset($post['username']) || empty($post['username'])) {
             $post['username'] = $post['email'];
         }
 
-        //hash the password
-        if (!$post['password'] = password_hash($post['password'], PASSWORD_BCRYPT)) {
-            throw new \Exception("There was an error handling the password.", 500);
-        }
+        $user = self::registerUser($post['username'], $post['password']);
 
-        $this->synchronizeWithArray($post);
+        //User is created...
+        unset($post['email']);
+        unset($post['password']);
+
+        $user->synchronizeWithArray($post);
 
         //Set some defaults
-        $this->role        = "USER";
-        $this->status      = "ACTIVE";
-        $this->chat_status = "OFFLINE";
+        $user->role        = "USER";
+        $user->status      = "ACTIVE";
+        $user->chat_status = "OFFLINE";
 
-        $this->save();
+        $user->save();
 
-        Service::logIn($this);
+        Service::logIn($user);
 
-        \Chat\Controller::redirect(\Chat\Config::get('URL') . "users/" . $this->id);
+        \Chat\Controller::redirect(\Chat\Config::get('URL') . "users/" . $user->id);
     }
 }

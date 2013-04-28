@@ -46,3 +46,8 @@ if (isset($argv[1]) && $argv[1] == '-f') {
 $sql .= file_get_contents(dirname(__DIR__) . "/data/database.sql");
 
 exec_sql($db, $sql, 'updatating database');
+
+//add a system user if it does not already exist.  This user can be used to issue notices, etc.
+if (!\Chat\User\User::getByEmail('system')) {
+    \Chat\User\Register::registerUser('system', '', 'system', 'system');
+}
