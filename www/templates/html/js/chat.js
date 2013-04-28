@@ -186,21 +186,21 @@ var app = {
     onUserConnected: function(data)
     {
         //Add the user to our internal users array.
-        app.users[data['LAN\\User\\Record']['id']] = data['LAN\\User\\Record'];
+        app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
 
-        if (app.users[data['LAN\\User\\Record']['id']]['status'] == 'ONLINE') {
-            app.addUser(data['LAN\\User\\Record']);
+        if (app.users[data['Chat\\User\\User']['id']]['status'] == 'ONLINE') {
+            app.addUser(data['Chat\\User\\User']);
         }
     },
 
     onUserDisconnected: function(data)
     {
-        app.removeUser(data['LAN\\User\\Record']);
+        app.removeUser(data['Chat\\User\\User']);
     },
 
     onUserInformation: function(data)
     {
-        app.user = data['LAN\\User\\Record'];
+        app.user = data['Chat\\User\\User'];
 
         $.cookie('lan', app.user['id'], { path: '/' });
 
@@ -218,18 +218,18 @@ var app = {
 
     onUserUpdated: function(data)
     {
-        app.updateUser(data['LAN\\User\\Record']);
+        app.updateUser(data['Chat\\User\\User']);
 
         //Update the internal user,
-        app.users[data['LAN\\User\\Record']['id']] = data['LAN\\User\\Record'];
+        app.users[data['Chat\\User\\Record']['id']] = data['Chat\\User\\Message'];
     },
 
     onNewMessage: function(data)
     {
-        app.addMessage(data['LAN\\Message\\Record']);
+        app.addMessage(data['Chat\\Message\\User']);
 
         //Add the message to the internal list of messages.
-        app.messages[data['LAN\\Message\\Record']['id']] = data['LAN\\Message\\Record'];
+        app.messages[data['Chat\\Message\\Message']['id']] = data['Chat\\Message\\Message'];
     },
 
     addMessage: function(message)
