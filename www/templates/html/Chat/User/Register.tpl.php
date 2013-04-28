@@ -9,7 +9,7 @@
         }
     }
 </script>
-<form class="form-horizontal" method="post">
+<form action="<?php echo \Chat\Config::get('URL')?>register" method="post" class="form-horizontal">
     <div class="control-group">
         <label class="control-label" for="input-firstname">First Name</label>
         <div class="controls">
