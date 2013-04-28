@@ -17,38 +17,20 @@ var app = {
             app.connection = new WebSocket(serverAddress);
 
             app.connection.onopen = function (e) {
-                app.onOpen(e);
+                $(document).trigger('SOCKET_OPEN', event);
             };
             app.connection.onmessage = function (e) {
-                app.onMessage(e);
+                $(document).trigger('SOCKET_MESSAGE', event);
             };
             app.connection.onclose = function (e) {
-                app.onClose(e);
+                $(document).trigger('SOCKET_CLOSE', event);
             }
             app.connection.onerror = function (e) {
-                app.onError(e);
+                $(document).trigger('SOCKET_ERROR', event);
             }
-
         } catch (ex) {
             console.log(ex);
         }
-
-        $('#edit-profile').click(function(){
-            $('#edit-name').val(app.user['name']);
-            $('#edit-profile-modal').modal();
-        });
-
-        $('#edit-profile-form').submit(function(){
-            app.handleProfileEditForm();
-        });
-
-        $('#save-profile').click(function() {
-            app.handleProfileEditForm();
-        });
-
-        $('.alert .close').live("click", function(e) {
-            $(this).parent().hide();
-        });
 
         $("#message").keypress(function(event) {
             //check if we need to submit the message.
@@ -90,6 +72,93 @@ var app = {
             app.visible = true;
         });
 
+        //Core Event Watchers
+        $(document).on('USER_CONNECTED', function(event, data) {
+            //Add the user to our internal users array.
+            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
+
+            if (app.users[data['Chat\\User\\User']['id']]['chat_status'] == 'ONLINE') {
+                app.addUser(data['Chat\\User\\User']);
+            }
+        });
+
+        $(document).on('USER_DISCONNECTED', function(event, data) {
+            app.removeUser(data['Chat\\User\\User']);
+        });
+
+        $(document).on('USER_INFORMATION', function(event, data) {
+            app.user = data['Chat\\User\\User'];
+
+            $.cookie('lan', app.user['id'], { path: '/' });
+
+            if (app.user.name == "UNKNOWN") {
+                $('#edit-profile-modal').modal();
+            }
+
+            $('#edit-profile-link').html(app.user['name']);
+
+            var elementId = app.getUserElementId(app.user);
+
+            $('#' + elementId).removeClass('them');
+            $('#' + elementId).addClass('me');
+        });
+
+        $(document).on('USER_UPDATED', function(event, data) {
+            app.updateUser(data['Chat\\User\\User']);
+
+            //Update the internal user,
+            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
+        });
+
+        $(document).on('MESSAGE_NEW', function(event, data) {
+            app.addMessage(data['Chat\\Message\\Message']);
+
+            //Add the message to the internal list of messages.
+            app.messages[data['Chat\\Message\\Message']['id']] = data['Chat\\Message\\Message'];
+        });
+
+        $(document).on('SOCKET_OPEN', function(event, data) {
+            console.log("Connection established!");
+            $("#connection-status").removeClass('badge-important');
+            $("#connection-status").addClass('badge-success');
+            $("#connection-status").html("Online");
+
+            $("#message").removeAttr('disabled');
+        });
+
+        $(document).on('SOCKET_MESSAGE', function(event, data) {
+            data = JSON.parse(data.data);
+
+            if (data['action'] == undefined) {
+                console.log('Error: No action provided');
+                return;
+            }
+
+            $(document).trigger(data['action'], data['data']);
+        });
+
+        $(document).on('SOCKET_CLOSE', function(event, data) {
+            console.log(data.data);
+
+            $('#error-modal-alert-text').html("There was an error and you have been disconnected.");
+            $('#error-modal').modal('show');
+
+            $("#message").attr('disabled', 'disabled');
+
+            $("#connection-status").removeClass('badge-success');
+            $("#connection-status").addClass('badge-important');
+            $("#connection-status").removeClass('badge-warning');
+            $("#connection-status").html("Offline");
+        });
+
+        $(document).on('SOCKET_ERROR', function(event, data) {
+            console.log("Error");
+
+            app.onClose(data);
+
+            alert(data.data);
+        });
+
         app.timeLoop = setInterval('app.updateMessageTimes()', 1000);
     },
 
@@ -115,114 +184,24 @@ var app = {
 
     onOpen: function(event)
     {
-        console.log("Connection established!");
-        $("#connection-status").removeClass('badge-important');
-        $("#connection-status").addClass('badge-success');
-        $("#connection-status").html("Online");
 
-        $("#message").removeAttr('disabled');
     },
 
     onMessage: function(event)
     {
-        data = JSON.parse(event.data);
 
-        if (data['action'] == undefined) {
-            console.log('Error: No action provided');
-        }
 
-        console.log(data['action']);
 
-        switch(data['action']) {
-            case 'USER_CONNECTED':
-                app.onUserConnected(data['data']);
-                break;
-            case 'USER_DISCONNECTED':
-                app.onUserDisconnected(data['data']);
-                break;
-            case 'USER_INFORMATION':
-                app.onUserInformation(data['data']);
-                break;
-            case 'USER_UPDATED':
-                app.onUserUpdated(data['data']);
-                break;
-            case 'MESSAGE_NEW':
-                app.onNewMessage(data['data']);
-                break;
-        }
     },
 
     onClose: function(event)
     {
-        console.log(event.data);
 
-        $('#error-modal-alert-text').html("There was an error and you have been disconnected.");
-        $('#error-modal').modal('show');
-
-        $("#message").attr('disabled', 'disabled');
-
-        $("#connection-status").removeClass('badge-success');
-        $("#connection-status").addClass('badge-important');
-        $("#connection-status").removeClass('badge-warning');
-        $("#connection-status").html("Offline");
     },
 
     onError: function(event)
     {
-        console.log("Error");
 
-        app.onClose(event);
-
-        alert(event.data);
-    },
-
-    onUserConnected: function(data)
-    {
-        //Add the user to our internal users array.
-        app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
-
-        if (app.users[data['Chat\\User\\User']['id']]['chat_status'] == 'ONLINE') {
-            app.addUser(data['Chat\\User\\User']);
-        }
-    },
-
-    onUserDisconnected: function(data)
-    {
-        app.removeUser(data['Chat\\User\\User']);
-    },
-
-    onUserInformation: function(data)
-    {
-        app.user = data['Chat\\User\\User'];
-
-        $.cookie('lan', app.user['id'], { path: '/' });
-
-        if (app.user.name == "UNKNOWN") {
-            $('#edit-profile-modal').modal();
-        }
-
-        $('#edit-profile-link').html(app.user['name']);
-
-        var elementId = app.getUserElementId(app.user);
-
-        $('#' + elementId).removeClass('them');
-        $('#' + elementId).addClass('me');
-    },
-
-    onUserUpdated: function(data)
-    {
-        app.updateUser(data['Chat\\User\\User']);
-
-        //Update the internal user,
-        app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
-    },
-
-    onNewMessage: function(data)
-    {
-        app.addMessage(data['Chat\\Message\\Message']);
-
-        //Add the message to the internal list of messages.
-        app.messages[data['Chat\\Message\\Message']['id']] = data['Chat\\Message\\Message'];
     },
 
     addMessage: function(message)
