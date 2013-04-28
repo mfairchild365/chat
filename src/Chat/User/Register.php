@@ -66,8 +66,6 @@ class Register implements PostHandlerInterface
 
         $user->save();
 
-
-
         Service::logIn($user);
 
         \Chat\Controller::redirect(\Chat\Config::get('URL') . "users/" . $user->id);
