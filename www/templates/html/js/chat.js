@@ -218,12 +218,12 @@ var app = {
         app.updateUser(data['Chat\\User\\User']);
 
         //Update the internal user,
-        app.users[data['Chat\\User\\Record']['id']] = data['Chat\\User\\Message'];
+        app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
     },
 
     onNewMessage: function(data)
     {
-        app.addMessage(data['Chat\\Message\\User']);
+        app.addMessage(data['Chat\\Message\\Message']);
 
         //Add the message to the internal list of messages.
         app.messages[data['Chat\\Message\\Message']['id']] = data['Chat\\Message\\Message'];
