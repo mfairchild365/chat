@@ -182,28 +182,6 @@ var app = {
         app.connection.send(JSON.stringify(data));
     },
 
-    onOpen: function(event)
-    {
-
-    },
-
-    onMessage: function(event)
-    {
-
-
-
-    },
-
-    onClose: function(event)
-    {
-
-    },
-
-    onError: function(event)
-    {
-
-    },
-
     addMessage: function(message)
     {
         var userClass = 'them';
@@ -293,24 +271,6 @@ var app = {
 
     getUserElementId: function(user) {
         return 'LAN-User-Record-' + user['id'];
-    },
-
-    handleProfileEditForm: function() {
-        var name = $('#edit-name').val();
-
-        if (name == '' || name == null) {
-            $('#edit-profile-alert-text').html("You must fill in a name");
-            $('#edit-profile-alert').addClass('fade in');
-            $('#edit-profile-alert').show();
-            $('#edit-profile-alert').alert();
-            return;
-        }
-
-        app.user.name = name;
-
-        app.send('UPDATE_USER', app.user);
-
-        $('#edit-profile-modal').modal('hide');
     },
 
     submitMessage: function(message)
