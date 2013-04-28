@@ -6,7 +6,7 @@ class RecordList extends \DB\RecordList
     public function getDefaultOptions()
     {
         $options = array();
-        $options['itemClass'] = '\Chat\Message\Record';
+        $options['itemClass'] = '\Chat\Message\Message';
         $options['listClass'] = __CLASS__;
 
         return $options;

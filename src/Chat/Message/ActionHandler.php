@@ -1,9 +1,9 @@
 <?php
 namespace Chat\Message;
 
-class ActionHandler implements \LAN\ActionHandlerInterface
+class ActionHandler implements \Chat\ActionHandlerInterface
 {
-    public function handle($action, $data, \LAN\ConnectionContainer $editor)
+    public function handle($action, $data, \Chat\ConnectionContainer $editor)
     {
 
         $message = nl2br(trim(strip_tags($data)));
@@ -12,7 +12,7 @@ class ActionHandler implements \LAN\ActionHandlerInterface
             return;
         }
 
-        $object = Record::createNewMessage($editor->getUser()->getID(), $message);
+        $object = Message::createNewMessage($editor->getUser()->id, $message);
 
         $returnData           = array();
         $returnData['action'] = 'MESSAGE_NEW';

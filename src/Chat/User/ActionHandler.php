@@ -1,15 +1,15 @@
 <?php
 namespace Chat\User;
 
-class ActionHandler implements \LAN\ActionHandlerInterface
+class ActionHandler implements \Chat\ActionHandlerInterface
 {
-    public function handle($action, $data,  \LAN\ConnectionContainer $editor)
+    public function handle($action, $data,  \Chat\ConnectionContainer $editor)
     {
         if (!isset($data['id'])) {
-            throw new \LAN\Exception("ID must be passed.");
+            throw new \Chat\Exception("ID must be passed.");
         }
 
-        $object = record::getByID($data['id']);
+        $object = User::getByID($data['id']);
 
         $object->synchronizeWithArray($data);
 

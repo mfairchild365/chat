@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Message;
 
-class Record extends \DB\Record implements \Chat\Renderable
+class Message extends \DB\Record implements \Chat\Renderable
 {
     protected $id;           //INT(32)
     protected $users_id;     //VARCHAR(45)
@@ -43,8 +43,8 @@ class Record extends \DB\Record implements \Chat\Renderable
     {
         $record = new self();
 
-        $record->setUsersId($userId);
-        $record->setMessage($message);
+        $record->users_id = $userId;
+        $record->message = $message;
 
         $record->save();
 
