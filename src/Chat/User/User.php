@@ -68,7 +68,7 @@ class User extends \DB\Record implements \Chat\Renderable
         //Convert this object to an array
         $data = $this->toArray();
 
-        //Don't send the mac address
+        //Don't send the password
         unset($data['password']);
 
         return $data;
