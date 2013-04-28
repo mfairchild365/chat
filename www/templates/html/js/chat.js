@@ -185,7 +185,7 @@ var app = {
         //Add the user to our internal users array.
         app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
 
-        if (app.users[data['Chat\\User\\User']['id']]['status'] == 'ONLINE') {
+        if (app.users[data['Chat\\User\\User']['id']]['chat_status'] == 'ONLINE') {
             app.addUser(data['Chat\\User\\User']);
         }
     },
@@ -280,8 +280,7 @@ var app = {
 
         var html = "<li id='" + elementId + "'>" +
                        "<ul>" +
-                            "<li><span class='user-name'>" + user['name'] + "</span></li>" +
-                            "<li>Host: <span class='user-host'>" + user['host_name'] + "</span> (<span class='user-ip'>" + user['ip'] + "</span>)</li>" +
+                            "<li><span class='user-name'>" + user['username'] + "</span></li>" +
                         "</ul>" +
                    "</li>";
 
