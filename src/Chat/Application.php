@@ -88,7 +88,7 @@ class Application implements MessageComponentInterface {
             }
 
             //Set as offline
-            $user->setStatus = "OFFLINE";
+            $user->chat_status = "OFFLINE";
             $user->save();
         }
 
@@ -156,12 +156,12 @@ class Application implements MessageComponentInterface {
      *     "data": {
      *         "LAN\\User\\Record": {
      *             "id": "1",
-     *             "ip": "192.168.1.139",
-     *             "name": "UNKNOWN",
+     *             "username" : "bob",
+     *             "first_name": "UNKNOWN",
+     *             "last_name": "UNKNOWN",
      *             "date_created": "2012-12-20 15:34:13",
      *             "date_edited": "2012-12-20 15:34:13",
-     *             "status": null,
-     *             "host_name": "GHETO_BLASTER"
+     *             "chat_status": "OFFLINE",
      *         }
      *     }
      * }
@@ -186,7 +186,7 @@ class Application implements MessageComponentInterface {
         $message['action'] = $action;
 
         //Render the data if we can.
-        if ($data instanceof \Lan\Renderable) {
+        if ($data instanceof \Chat\Renderable) {
             $newData                   = array();
             $newData[get_class($data)] = $data->render();
 
