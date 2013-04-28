@@ -56,20 +56,17 @@ class Register implements PostHandlerInterface
             $post['username'] = $post['email'];
         }
 
-        $user = self::registerUser($post['username'], $post['password']);
+        $user = self::registerUser($post['email'], $post['password']);
 
-        //User is created...
+        //User is created... don't reset email and password
         unset($post['email']);
         unset($post['password']);
 
         $user->synchronizeWithArray($post);
 
-        //Set some defaults
-        $user->role        = "USER";
-        $user->status      = "ACTIVE";
-        $user->chat_status = "OFFLINE";
-
         $user->save();
+
+
 
         Service::logIn($user);
 
