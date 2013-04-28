@@ -153,9 +153,6 @@ var app = {
             case 'MESSAGE_NEW':
                 app.onNewMessage(data['data']);
                 break;
-            case 'STEAM_PROFILES':
-                app.onSteamProfiles(JSON.parse(data['data']));
-                break;
         }
     },
 
@@ -242,7 +239,7 @@ var app = {
 
         var time = moment(message['date_created']).fromNow()
 
-        $('#message-list').append("<li id='message-" + message['id'] + "' class='" + userClass + "'><span class='steam-image-" + message['users_id'] + "'></span> " + message['message'] + " <div class='info'><span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']]['name'] + "</span> <span class='message-date'>" + time + "</span></div></li>");
+        $('#message-list').append("<li id='message-" + message['id'] + "' class='" + userClass + "'>" + message['message'] + " <div class='info'><span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']]['name'] + "</span> <span class='message-date'>" + time + "</span></div></li>");
 
         app.scrollMessages();
 
@@ -272,45 +269,6 @@ var app = {
         }
     },
 
-    onSteamProfiles: function(data)
-    {
-        if (data.response.players == undefined) {
-            return;
-        }
-
-        for (id in data.response.players) {
-            var profile = data.response.players[id];
-            var steamId = data.response.players[id].steamid;
-
-            var userId = app.getUserIdBySteamId(steamId);
-
-            if (!userId) {
-                continue;
-            }
-
-            $('.steam-image-' + userId).html("<img src='" + profile.avatar + "' />");
-
-            $('.steam-name-' + userId).html("<a href='steam://url/SteamIDPage/" + steamId + "'>" + profile.personaname  + "</a>");
-
-            if (profile.gameextrainfo != undefined) {
-                $('.steam-game-' + userId).html("Now Playing: <a href='steam://run/" + profile.gameid + "'>" + profile.gameextrainfo + "</a>");
-            } else {
-                $('.steam-game-' + userId).html('');
-            }
-        }
-    },
-
-    getUserIdBySteamId: function(steamId)
-    {
-        for (id in app.users) {
-            if (app.users[id].steam_id_64 == steamId) {
-                return id;
-            }
-        }
-
-        return false;
-    },
-
     addUser: function(user)
     {
         var elementId = app.getUserElementId(user);
@@ -322,9 +280,8 @@ var app = {
 
         var html = "<li id='" + elementId + "'>" +
                        "<ul>" +
-                            "<li><span class='steam-image-" + user['id'] + "'></span> <span class='user-name'>" + user['name'] + "</span> <span class='steam-name-" + user['id'] + "'></span></li>" +
+                            "<li><span class='user-name'>" + user['name'] + "</span></li>" +
                             "<li>Host: <span class='user-host'>" + user['host_name'] + "</span> (<span class='user-ip'>" + user['ip'] + "</span>)</li>" +
-                            "<li><span class='steam-game-" + user['id'] + "'></span></li>" +
                         "</ul>" +
                    "</li>";
 
