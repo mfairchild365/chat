@@ -83,7 +83,7 @@ class User extends \DB\Record implements \Chat\Renderable
 
     public function __set($var, $value)
     {
-        if (!isset($this->$var)) {
+        if (!property_exists(__CLASS__, $var)) {
             throw new \Exception("Trying to set the value of a non-existent field");
         }
 
