@@ -8,11 +8,9 @@
       <library name="PHARS">
         <CLASSES>
           <root url="phar:///var/www/mfairchild365/chat/composer.phar" />
-          <root url="phar:///var/www/mfairchild365/chat/go-pear.phar" />
         </CLASSES>
         <SOURCES>
           <root url="phar:///var/www/mfairchild365/chat/composer.phar" />
-          <root url="phar:///var/www/mfairchild365/chat/go-pear.phar" />
         </SOURCES>
       </library>
     </orderEntry>
