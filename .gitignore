@@ -3,3 +3,4 @@ www/.htaccess
 /.buildpath
 data/database.mwb.bak
 /composer.lock
+/.idea/
