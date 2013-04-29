@@ -4,6 +4,10 @@ require_once dirname(__DIR__) . "/init.php";
 function exec_sql($db, $sql, $message, $fail_ok = false)
 {
     echo $message.PHP_EOL;
+
+    //Replace all instances of DEFAULTDATABASENAME with the config db name.
+    $sql = str_replace('DEFAULTDATABASENAME', \Chat\Config::get("DB_NAME"), $sql);
+
     try {
         $result = true;
         if ($db->multi_query($sql)) {
