@@ -17,16 +17,16 @@ var app = {
             app.connection = new WebSocket(serverAddress);
 
             app.connection.onopen = function (e) {
-                $(document).trigger('SOCKET_OPEN', event);
+                $(document).trigger('SOCKET_OPEN', e);
             };
             app.connection.onmessage = function (e) {
-                $(document).trigger('SOCKET_MESSAGE', event);
+                $(document).trigger('SOCKET_MESSAGE', e);
             };
             app.connection.onclose = function (e) {
-                $(document).trigger('SOCKET_CLOSE', event);
+                $(document).trigger('SOCKET_CLOSE', e);
             }
             app.connection.onerror = function (e) {
-                $(document).trigger('SOCKET_ERROR', event);
+                $(document).trigger('SOCKET_ERROR', e);
             }
         } catch (ex) {
             console.log(ex);
