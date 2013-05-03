@@ -55,12 +55,15 @@ var app = {
         });
 
         $('#show-notifications').click(function(e){
-            window.webkitNotifications.requestPermission();
+            if (window.webkitNotifications) {
+                window.webkitNotifications.requestPermission();
+            }
 
             e.preventDefault();
         });
 
-        if (window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
+
+        if (window.webkitNotifications && window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
             $('#show-notifications').css('visibility', 'visible');
         }
 
@@ -196,7 +199,7 @@ var app = {
 
         app.scrollMessages();
 
-        if (window.webkitNotifications.checkPermission() == 0 && app.visible == false) {
+        if (window.webkitNotifications && window.webkitNotifications.checkPermission() == 0 && app.visible == false) {
             // function defined in step 2
 
             notification = window.webkitNotifications.createNotification(
