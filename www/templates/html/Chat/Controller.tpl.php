@@ -27,7 +27,7 @@
                     if ($user) {
                         ?>
                         <li>
-                            <a href='#' id='edit-profile'><span id='edit-profile-link'><?php echo $user->username ?></span></a>
+                            <a href='<?php echo Chat\Config::Get('URL')?>users/<?php echo $user->id ?>' id='edit-profile'><span id='edit-profile-link'><?php echo $user->username ?></span></a>
                         </li>
                         <li>
                             <form action="<?php echo \Chat\Config::get('URL') ?>logout" method="post" class="form-inline">
