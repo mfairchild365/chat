@@ -89,4 +89,13 @@ class User extends \DB\Record implements \Chat\Renderable
 
         $this->$var = $value;
     }
+
+    public function getURL()
+    {
+        if (!$this->id) {
+            return false;
+        }
+
+        return \Chat\Config::get("URL") . "users/" . $this->id;
+    }
 }
