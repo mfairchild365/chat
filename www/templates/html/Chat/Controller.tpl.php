@@ -17,7 +17,7 @@
     <div id='nav-container' class='navbar row-fluid'>
         <div id='nav' class='span12'>
             <div class="navbar-inner">
-                <a class="brand" href="#">Easy Chat</a>
+                <a class="brand" href="<?php echo Chat\Config::Get('URL')?>">Easy Chat</a>
 
                 <ul class="nav">
                     <li class="active"><a href="<?php echo Chat\Config::Get('URL')?>">Home</a></li>
