@@ -6,12 +6,6 @@
     });
 </script>
 
-<div class='span3 well'>
-    <h2>Users</h2>
-    <ul id='user-list'>
-
-    </ul>
-</div>
 <div class='span8 well'>
     <div id='chat-container'>
         <ul id='message-list'>
@@ -20,4 +14,10 @@
         <textarea cols='6' class='span9' id='message' disabled='disabled'></textarea>
     </div>
 </div>
+
+<div class='span3 well'>
+    <h2>Users</h2>
+    <ul id='user-list'>
+
+    </ul>
 </div>
