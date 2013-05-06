@@ -32,6 +32,9 @@ class Edit extends Setting implements PostHandlerInterface
             $setting->save();
         }
 
-        \Chat\Controller::redirect(\Chat\Config::get('URL') . "admin", new \Chat\FlashBagMessage("success", "Settings have been saved"));
+        \Chat\Controller::redirect(
+            \Chat\Config::get('URL') . "admin",
+            new \Chat\FlashBagMessage("success", "Settings have been saved")
+        );
     }
 }
