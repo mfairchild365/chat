@@ -90,8 +90,18 @@ class Controller
         return $object->handlePost($this->options, $_POST, $_FILES);
     }
 
-    public static function redirect($url, $exit = true)
+    public function getFlashBagMessages()
     {
+        return \Chat\User\Service::getSession()->getFlashBag()->all();
+    }
+
+    public static function redirect($url, \Chat\FlashBagMessage $message = NULL, $exit = true)
+    {
+        if ($message) {
+            $session = \Chat\User\Service::getSession();
+            $session->getFlashBag()->add('alert', $message);
+        }
+
         header('Location: '.$url);
         if (!defined('CLI')
             && false !== $exit) {
