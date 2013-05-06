@@ -48,11 +48,11 @@ PACK_KEYS = DEFAULT;
 
 
 -- -----------------------------------------------------
--- Table `DEFAULTDATABASENAME`.`Settings`
+-- Table `DEFAULTDATABASENAME`.`settings`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `DEFAULTDATABASENAME`.`Settings` (
+CREATE  TABLE IF NOT EXISTS `DEFAULTDATABASENAME`.`settings` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `setting_name` VARCHAR(256) NOT NULL ,
+  `setting_name` VARCHAR(128) NOT NULL ,
   `setting_value` VARCHAR(256) NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `key_UNIQUE` (`setting_name` ASC) )
