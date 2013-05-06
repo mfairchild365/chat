@@ -45,6 +45,11 @@
 
     <div id='main-content-container' class='row-fluid'>
         <?php
+        foreach ($context->getFlashBagMessages() as $message) {
+            echo $savvy->render($message);
+        }
+        ?>
+        <?php
         echo $savvy->render($context->output);
         ?>
     </div>
