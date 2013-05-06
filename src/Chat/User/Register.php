@@ -68,6 +68,9 @@ class Register implements PostHandlerInterface
 
         Service::logIn($user);
 
-        \Chat\Controller::redirect(\Chat\Config::get('URL') . "users/" . $user->id);
+        \Chat\Controller::redirect(
+            \Chat\Config::get('URL') . "users/" . $user->id,
+            new \Chat\FlashBagMessage("success", "Registration successful!")
+        );
     }
 }
