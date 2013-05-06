@@ -1,5 +1,5 @@
 <?php
-namespace Chat\Admin;
+namespace Chat\Setting;
 
 class Setting extends \DB\Record
 {
