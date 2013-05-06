@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Setting;
 
-class RecordList extends \DB\RecordList
+class Settings extends \DB\RecordList
 {
     public function getDefaultOptions()
     {
