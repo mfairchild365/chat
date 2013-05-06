@@ -55,3 +55,18 @@ exec_sql($db, $sql, 'updatating database');
 if (!\Chat\User\User::getByEmail('system')) {
     \Chat\User\Register::registerUser('system', '', 'system', 'system');
 }
+
+//add default settings
+if (!\Chat\Setting\Setting::getBySettingName('SITE_NAME')) {
+    $setting = new \Chat\Setting\Setting();
+    $setting->setting_name = "SITE_NAME";
+    $setting->setting_value = "EasyChat Site";
+    $setting->save();
+}
+
+if (!\Chat\Setting\Setting::getBySettingName('SITE_PASSWORD')) {
+    $setting = new \Chat\Setting\Setting();
+    $setting->setting_name = "SITE_PASSWORD";
+    $setting->setting_value = ""; //leave empty for open registration
+    $setting->save();
+}
