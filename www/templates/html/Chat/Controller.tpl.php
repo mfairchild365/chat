@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Easy Chat</title>
+    <title><?php echo \Chat\Setting\Service::getSettingValue("SITE_NAME") ?></title>
     <!-- Bootstrap using http://bootswatch.com/cyborg/ -->
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
@@ -17,7 +17,7 @@
     <div id='nav-container' class='navbar row-fluid'>
         <div id='nav' class='span12'>
             <div class="navbar-inner">
-                <a class="brand" href="<?php echo Chat\Config::Get('URL')?>">Easy Chat</a>
+                <a class="brand" href="<?php echo Chat\Config::Get('URL')?>"><?php echo \Chat\Setting\Service::getSettingValue("SITE_NAME") ?></a>
 
                 <ul class="nav">
                     <li class="active"><a href="<?php echo Chat\Config::Get('URL')?>">Home</a></li>
