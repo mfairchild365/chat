@@ -81,11 +81,19 @@ class Controller
         }
 
         $this->output = new $this->options['model']($this->options);
+
+        if (!$this->output instanceof \Chat\ViewableInterface) {
+            throw new Exception("All Output must be an instance of \\Chat\\ViewableInterface");
+        }
     }
 
     public function handlePost()
     {
         $object = new $this->options['model']($this->options);
+
+        if (!$object instanceof \Chat\PostHandlerInterface) {
+            throw new Exception("All Post Handlers must be an instance of \\Chat\\PostHandlerInterface");
+        }
 
         return $object->handlePost($this->options, $_POST, $_FILES);
     }
