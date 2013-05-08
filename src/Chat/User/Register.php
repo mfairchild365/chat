@@ -3,7 +3,7 @@ namespace Chat\User;
 
 use Chat\PostHandlerInterface;
 
-class Register implements PostHandlerInterface
+class Register implements PostHandlerInterface, \Chat\ViewableInterface
 {
     public static function registerUser($email, $password, $firstName = '', $lastName = '', $role = 'USER')
     {
@@ -13,7 +13,7 @@ class Register implements PostHandlerInterface
         }
 
         //hash the password
-        if (!$password = password_hash($password, PASSWORD_BCRYPT)) {
+        if (!$password = self::hashPassword($password)) {
             throw new \Exception("There was an error handling the password.", 500);
         }
 
@@ -31,6 +31,10 @@ class Register implements PostHandlerInterface
         $user->save();
 
         return $user;
+    }
+
+    public static function hashPassword($password) {
+        return password_hash($password, PASSWORD_BCRYPT);
     }
 
     function handlePost($get, $post, $files)
@@ -72,5 +76,20 @@ class Register implements PostHandlerInterface
             \Chat\Config::get('URL') . "users/" . $user->id,
             new \Chat\FlashBagMessage("success", "Registration successful!")
         );
+    }
+
+    public function getEditURL()
+    {
+        return $this->getURL();
+    }
+
+    public function getURL()
+    {
+        return \Chat\Config::get('URL') . "register";
+    }
+
+    public function getPageTitle()
+    {
+        return "Register";
     }
 }

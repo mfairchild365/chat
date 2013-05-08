@@ -98,4 +98,13 @@ class User extends \DB\Record implements \Chat\Renderable
 
         return \Chat\Config::get("URL") . "users/" . $this->id;
     }
+
+    public function getEditURL()
+    {
+        if (!$url = $this->getURL()) {
+            return false;
+        }
+
+        return $url . '/edit';
+    }
 }

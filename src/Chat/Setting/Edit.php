@@ -3,7 +3,7 @@ namespace Chat\Setting;
 
 use Chat\PostHandlerInterface;
 
-class Edit extends Setting implements PostHandlerInterface
+class Edit extends Setting implements PostHandlerInterface, \chat\ViewableInterface
 {
     function __construct($options = array())
     {
@@ -36,5 +36,20 @@ class Edit extends Setting implements PostHandlerInterface
             \Chat\Config::get('URL') . "admin",
             new \Chat\FlashBagMessage("success", "Settings have been saved")
         );
+    }
+
+    public function getEditURL()
+    {
+        return $this->getURL();
+    }
+
+    public function getURL()
+    {
+        return \Chat\Config::get('URL') . "admin/settings";
+    }
+
+    public function getPageTitle()
+    {
+        return "Settings";
     }
 }

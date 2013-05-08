@@ -4,7 +4,7 @@
             <a href="<?php echo $context->getURL();?>">Profile</a>
         </li>
         <li>
-            <a href="<?php echo $context->getURL();?>/edit">Edit</a>
+            <a href="<?php echo $context->getEditURL();?>">Edit</a>
         </li>
     </ul>
 </div>
