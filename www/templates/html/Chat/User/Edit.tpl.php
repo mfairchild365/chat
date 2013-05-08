@@ -15,7 +15,7 @@ echo $savvy->render($context, '/Chat/User/SubNav.tpl.php');
     }
 </script>
 
-<form action="<?php echo \Chat\Config::get('URL')?>" method="post" class="form-horizontal">
+<form action="<?php echo $context->getEditURL()?>" method="post" class="form-horizontal">
     <div class="control-group">
         <label class="control-label" for="input-firstname">First Name</label>
         <div class="controls">
