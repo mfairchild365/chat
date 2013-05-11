@@ -39,6 +39,16 @@ class Register implements PostHandlerInterface, \Chat\ViewableInterface
 
     function handlePost($get, $post, $files)
     {
+        if ($sitePassword = \Chat\Setting\Service::getSettingValue('SITE_PASSWORD')) {
+            if (!isset($post['site_password']) || empty($post['site_password'])) {
+                throw new \Chat\Exception("You need to specify a site password", 400);
+            }
+
+            if ($post['site_password'] != $sitePassword) {
+                throw new \Chat\Exception("Wrong Site password, please try again", 400);
+            }
+        }
+
         //The only required fields are email and password, so lets check!
         if (!isset($post['password']) || empty($post['password'])) {
             throw new \Exception("You need to specify a password", 400);

@@ -45,6 +45,18 @@
             <input type="password" id="input-password-verify" name="password_verify" required placeholder="Password" oninput="verifyPasswordCheck(this)">
         </div>
     </div>
+    <?php
+    if (\Chat\Setting\Service::getSettingValue('SITE_PASSWORD')) {
+        ?>
+        <div class="control-group">
+            <label class="control-label" for="input-site-password">Site Password</label>
+            <div class="controls">
+                <input type="password" id="input-site-password" name="site_password" required placeholder="Site Password">
+            </div>
+        </div>
+        <?php
+    }
+    ?>
     <div class="control-group">
         <div class="controls">
             <button type="submit" class="btn">Register</button>
