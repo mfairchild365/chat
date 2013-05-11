@@ -20,7 +20,11 @@ class Initialize implements \Chat\InitializePluginInterface
         $listeners[] = array(
             'event'    => 'routes.compile',
             'listener' => function (\Chat\Events\CompileRoutes $event) {
-                $event->addRoute('/^home$/', 'Chat\Plugins\Home\View');
+                $event->addRoute('/^users\/(?P<id>[\d]+)\/edit$/i', __NAMESPACE__ . '\Edit');
+                $event->addRoute('/^register$/i', __NAMESPACE__ . '\Register');
+                $event->addRoute('/^logout/i', __NAMESPACE__ . '\Logout');
+                $event->addRoute('/^login/i', __NAMESPACE__ . '\Login');
+                $event->addRoute('/^users\/(?P<id>[\d]+)$/i', __NAMESPACE__ . '\View');
             }
         );
 

@@ -15,6 +15,15 @@ class Initialize implements \Chat\InitializePluginInterface
 
     public function getEventListeners()
     {
-        return array();
+        $listeners = array();
+
+        $listeners[] = array(
+            'event'    => 'routes.compile',
+            'listener' => function (\Chat\Events\CompileRoutes $event) {
+                $event->addRoute('/^admin$/', __NAMESPACE__ . '\Edit');
+            }
+        );
+
+        return $listeners;
     }
 }
