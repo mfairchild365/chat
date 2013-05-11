@@ -50,7 +50,7 @@ class Controller
         );
 
         $router = new \RegExpRouter\Router($options);
-        $router->setRoutes($this->getPluginRoutes() + $router->getRoutes());
+        $router->setRoutes($this->getPluginRoutes());
 
         // Initialize App, and construct everything
         $this->options = $router->route($_SERVER['REQUEST_URI'], $this->options);
