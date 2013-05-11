@@ -1,7 +1,7 @@
 <?php
 namespace Chat;
 
-class Exception extends \Exception implements Renderable
+class Exception extends \Exception implements Renderable, ViewableInterface
 {
     public function __construct($message = "", $code = 0, $previous = NULL) {
         parent::__construct($message, $code, $previous);
@@ -15,5 +15,15 @@ class Exception extends \Exception implements Renderable
         $array['code']    = $this->code;
 
         return $array;
+    }
+
+    public function getPageTitle()
+    {
+        return "Error";
+    }
+
+    public function getURL()
+    {
+        return "";
     }
 }
