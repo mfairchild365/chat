@@ -8,15 +8,21 @@ class Controller
     public $options = array(
         'model'  => false,
         'format' => 'html',
-        'enabled_plugins' => array('home'),
+        'internal_plugins' => array(
+            'Chat',
+            'Message',
+            'Setting',
+            'User'
+        ),
+        'external_plugins' => array('home')
     );
 
     public function __construct($options = array())
     {
         $this->options = $options + $this->options;
-        
+
         PluginManager::initialize($this->options);
-        
+
         $this->route();
 
         try {
@@ -65,7 +71,7 @@ class Controller
         $this->output = new $this->options['model']($this->options);
 
         if (!$this->output instanceof \Chat\ViewableInterface) {
-            throw new Exception("All Output must be an instance of \\Chat\\ViewableInterface");
+            throw new \Exception("All Output must be an instance of \\Chat\\ViewableInterface");
         }
     }
 

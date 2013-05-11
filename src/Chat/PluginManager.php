@@ -6,12 +6,7 @@ class PluginManager
     protected static $eventsManager = false;
 
     protected static $options = array(
-        'internal_plugins' => array(
-            'Chat',
-            'Message',
-            'Setting',
-            'User'
-        ),
+        'internal_plugins' => array(),
         'external_plugins' => array()
     );
 
@@ -43,7 +38,7 @@ class PluginManager
     public static function dispatchEvent($eventName, \Symfony\Component\EventDispatcher\Event $event = null)
     {
         if (!self::$eventsManager) {
-            throw new Exception("Plugin Manager has not been initialized yet", 500);
+            throw new \Exception("Plugin Manager has not been initialized yet", 500);
         }
 
         return self::$eventsManager->dispatch($eventName, $event);
