@@ -21,7 +21,7 @@ class Initialize
 
         $listeners[] = array(
             'event'    => 'routes.compile',
-            'listener' => function (\Chat\CompileRoutesEvent $event) {
+            'listener' => function (\Chat\Events\CompileRoutes $event) {
                 $event->addRoute('/^home$/', 'Chat\Plugins\Home\View');
              }
         );

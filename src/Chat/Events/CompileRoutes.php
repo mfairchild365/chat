@@ -1,7 +1,7 @@
 <?php
-namespace Chat;
+namespace Chat\Events;
 
-class CompileRoutesEvent extends \Symfony\Component\EventDispatcher\Event
+class CompileRoutes extends \Symfony\Component\EventDispatcher\Event
 {
     protected $routes = array();
     
