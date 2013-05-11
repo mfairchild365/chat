@@ -23,7 +23,7 @@ class Edit extends User implements PostHandlerInterface, \Chat\ViewableInterface
     function handlePost($get, $post, $files)
     {
         if (!isset($post['email']) || empty($post['email'])) {
-            throw new \Exception("Email address can not be empty.", 400);
+            throw new \Chat\Exception("Email address can not be empty.", 400);
         }
 
         if (isset($post['password'], $post['password_verify'])
@@ -31,7 +31,7 @@ class Edit extends User implements PostHandlerInterface, \Chat\ViewableInterface
             && !empty($post['password_verify'])) {
 
             if ($post['password'] != $post['password_verify']) {
-                throw new \Exception("Both passwords must match", 400);
+                throw new \Chat\Exception("Both passwords must match", 400);
             }
 
             $post['password'] = Register::hashPassword($post['password']);

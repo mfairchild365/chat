@@ -61,7 +61,7 @@ class Message extends \DB\Record implements \Chat\Renderable
     public function __set($var, $value)
     {
         if (!isset($this->$var)) {
-            throw new \Exception("Trying to set the value of a non-existent field");
+            throw new \Chat\Exception("Trying to set the value of a non-existent field");
         }
 
         $this->$var = $value;

@@ -9,12 +9,12 @@ class Register implements PostHandlerInterface, \Chat\ViewableInterface
     {
         //Now check to see if we already have someone with the same email address.
         if (count(RecordList::getAllByEmail($email))) {
-            throw new \Exception("That email address is already in use.", 400);
+            throw new \Chat\Exception("That email address is already in use.", 400);
         }
 
         //hash the password
         if (!$password = self::hashPassword($password)) {
-            throw new \Exception("There was an error handling the password.", 500);
+            throw new \Chat\Exception("There was an error handling the password.", 500);
         }
 
         $user              = new User();
@@ -51,19 +51,19 @@ class Register implements PostHandlerInterface, \Chat\ViewableInterface
 
         //The only required fields are email and password, so lets check!
         if (!isset($post['password']) || empty($post['password'])) {
-            throw new \Exception("You need to specify a password", 400);
+            throw new \Chat\Exception("You need to specify a password", 400);
         }
 
         if (!isset($post['password_verify']) || empty($post['password_verify'])) {
-            throw new \Exception("You need to specify a verify password", 400);
+            throw new \Chat\Exception("You need to specify a verify password", 400);
         }
 
         if ($post['password'] != $post['password_verify']) {
-            throw new \Exception("Oh no! Your passwords did not match!", 400);
+            throw new \Chat\Exception("Oh no! Your passwords did not match!", 400);
         }
 
         if (!isset($post['email']) || empty($post['email'])) {
-            throw new \Exception("You need to specify an email adddress", 400);
+            throw new \Chat\Exception("You need to specify an email adddress", 400);
         }
 
         if (!isset($post['username']) || empty($post['username'])) {

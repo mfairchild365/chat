@@ -19,13 +19,13 @@ class Edit extends Setting implements PostHandlerInterface, \Chat\ViewableInterf
     function handlePost($get, $post, $files)
     {
         if (!isset($post['settings'])) {
-            throw new \Exception("Settings array does not exist", 400);
+            throw new \Chat\Exception("Settings array does not exist", 400);
         }
 
         foreach ($post['settings'] as $id=>$value)
         {
             if (!$setting = Setting::getByID($id)) {
-                throw new \Exception("Could not find setting with ID: $id", 400);
+                throw new \Chat\Exception("Could not find setting with ID: $id", 400);
             }
 
             $setting->setting_value = $value;

@@ -10,7 +10,7 @@ class Util
         self::$db = new \mysqli($host, $user, $password, $database);
 
         if (mysqli_connect_error()) {
-            throw new \Exception('Database connection error (' . mysqli_connect_errno() . ') '
+            throw new \Chat\Exception('Database connection error (' . mysqli_connect_errno() . ') '
                 . mysqli_connect_error());
         }
 
@@ -31,7 +31,7 @@ class Util
     /**
      * Connect to the database and return it
      *
-     * @throws \Exception
+     * @throws \Chat\Exception
      * @return mysqli
      */
     public static function getDB()

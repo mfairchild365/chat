@@ -38,7 +38,7 @@ class PluginManager
     public static function dispatchEvent($eventName, \Symfony\Component\EventDispatcher\Event $event = null)
     {
         if (!self::$eventsManager) {
-            throw new \Exception("Plugin Manager has not been initialized yet", 500);
+            throw new \Chat\Exception("Plugin Manager has not been initialized yet", 500);
         }
 
         return self::$eventsManager->dispatch($eventName, $event);

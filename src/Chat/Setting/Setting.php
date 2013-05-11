@@ -37,7 +37,7 @@ class Setting extends \DB\Record
     public function __set($var, $value)
     {
         if (!property_exists(get_called_class(), $var)) {
-            throw new \Exception("Trying to set the value of a non-existent field");
+            throw new \Chat\Exception("Trying to set the value of a non-existent field");
         }
 
         $this->$var = $value;

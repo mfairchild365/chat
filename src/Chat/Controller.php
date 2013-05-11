@@ -73,13 +73,13 @@ class Controller
     {
         if (!isset($this->options['model'])
             || false === $this->options['model']) {
-            throw new \Exception('Un-registered view', 404);
+            throw new \Chat\Exception('Un-registered view', 404);
         }
 
         $this->output = new $this->options['model']($this->options);
 
         if (!$this->output instanceof \Chat\ViewableInterface) {
-            throw new \Exception("All Output must be an instance of \\Chat\\ViewableInterface");
+            throw new \Chat\Exception("All Output must be an instance of \\Chat\\ViewableInterface");
         }
     }
 
