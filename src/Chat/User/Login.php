@@ -37,4 +37,9 @@ class Login extends User implements PostHandlerInterface
         Service::logIn($user);
         \Chat\Controller::redirect(\Chat\Config::get('URL'));
     }
+
+    public function getEditURL()
+    {
+        return \Chat\Config::get('URL') . "login";
+    }
 }

@@ -13,4 +13,9 @@ class Logout implements PostHandlerInterface
         //Redirect to the home page
         \Chat\Controller::redirect(\Chat\Config::get("URL"));
     }
+
+    public function getEditURL()
+    {
+        return \Chat\Config::get("URL") . "logout";
+    }
 }
