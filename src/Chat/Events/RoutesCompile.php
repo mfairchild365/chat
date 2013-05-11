@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Events;
 
-class CompileRoutes extends \Symfony\Component\EventDispatcher\Event
+class RoutesCompile extends \Symfony\Component\EventDispatcher\Event
 {
     const EVENT_NAME = 'routes.compile';
 
