@@ -46,6 +46,7 @@
 
 
     <div id='main-content-container' class='row-fluid'>
+        <h2><?php echo $context->output->getPageTitle() ?></h2>
         <?php
 
         $subNav = \Chat\PluginManager::dispatchEvent(

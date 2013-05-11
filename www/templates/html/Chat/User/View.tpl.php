@@ -1,5 +1,3 @@
-<h2><?php echo $context->username; ?></h2>
-
 <ul>
     <li>First Name: <?php echo $context->first_name ?></li>
     <li>Last Name: <?php echo $context->last_name ?></li>

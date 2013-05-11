@@ -1,5 +1,3 @@
-<h2><?php echo $context->username; ?></h2>
-
 <script language='javascript' type='text/javascript'>
     function verifyPasswordCheck(input) {
         if (input.value != document.getElementById('input-password').value) {

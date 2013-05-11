@@ -1,6 +1,3 @@
-<h2>Settings</h2>
-
-
 <form action="<?php echo $context->getEditURL()?>" method="post" class="form-horizontal">
     <?php
     foreach (\Chat\Setting\Settings::getAllSettings() as $setting)
