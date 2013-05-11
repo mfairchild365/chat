@@ -3,10 +3,7 @@ namespace Chat;
 
 class Controller
 {
-
     public $output = null;
-    
-    public $dispatcher = null;
 
     public $options = array(
         'model'  => false,
@@ -18,9 +15,7 @@ class Controller
     {
         $this->options = $options + $this->options;
         
-        $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
-
-        $this->initializePlugins();
+        PluginManager::initialize($this->options);
         
         $this->route();
 
@@ -34,22 +29,9 @@ class Controller
         }
     }
 
-    public function initializePlugins()
-    {
-        foreach ($this->options['enabled_plugins'] as $plugin) {
-
-            $class = "Chat\\Plugins\\" . ucfirst($plugin) . "\\Initialize";
-            $plugin = new $class($this->options);
-            $plugin->initialize();
-            foreach ($plugin->getEventListeners() as $listener) {
-                $this->dispatcher->addListener($listener['event'], $listener['listener']);
-            }
-        }
-    }
-
     public function getPluginRoutes()
     {
-        $event = $this->dispatcher->dispatch('routes.compile', new \Chat\CompileRoutesEvent(array()));
+        $event = \Chat\PluginManager::dispatchEvent('routes.compile', new \Chat\CompileRoutesEvent(array()));
 
         return $event->getRoutes();
     }
