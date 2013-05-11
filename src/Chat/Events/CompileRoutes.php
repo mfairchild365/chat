@@ -3,6 +3,8 @@ namespace Chat\Events;
 
 class CompileRoutes extends \Symfony\Component\EventDispatcher\Event
 {
+    const EVENT_NAME = 'routes.compile';
+
     protected $routes = array();
     
     public function __construct($routes)
