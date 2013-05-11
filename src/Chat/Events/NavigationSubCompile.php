@@ -6,15 +6,21 @@ class NavigationSubCompile extends \Symfony\Component\EventDispatcher\Event
     const EVENT_NAME = 'navigation.sub.compile';
 
     public $navigation = array();
+    protected $view;
 
-    public function __construct($navigation)
+    public function __construct(\Chat\ViewableInterface $view)
     {
-        $this->navigation = $navigation;
+        $this->view = $view;
     }
 
     public function getNavigation()
     {
         return $this->navigation;
+    }
+
+    public function getView()
+    {
+        return $this->view;
     }
 
     public function addNavigationItem($url, $title)

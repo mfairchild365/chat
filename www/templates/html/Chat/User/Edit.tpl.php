@@ -1,9 +1,5 @@
 <h2><?php echo $context->username; ?></h2>
 
-<?php
-echo $savvy->render($context, '/Chat/User/SubNav.tpl.php');
-?>
-
 <script language='javascript' type='text/javascript'>
     function verifyPasswordCheck(input) {
         if (input.value != document.getElementById('input-password').value) {

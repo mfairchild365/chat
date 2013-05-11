@@ -28,6 +28,24 @@ class Initialize implements \Chat\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\Events\NavigationSubCompile::EVENT_NAME,
+            'listener' => function (\Chat\Events\NavigationSubCompile $event) {
+                $class = get_class($event->getView());
+
+                if (strpos($class, 'Chat\User\\')  === 0) {
+                    $event->addNavigationItem($event->getView()->getURL(), 'Profile');
+
+                    //Only add the edit link if we have access to edit.
+                    if ($user = Service::getCurrentUser()) {
+                        if ($user == $event->getView()->id || $user->role == 'ADMIN') {
+                            $event->addNavigationItem($event->getView()->getEditURL(), 'Edit');
+                        }
+                    }
+                }
+            }
+        );
+
         return $listeners;
     }
 }

@@ -43,8 +43,20 @@
         </div>
     </div>
 
+
+
     <div id='main-content-container' class='row-fluid'>
         <?php
+
+        $subNav = \Chat\PluginManager::dispatchEvent(
+            \Chat\Events\NavigationSubCompile::EVENT_NAME,
+            new \Chat\Events\NavigationSubCompile($context->output->getRawObject())
+        );
+
+        if (count($subNav->getNavigation())) {
+            echo $savvy->render($subNav);
+        }
+
         foreach ($context->getFlashBagMessages() as $message) {
             echo $savvy->render($message);
         }

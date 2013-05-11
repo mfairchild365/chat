@@ -1,9 +1,5 @@
 <h2><?php echo $context->username; ?></h2>
 
-<?php
-echo $savvy->render($context, '/Chat/User/SubNav.tpl.php');
-?>
-
 <ul>
     <li>First Name: <?php echo $context->first_name ?></li>
     <li>Last Name: <?php echo $context->last_name ?></li>
