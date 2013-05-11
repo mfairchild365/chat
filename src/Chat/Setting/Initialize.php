@@ -21,6 +21,7 @@ class Initialize implements \Chat\InitializePluginInterface
             'event'    => \Chat\Events\RoutesCompile::EVENT_NAME,
             'listener' => function (\Chat\Events\RoutesCompile $event) {
                 $event->addRoute('/^admin$/', __NAMESPACE__ . '\Edit');
+                $event->addRoute('/^admin\/settings$/', __NAMESPACE__ . '\Edit');
             }
         );
 
