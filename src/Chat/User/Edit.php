@@ -49,6 +49,6 @@ class Edit extends User implements PostHandlerInterface, \Chat\ViewableInterface
 
     public function getPageTitle()
     {
-        return "User Edit";
+        return "User Edit: " . $this->username;
     }
 }

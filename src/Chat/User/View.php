@@ -12,6 +12,6 @@ class View extends User implements \Chat\ViewableInterface
 
     public function getPageTitle()
     {
-        return "User";
+        return "User: " . $this->username;
     }
 }
