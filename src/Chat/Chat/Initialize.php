@@ -24,6 +24,13 @@ class Initialize implements \Chat\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\Events\NavigationMainCompile::EVENT_NAME,
+            'listener' => function (\Chat\Events\NavigationMainCompile $event) {
+                $event->addNavigationItem(\Chat\Config::get('URL'), 'Home');
+            }
+        );
+
         return $listeners;
     }
 }

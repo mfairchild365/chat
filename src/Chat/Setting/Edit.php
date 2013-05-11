@@ -3,7 +3,7 @@ namespace Chat\Setting;
 
 use Chat\PostHandlerInterface;
 
-class Edit extends Setting implements PostHandlerInterface, \chat\ViewableInterface
+class Edit extends Setting implements PostHandlerInterface, \Chat\ViewableInterface
 {
     function __construct($options = array())
     {

@@ -19,9 +19,14 @@
             <div class="navbar-inner">
                 <a class="brand" href="<?php echo Chat\Config::Get('URL')?>"><?php echo \Chat\Setting\Service::getSettingValue("SITE_NAME") ?></a>
 
-                <ul class="nav">
-                    <li class="active"><a href="<?php echo Chat\Config::Get('URL')?>">Home</a></li>
-                </ul>
+                <?php
+                $mainNav = \Chat\PluginManager::dispatchEvent(
+                    \Chat\Events\NavigationMainCompile::EVENT_NAME,
+                    new \Chat\Events\NavigationMainCompile()
+                );
+
+                echo $savvy->render($mainNav);
+                ?>
                 <ul class='nav pull-right'>
                     <?php
                     if ($user) {
