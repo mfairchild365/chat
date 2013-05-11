@@ -1,8 +1,10 @@
 <?php
 namespace Chat\Events;
 
-class SubNavGenerate extends \Symfony\Component\EventDispatcher\Event
+class SubNavCompile extends \Symfony\Component\EventDispatcher\Event
 {
+    const EVENT_NAME = 'navigation.sub.compile';
+
     public $navigation = array();
 
     public function __construct($navigation)
