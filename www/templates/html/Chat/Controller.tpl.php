@@ -52,7 +52,7 @@
 
                 echo $savvy->render($mainNav);
                 ?>
-                <ul class='nav pull-right'>
+                <ul id='user-nav' class='nav pull-right'>
                     <?php
                     if ($user) {
                         ?>

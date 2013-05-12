@@ -16,6 +16,11 @@ var plugin_gravatar = {
 
             $(messageID + " .avatar").html("<img src='" +  plugin_gravatar.getProfileImage(email, 40) + "' />");
         });
+
+        $(document).on('USER_INFORMATION', function(event, data) {
+            $('#user-nav').prepend('<li id="user-avatar"><a href="https://en.gravatar.com/site/login" target="_blank"><img src="' + plugin_gravatar.getProfileImage(app.user.email, 30)  + '" /></a></li>');
+            $('#user-avatar a').css('padding-right', '0px');
+        });
     },
 
     getProfileImage : function (email, size) {
