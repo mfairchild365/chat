@@ -195,7 +195,15 @@ var app = {
 
         var time = moment(message['date_created']).fromNow()
 
-        $('#message-list').append("<li id='message-" + message['id'] + "' class='" + userClass + "'>" + message['message'] + " <div class='info'><span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']]['name'] + "</span> <span class='message-date'>" + time + "</span></div></li>");
+        $('#message-list').append(
+            "<li id='message-" + message['id'] + "' class='" + userClass + "'>" +
+                "<span class='avatar user-" + message['users_id'] + "'></span>"
+                + message['message'] + "" +
+                "<div class='info'>" +
+                    "<span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']]['username'] + "</span>" +
+                    "<span class='message-date'>" + time + "</span>" +
+                "</div>" +
+            "</li>");
 
         app.scrollMessages();
 
