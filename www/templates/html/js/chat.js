@@ -191,7 +191,10 @@ var core_chat = {
 
         var html = "<li id='" + elementId + "'>" +
                        "<ul>" +
-                            "<li><span class='user-name'>" + user['username'] + "</span></li>" +
+                            "<li>" +
+                                "<span class='avatar'></span>" +
+                                "<span class='user-name'>" + user['username'] + "</span>" +
+                            "</li>" +
                         "</ul>" +
                    "</li>";
 
@@ -228,7 +231,7 @@ var core_chat = {
     },
 
     getUserElementId: function(user) {
-        return 'LAN-User-Record-' + user['id'];
+        return 'User-Record-' + user['id'];
     },
 
     submitMessage: function(message)

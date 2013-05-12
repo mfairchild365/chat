@@ -14,13 +14,20 @@ var plugin_gravatar = {
 
             var email = core_chat.users[users_id].email;
 
-            $(messageID + " .avatar").html("<img src='" +  plugin_gravatar.getProfileImage(email, 40) + "' />");
+            $(messageID + " .avatar").html("<img src='" +  plugin_gravatar.getProfileImage(email, 30) + "' />");
         });
 
         $(document).on('USER_INFORMATION', function(event, data) {
             $('#user-nav').prepend('<li id="user-avatar"><a href="https://en.gravatar.com/site/login" target="_blank"><img src="' + plugin_gravatar.getProfileImage(app.user.email, 30)  + '" /></a></li>');
             $('#user-avatar a').css('padding-right', '0px');
         });
+
+        $(document).on('USER_CONNECTED', function(event, data) {
+            var user = data['Chat\\User\\User'];
+            var element = core_chat.getUserElementId(user);
+            $('#' + element + ' .avatar').html('<img src="' + plugin_gravatar.getProfileImage(user.email, 30)  + '" />');
+        });
+
     },
 
     getProfileImage : function (email, size) {
