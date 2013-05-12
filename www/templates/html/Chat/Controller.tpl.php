@@ -20,6 +20,13 @@
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.cookie.js"></script>
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/bootstrap.min.js"></script>
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/moment.min.js"></script>
+    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/app.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            app.init("ws://<?php echo \Chat\Config::get('SERVER_ADDR'); ?>:<?php echo \Chat\Config::get('SERVER_PORT'); ?>/chat", '<?php echo \Chat\Config::get('URL')?>');
+        });
+    </script>
 
     <?php
     $js = \Chat\PluginManager::dispatchEvent(

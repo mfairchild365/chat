@@ -6,13 +6,13 @@ var plugin_gravatar = {
 
         $(document).on('MESSAGE_NEW', function(event, data) {
             var messageID = "#message-" + data['Chat\\Message\\Message']['id'];
-            var users_id = data['Chat\\Message\\Message']['id'];
+            var users_id = data['Chat\\Message\\Message']['users_id'];
 
-            if (app.users[data['Chat\\Message\\Message']['id']] == undefined) {
+            if (core_chat.users[users_id] == undefined) {
                 return;
             }
 
-            var email = app.users[data['Chat\\Message\\Message']['users_id']].email;
+            var email = core_chat.users[users_id].email;
 
             $(messageID + " .avatar").html("<img src='" +  plugin_gravatar.getProfileImage(email, 40) + "' />");
         });

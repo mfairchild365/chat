@@ -31,6 +31,16 @@ class Initialize implements \Chat\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\Events\JavascriptCompile::EVENT_NAME,
+            'listener' => function (\Chat\Events\JavascriptCompile $event) {
+                if (get_class($event->getView()) == 'Chat\Chat\View') {
+                    $event->addScript(\Chat\Config::get('URL') . 'www/templates/html/js/chat.js');
+                }
+
+            }
+        );
+
         return $listeners;
     }
 }

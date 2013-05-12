@@ -1,6 +1,4 @@
-var app = {
-    connection            : false,
-    user                  : false,
+var core_chat = {
     users                 : [],
     messages              : [],
     timeLoop              : false,
@@ -9,34 +7,13 @@ var app = {
     notifications         : [],
     visible               : true,
 
-    init: function (serverAddress, baseURL, enabled_plugins)
+    init: function ()
     {
-        app.baseURL = baseURL;
-
-        try {
-            app.connection = new WebSocket(serverAddress);
-
-            app.connection.onopen = function (e) {
-                $(document).trigger('SOCKET_OPEN', e);
-            };
-            app.connection.onmessage = function (e) {
-                $(document).trigger('SOCKET_MESSAGE', e);
-            };
-            app.connection.onclose = function (e) {
-                $(document).trigger('SOCKET_CLOSE', e);
-            }
-            app.connection.onerror = function (e) {
-                $(document).trigger('SOCKET_ERROR', e);
-            }
-        } catch (ex) {
-            console.log(ex);
-        }
-
         $("#message").keypress(function(event) {
             //check if we need to submit the message.
             if (event.keyCode == 13 && !event.shiftKey) {
                 //submit the message.
-                app.submitMessage($("#message").val());
+                core_chat.submitMessage($("#message").val());
 
                 //clear the message container.
                 $("#message").val('');
@@ -48,9 +25,9 @@ var app = {
 
         $('#message-list').scroll(function(event){
             if(($('#message-list').scrollTop() + $('#message-list').height()) == $('#message-list').prop('scrollHeight')) {
-                app.messageListAutoScroll = true;
+                core_chat.messageListAutoScroll = true;
             } else {
-                app.messageListAutoScroll = false;
+                core_chat.messageListAutoScroll = false;
             }
         });
 
@@ -68,56 +45,46 @@ var app = {
         }
 
         $([window, document]).blur(function () {
-            app.visible = false;
+            core_chat.visible = false;
         });
 
         $([window, document]).focus(function () {
-            app.visible = true;
+            core_chat.visible = true;
         });
 
         //Core Event Watchers
         $(document).on('USER_CONNECTED', function(event, data) {
             //Add the user to our internal users array.
-            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
+            core_chat.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
 
-            if (app.users[data['Chat\\User\\User']['id']]['chat_status'] == 'ONLINE') {
-                app.addUser(data['Chat\\User\\User']);
+            if (core_chat.users[data['Chat\\User\\User']['id']]['chat_status'] == 'ONLINE') {
+                core_chat.addUser(data['Chat\\User\\User']);
             }
         });
 
         $(document).on('USER_DISCONNECTED', function(event, data) {
-            app.removeUser(data['Chat\\User\\User']);
+            core_chat.removeUser(data['Chat\\User\\User']);
         });
 
         $(document).on('USER_INFORMATION', function(event, data) {
-            app.user = data['Chat\\User\\User'];
-
-            $.cookie('lan', app.user['id'], { path: '/' });
-
-            if (app.user.name == "UNKNOWN") {
-                $('#edit-profile-modal').modal();
-            }
-
-            $('#edit-profile-link').html(app.user['name']);
-
-            var elementId = app.getUserElementId(app.user);
+            var elementId = core_chat.getUserElementId(app.user);
 
             $('#' + elementId).removeClass('them');
             $('#' + elementId).addClass('me');
         });
 
         $(document).on('USER_UPDATED', function(event, data) {
-            app.updateUser(data['Chat\\User\\User']);
+            core_chat.updateUser(data['Chat\\User\\User']);
 
             //Update the internal user,
-            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
+            core_chat.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
         });
 
         $(document).on('MESSAGE_NEW', function(event, data) {
-            app.addMessage(data['Chat\\Message\\Message']);
+            core_chat.addMessage(data['Chat\\Message\\Message']);
 
             //Add the message to the internal list of messages.
-            app.messages[data['Chat\\Message\\Message']['id']] = data['Chat\\Message\\Message'];
+            core_chat.messages[data['Chat\\Message\\Message']['id']] = data['Chat\\Message\\Message'];
         });
 
         $(document).on('SOCKET_OPEN', function(event, data) {
@@ -136,7 +103,7 @@ var app = {
                 console.log('Error: No action provided');
                 return;
             }
-
+            console.log(data['action']);
             $(document).trigger(data['action'], data['data']);
         });
 
@@ -157,34 +124,12 @@ var app = {
         $(document).on('SOCKET_ERROR', function(event, data) {
             console.log("Error");
 
-            app.onClose(data);
+            core_chat.onClose(data);
 
             alert(data.data);
         });
 
-        app.timeLoop = setInterval('app.updateMessageTimes()', 1000);
-
-        $(document).trigger('REGISTER_PLUGINS');
-    },
-
-    /**
-     * Actions:
-     *   -- UPDATE_USER (user object)
-     *   -- SEND_CHAT_MESSAGE (text object)
-     */
-    send: function(action, object)
-    {
-        data = { };
-
-        data['action'] = action;
-
-        if (object == undefined) {
-            object = [];
-        }
-
-        data['data']   = object;
-
-        app.connection.send(JSON.stringify(data));
+        core_chat.timeLoop = setInterval('core_chat.updateMessageTimes()', 1000);
     },
 
     addMessage: function(message)
@@ -202,14 +147,14 @@ var app = {
                 "<span class='avatar user-" + message['users_id'] + "'></span>"
                 + message['message'] + "" +
                 "<div class='info'>" +
-                    "<span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']]['username'] + "</span>" +
+                    "<span class='user user-" + message['users_id'] + "'>" + core_chat.users[message['users_id']].username + "</span>" +
                     "<span class='message-date'>" + time + "</span>" +
                 "</div>" +
             "</li>");
 
-        app.scrollMessages();
+        core_chat.scrollMessages();
 
-        if (window.webkitNotifications && window.webkitNotifications.checkPermission() == 0 && app.visible == false) {
+        if (window.webkitNotifications && window.webkitNotifications.checkPermission() == 0 && core_chat.visible == false) {
             // function defined in step 2
 
             notification = window.webkitNotifications.createNotification(
@@ -219,25 +164,25 @@ var app = {
                 //Focus the window.
                 window.focus();
 
-                app.clearNotifications();
+                core_chat.clearNotifications();
             };
 
             notification.onclose = function() {
                 //Focus the window.
                 window.focus();
 
-                app.clearNotifications();
+                core_chat.clearNotifications();
             };
 
             notification.show();
 
-            app.notifications.push(notification);
+            core_chat.notifications.push(notification);
         }
     },
 
     addUser: function(user)
     {
-        var elementId = app.getUserElementId(user);
+        var elementId = core_chat.getUserElementId(user);
 
         //Only append if it does not already exist
         if ($('#' + elementId).length != 0) {
@@ -257,7 +202,7 @@ var app = {
 
     removeUser: function(user)
     {
-        var elementId = app.getUserElementId(user);
+        var elementId = core_chat.getUserElementId(user);
 
         //Only append if it does not already exist
         if ($('#' + elementId).length == 0) {
@@ -269,7 +214,7 @@ var app = {
 
     updateUser: function(user)
     {
-        var elementId = app.getUserElementId(user);
+        var elementId = core_chat.getUserElementId(user);
 
         $('#' + elementId + " .user-name").html(user['name']);
 
@@ -297,9 +242,9 @@ var app = {
 
     updateMessageTimes: function()
     {
-        for (id in app.messages){
+        for (id in core_chat.messages){
 
-            var time = moment(app.messages[id]['date_created']).fromNow()
+            var time = moment(core_chat.messages[id]['date_created']).fromNow()
 
             $('#message-' + id + " .message-date").html(time);
         }
@@ -307,14 +252,18 @@ var app = {
     },
 
     scrollMessages:function () {
-        if (app.messageListAutoScroll) {
+        if (core_chat.messageListAutoScroll) {
             $("#message-list").scrollTop($("#message-list").prop('scrollHeight'));
         }
     },
 
     clearNotifications: function() {
-        for (id in app.notifications) {
-            app.notifications[id].cancel();
+        for (id in core_chat.notifications) {
+            core_chat.notifications[id].cancel();
         }
     }
 };
+
+$(document).on('REGISTER_PLUGINS', function(event, data) {
+    core_chat.init();
+});
