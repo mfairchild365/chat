@@ -24,6 +24,7 @@ class Initialize
             'listener' => function (\Chat\Events\JavascriptCompile $event) {
                 if (get_class($event->getView()) == 'Chat\Chat\View') {
                     $event->addScript(\Chat\Config::get('URL') . 'plugins/gravatar/www/templates/html/js/main.js');
+                    $event->addScript(\Chat\Config::get('URL') . 'plugins/gravatar/www/templates/html/js/md5-min.js');
                 }
 
             }

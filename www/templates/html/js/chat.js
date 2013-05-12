@@ -9,7 +9,7 @@ var app = {
     notifications         : [],
     visible               : true,
 
-    init: function (serverAddress, baseURL)
+    init: function (serverAddress, baseURL, enabled_plugins)
     {
         app.baseURL = baseURL;
 
@@ -163,6 +163,8 @@ var app = {
         });
 
         app.timeLoop = setInterval('app.updateMessageTimes()', 1000);
+
+        $(document).trigger('REGISTER_PLUGINS');
     },
 
     /**
