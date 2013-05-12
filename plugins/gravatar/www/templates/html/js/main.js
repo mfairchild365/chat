@@ -12,7 +12,7 @@ var plugin_gravatar = {
                 return;
             }
 
-            var email = app.users[data['Chat\\Message\\Message']['id']].email;
+            var email = app.users[data['Chat\\Message\\Message']['users_id']].email;
 
             $(messageID + " .avatar").html("<img src='" +  plugin_gravatar.getProfileImage(email, 40) + "' />");
         });
