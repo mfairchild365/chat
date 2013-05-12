@@ -14,7 +14,10 @@ class Controller
             'Setting',
             'User'
         ),
-        'external_plugins' => array('home')
+        'external_plugins' => array(
+            'home',
+            'gravatar'
+        )
     );
 
     public function __construct($options = array())
