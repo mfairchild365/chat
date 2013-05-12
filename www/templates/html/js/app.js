@@ -51,5 +51,5 @@ var app = {
         data['data']   = object;
 
         app.connection.send(JSON.stringify(data));
-    },
+    }
 };
