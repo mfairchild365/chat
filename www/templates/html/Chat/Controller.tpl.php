@@ -16,6 +16,11 @@
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/main.css" rel="stylesheet" media="screen">
 
+    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.min.js"></script>
+    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.cookie.js"></script>
+    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/bootstrap.min.js"></script>
+    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/moment.min.js"></script>
+
     <?php
     $js = \Chat\PluginManager::dispatchEvent(
         \Chat\Events\JavascriptCompile::EVENT_NAME,
@@ -25,10 +30,6 @@
     echo $savvy->render($js);
     ?>
 
-    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.min.js"></script>
-    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.cookie.js"></script>
-    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/bootstrap.min.js"></script>
-    <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/moment.min.js"></script>
 </head>
 <body>
 <div id='container'>
