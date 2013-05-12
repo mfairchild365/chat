@@ -2,10 +2,28 @@
 <html>
 <head>
     <title><?php echo \Chat\Setting\Service::getSettingValue("SITE_NAME") ?></title>
+
+    <?php
+    $js = \Chat\PluginManager::dispatchEvent(
+        \Chat\Events\CSSCompile::EVENT_NAME,
+        new \Chat\Events\CSSCompile($context->output->getRawObject())
+    );
+
+    echo $savvy->render($js);
+    ?>
     <!-- Bootstrap using http://bootswatch.com/cyborg/ -->
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
     <link href="<?php echo \Chat\Config::get('URL');?>www/templates/html/css/main.css" rel="stylesheet" media="screen">
+
+    <?php
+    $js = \Chat\PluginManager::dispatchEvent(
+        \Chat\Events\JavascriptCompile::EVENT_NAME,
+        new \Chat\Events\JavascriptCompile($context->output->getRawObject())
+    );
+
+    echo $savvy->render($js);
+    ?>
 
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.min.js"></script>
     <script src="<?php echo \Chat\Config::get('URL');?>www/templates/html/js/jquery.cookie.js"></script>
