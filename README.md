@@ -9,5 +9,6 @@ easyChat is a simple, yet highly plugable chat system.
 
 ##INSTALL##
 1. run `php composer.phar install`
+2. run `cp config.sample.php config.inc.php` and edit `config.inc.php` to your will.
 2. run `php scripts/install.php`
 3. run `php scripts/useradd.php youremail newpassword ADMIN` will add a user with: (email, password, role)
