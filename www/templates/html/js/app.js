@@ -26,6 +26,17 @@ var app = {
             console.log(ex);
         }
 
+        $(document).on('SOCKET_MESSAGE', function(event, data) {
+            data = JSON.parse(data.data);
+
+            if (data['action'] == undefined) {
+                console.log('Error: No action provided');
+                return;
+            }
+            console.log(data['action']);
+            $(document).trigger(data['action'], data['data']);
+        });
+
         $(document).on('USER_INFORMATION', function(event, data) {
             app.user = data['Chat\\User\\User'];
         });

@@ -96,17 +96,6 @@ var core_chat = {
             $("#message").removeAttr('disabled');
         });
 
-        $(document).on('SOCKET_MESSAGE', function(event, data) {
-            data = JSON.parse(data.data);
-
-            if (data['action'] == undefined) {
-                console.log('Error: No action provided');
-                return;
-            }
-            console.log(data['action']);
-            $(document).trigger(data['action'], data['data']);
-        });
-
         $(document).on('SOCKET_CLOSE', function(event, data) {
             console.log(data.data);
 
