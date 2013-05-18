@@ -8,7 +8,6 @@
 </div>
 
 <div class='span3 well'>
-    <h2>Users</h2>
     <ul id='user-list'>
 
     </ul>
