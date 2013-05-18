@@ -88,10 +88,14 @@
             echo $savvy->render($subNav);
         }
 
-        foreach ($context->getFlashBagMessages() as $message) {
-            echo $savvy->render($message);
-        }
         ?>
+        <div id='message-container'>
+            <?php
+            foreach ($context->getFlashBagMessages() as $message) {
+                echo $savvy->render($message);
+            }
+            ?>
+        </div>
         <?php
         echo $savvy->render($context->output);
         ?>
