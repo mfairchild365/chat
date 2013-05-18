@@ -9,7 +9,7 @@ class RequiredLoginException extends \Chat\Exception implements \Chat\ViewableIn
 
     public function getPageTitle()
     {
-        return "Error";
+        return "Login";
     }
 
     public function getURL()
