@@ -57,9 +57,7 @@ var core_chat = {
             //Add the user to our internal users array.
             core_chat.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
 
-            if (core_chat.users[data['Chat\\User\\User']['id']]['chat_status'] == 'ONLINE') {
-                core_chat.addUser(data['Chat\\User\\User']);
-            }
+            core_chat.addUser(data['Chat\\User\\User']);
         });
 
         $(document).on('USER_DISCONNECTED', function(event, data) {
@@ -163,11 +161,16 @@ var core_chat = {
             return;
         }
 
+        //Don't display the system user.
+        if (user['username'] == 'system') {
+            return;
+        }
+
         var html = "<li id='" + elementId + "'>" +
                        "<ul>" +
                             "<li>" +
-                                "<span class='avatar'></span>" +
-                                "<span class='user-name'>" + user['username'] + "</span>" +
+                                "<span class='avatar'></span> " +
+                                "<span class='user-name'><a href='" + app.baseURL + 'users/' +user['id'] + "'>" + user['username'] + "</a></span>" +
                             "</li>" +
                         "</ul>" +
                    "</li>";
