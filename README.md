@@ -5,6 +5,7 @@ easyChat is a simple, yet highly plugable chat system.
 - php 5.4
 - mysqli
 - memcached
+- mcrypt
 - linux based server
 
 ##INSTALL##
