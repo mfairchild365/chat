@@ -26,6 +26,18 @@ var app = {
             console.log(ex);
         }
 
+        $(document).on('SOCKET_OPEN', function(event, data) {
+
+        });
+
+        $(document).on('SOCKET_CLOSE', function(event, data) {
+            app.displayPageMessage('error', 'Connection Closed', 'The connection to the server has been closed.');
+        });
+
+        $(document).on('SOCKET_ERROR', function(event, data) {
+            app.displayPageMessage('error', 'Connection Error', 'The connection to the server encountered an error.');
+        });
+
         $(document).on('SOCKET_MESSAGE', function(event, data) {
             data = JSON.parse(data.data);
 
@@ -42,6 +54,12 @@ var app = {
         });
 
         $(document).trigger('REGISTER_PLUGINS');
+    },
+
+    displayPageMessage : function(type, title, contents) {
+        $('#message-container').append("<div class='alert alert-" + type + "'>"+
+            "<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
+            "<h4>" + title + "</h4>" + contents + "</div>");
     },
 
     /**

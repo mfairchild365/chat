@@ -88,26 +88,11 @@ var core_chat = {
         });
 
         $(document).on('SOCKET_OPEN', function(event, data) {
-            console.log("Connection established!");
-            $("#connection-status").removeClass('badge-important');
-            $("#connection-status").addClass('badge-success');
-            $("#connection-status").html("Online");
-
             $("#message").removeAttr('disabled');
         });
 
         $(document).on('SOCKET_CLOSE', function(event, data) {
-            console.log(data.data);
-
-            $('#error-modal-alert-text').html("There was an error and you have been disconnected.");
-            $('#error-modal').modal('show');
-
             $("#message").attr('disabled', 'disabled');
-
-            $("#connection-status").removeClass('badge-success');
-            $("#connection-status").addClass('badge-important');
-            $("#connection-status").removeClass('badge-warning');
-            $("#connection-status").html("Offline");
         });
 
         $(document).on('SOCKET_ERROR', function(event, data) {
