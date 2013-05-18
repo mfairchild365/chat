@@ -38,7 +38,7 @@ class Initialize implements \Chat\InitializePluginInterface
 
                     //Only add the edit link if we have access to edit.
                     if ($user = Service::getCurrentUser()) {
-                        if ($user == $event->getView()->id || $user->role == 'ADMIN') {
+                        if ($user->id == $event->getView()->id || $user->role == 'ADMIN') {
                             $event->addNavigationItem($event->getView()->getEditURL(), 'Edit');
                         }
                     }
