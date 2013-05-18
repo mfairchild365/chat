@@ -23,7 +23,6 @@ class Register implements PostHandlerInterface, \Chat\ViewableInterface
         $user->email       = $email;
         $user->username    = $email;
         $user->password    = $password;
-        $user->salt        = $salt;
         $user->role        = $role;
         $user->status      = "ACTIVE";
         $user->chat_status = "OFFLINE";
