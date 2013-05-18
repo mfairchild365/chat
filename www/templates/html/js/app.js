@@ -31,6 +31,11 @@ var app = {
         });
 
         $(document).on('SOCKET_CLOSE', function(event, data) {
+            //Don't diplay a warning if there is not a user logged in yet.
+            if (app.user == false) {
+                return;
+            }
+
             app.displayPageMessage('error', 'Connection Closed', 'The connection to the server has been closed.');
         });
 

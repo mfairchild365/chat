@@ -12,7 +12,12 @@ class Application implements MessageComponentInterface {
         self::$connections[$connection->resourceId] = new ConnectionContainer($connection);
 
         //Set as online.
-        $user = self::$connections[$connection->resourceId]->getUser();
+        if (!$user = self::$connections[$connection->resourceId]->getUser()) {
+            self::$connections[$connection->resourceId]->send('ERROR_AUTH', array('message'=>'You must log in'));
+            $connection->close();
+            return;
+        }
+
         $user->chat_status = "ONLINE";
         $user->save();
 
@@ -80,7 +85,7 @@ class Application implements MessageComponentInterface {
         echo "--------CONNECTION CLOSED--------" . PHP_EOL;
         
         //May not be a set connection if an error happened during connection.
-        if (isset(self::$connections[$connection->resourceId])) {
+        if (isset(self::$connections[$connection->resourceId]) && $user) {
             echo "ID  : " . $user->id . PHP_EOL;
 
             if ($this->getUserConnectionCount($user->id) == 1) {
@@ -97,7 +102,9 @@ class Application implements MessageComponentInterface {
         // The connection is closed, remove it, as we can no longer send it messages
         unset(self::$connections[$connection->getConnection()->resourceId]);
 
-        self::sendToAll("USER_DISCONNECTED", $user);
+        if ($user) {
+            self::sendToAll("USER_DISCONNECTED", $user);
+        }
     }
 
     public function onError(ConnectionInterface $connection, \Exception $e) {
@@ -177,10 +184,6 @@ class Application implements MessageComponentInterface {
      */
     public static function sendMessageToClient(\Ratchet\ConnectionInterface $connection, $action, $data)
     {
-        if(!in_array($action, array('USER_INFORMATION', 'USER_CONNECTED', 'USER_DISCONNECTED', 'MESSAGE_NEW', 'ERROR', 'USER_UPDATED', 'STEAM_PROFILES'))) {
-            throw new Exception("Unknown Action Type: " . $action);
-        }
-
         $message = array();
 
         $message['action'] = $action;
