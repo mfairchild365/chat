@@ -12,8 +12,10 @@ class Register implements PostHandlerInterface, \Chat\ViewableInterface
             throw new \Chat\Exception("That email address is already in use.", 400);
         }
 
+        $salt = mcrypt_create_iv(22);
+
         //hash the password
-        if (!$password = self::hashPassword($password)) {
+        if (!$password = self::hashPassword($password, array('salt' => $salt))) {
             throw new \Chat\Exception("There was an error handling the password.", 500);
         }
 
@@ -21,6 +23,7 @@ class Register implements PostHandlerInterface, \Chat\ViewableInterface
         $user->email       = $email;
         $user->username    = $email;
         $user->password    = $password;
+        $user->salt        = $salt;
         $user->role        = $role;
         $user->status      = "ACTIVE";
         $user->chat_status = "OFFLINE";
@@ -33,8 +36,8 @@ class Register implements PostHandlerInterface, \Chat\ViewableInterface
         return $user;
     }
 
-    public static function hashPassword($password) {
-        return password_hash($password, PASSWORD_BCRYPT);
+    public static function hashPassword($password, $options = array()) {
+        return password_hash($password, PASSWORD_BCRYPT, $options);
     }
 
     function handlePost($get, $post, $files)
