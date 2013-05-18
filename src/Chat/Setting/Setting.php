@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Setting;
 
-class Setting extends \DB\Record
+class Setting extends \Chat\Record
 {
     protected $id;            //INT(32)
     protected $setting_name;  //VARCHAR(256) UNIQUE
