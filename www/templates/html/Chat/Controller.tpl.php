@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo \Chat\Setting\Service::getSettingValue("SITE_NAME") ?></title>
+    <title><?php echo \Chat\Setting\Service::getSettingValue("SITE_NAME") ?></title>\
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php
     $js = \Chat\PluginManager::dispatchEvent(
