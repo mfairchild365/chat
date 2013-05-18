@@ -38,7 +38,7 @@
 
 </head>
 <body>
-<div id='container' class='container-fluid'>
+
     <div id='nav-container' class='navbar row-fluid'>
         <div id='nav' class='span12'>
             <div class="navbar-inner">
@@ -108,7 +108,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 </body>
 </html>
