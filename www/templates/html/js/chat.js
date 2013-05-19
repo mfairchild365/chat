@@ -92,7 +92,7 @@ var core_chat = {
                 + message['message'] + "" +
                 "<div class='info'>" +
                     "<span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']].username + "</span>" +
-                    "<span class='message-date'>" + time + "</span>" +
+                    " - <span class='message-date'>" + time + "</span>" +
                 "</div>" +
             "</li>");
 
