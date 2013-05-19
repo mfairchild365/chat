@@ -2,9 +2,6 @@ var core_chat = {
     messages              : [],
     timeLoop              : false,
     messageListAutoScroll : true, //auto scroll the message list
-    baseURL               : '',
-    notifications         : [],
-    visible               : true,
 
     init: function ()
     {
@@ -28,27 +25,6 @@ var core_chat = {
             } else {
                 core_chat.messageListAutoScroll = false;
             }
-        });
-
-        $('#show-notifications').click(function(e){
-            if (window.webkitNotifications) {
-                window.webkitNotifications.requestPermission();
-            }
-
-            e.preventDefault();
-        });
-
-
-        if (window.webkitNotifications && window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
-            $('#show-notifications').css('visibility', 'visible');
-        }
-
-        $([window, document]).blur(function () {
-            core_chat.visible = false;
-        });
-
-        $([window, document]).focus(function () {
-            core_chat.visible = true;
         });
 
         //Core Event Watchers
@@ -122,30 +98,7 @@ var core_chat = {
 
         core_chat.scrollMessages();
 
-        if (window.webkitNotifications && window.webkitNotifications.checkPermission() == 0 && core_chat.visible == false) {
-            // function defined in step 2
-
-            notification = window.webkitNotifications.createNotification(
-                app.baseURL + 'img/alert.png', 'LAN: New Message', message['message']);
-
-            notification.onclick = function() {
-                //Focus the window.
-                window.focus();
-
-                core_chat.clearNotifications();
-            };
-
-            notification.onclose = function() {
-                //Focus the window.
-                window.focus();
-
-                core_chat.clearNotifications();
-            };
-
-            notification.show();
-
-            core_chat.notifications.push(notification);
-        }
+        plugin_notifications.notify('LAN: New Message', message['message']);
     },
 
     addUser: function(user)
@@ -218,12 +171,6 @@ var core_chat = {
     scrollMessages:function () {
         if (core_chat.messageListAutoScroll) {
             $("#message-list").scrollTop($("#message-list").prop('scrollHeight'));
-        }
-    },
-
-    clearNotifications: function() {
-        for (id in core_chat.notifications) {
-            core_chat.notifications[id].cancel();
         }
     }
 };
