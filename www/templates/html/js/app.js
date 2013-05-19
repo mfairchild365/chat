@@ -1,5 +1,6 @@
 var app = {
     user       : false,
+    users      : [],
     baseURL    : '',
     connection : false,
 
@@ -56,6 +57,11 @@ var app = {
 
         $(document).on('USER_INFORMATION', function(event, data) {
             app.user = data['Chat\\User\\User'];
+        });
+
+        $(document).on('USER_CONNECTED', function(event, data) {
+            //Add the user to our internal users array.
+            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
         });
 
         $(document).trigger('REGISTER_PLUGINS');

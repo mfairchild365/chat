@@ -1,5 +1,4 @@
 var core_chat = {
-    users                 : [],
     messages              : [],
     timeLoop              : false,
     messageListAutoScroll : true, //auto scroll the message list
@@ -54,14 +53,11 @@ var core_chat = {
 
         //Core Event Watchers
         $(document).on('USER_CONNECTED', function(event, data) {
-            //Add the user to our internal users array.
-            core_chat.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
-
             core_chat.addUser(data['Chat\\User\\User']);
         });
 
         $(document).on('USER_DISCONNECTED', function(event, data) {
-            core_chat.removeUser(data['Chat\\User\\User']);
+            core_chat.setUserStatus(data['Chat\\User\\User']);
         });
 
         $(document).on('USER_INFORMATION', function(event, data) {
@@ -75,7 +71,7 @@ var core_chat = {
             core_chat.updateUser(data['Chat\\User\\User']);
 
             //Update the internal user,
-            core_chat.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
+            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
         });
 
         $(document).on('MESSAGE_NEW', function(event, data) {
@@ -116,10 +112,10 @@ var core_chat = {
 
         $('#message-list').append(
             "<li id='message-" + message['id'] + "' class='" + userClass + "'>" +
-                "<span class='avatar user-" + message['users_id'] + "'></span>"
+                "<span class='avatar user-" + message['users_id'] + " " + app.users[message['users_id']]['chat_status'].toLowerCase() + "'></span>"
                 + message['message'] + "" +
                 "<div class='info'>" +
-                    "<span class='user user-" + message['users_id'] + "'>" + core_chat.users[message['users_id']].username + "</span>" +
+                    "<span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']].username + "</span>" +
                     "<span class='message-date'>" + time + "</span>" +
                 "</div>" +
             "</li>");
@@ -152,12 +148,24 @@ var core_chat = {
         }
     },
 
+    setUserStatus: function(user)
+    {
+        var elements = $('.user-' + user['id'] + '.avatar');
+
+        //update status
+        elements.removeClass('online');
+        elements.removeClass('offline');
+        elements.removeClass('busy');
+        elements.addClass(user['chat_status'].toLowerCase());
+    },
+
     addUser: function(user)
     {
         var elementId = core_chat.getUserElementId(user);
 
         //Only append if it does not already exist
         if ($('#' + elementId).length != 0) {
+            core_chat.setUserStatus(user);
             return;
         }
 
@@ -169,7 +177,7 @@ var core_chat = {
         var html = "<li id='" + elementId + "'>" +
                        "<ul>" +
                             "<li>" +
-                                "<span class='avatar'></span> " +
+                                "<span class='avatar user-" + user['id'] + " " + user['chat_status'].toLowerCase() + "'></span> " +
                                 "<span class='user-name'><a href='" + app.baseURL + 'users/' +user['id'] + "'>" + user['username'] + "</a></span>" +
                             "</li>" +
                         "</ul>" +
@@ -178,18 +186,6 @@ var core_chat = {
         $('#user-list').append(html);
 
         $('#' + elementId).addClass('them');
-    },
-
-    removeUser: function(user)
-    {
-        var elementId = core_chat.getUserElementId(user);
-
-        //Only append if it does not already exist
-        if ($('#' + elementId).length == 0) {
-            return;
-        }
-
-        $('#' + elementId).remove();
     },
 
     updateUser: function(user)

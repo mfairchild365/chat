@@ -42,6 +42,7 @@ li.me {
 #message-list li {
     list-style: none;
     margin-bottom: 5px;
+    margin-top: 5px;
     padding-left: 5px;
     border-bottom: black 1px solid;
 }
@@ -57,4 +58,18 @@ li.me {
 
 #show-notifications {
     visibility: hidden;
+}
+
+.avatar {
+    margin-right: 10px;
+}
+
+.avatar.online img {
+    box-shadow:0 0 8px green;
+    border: 3px solid green;
+}
+
+.avatar.offline img {
+    box-shadow:0 0 8px red;
+    border: 3px solid red;
 }
