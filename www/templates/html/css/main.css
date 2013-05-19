@@ -66,10 +66,10 @@ li.me {
 
 .avatar.online img {
     box-shadow:0 0 8px green;
-    border: 3px solid green;
+    border: 2px solid green;
 }
 
 .avatar.offline img {
-    box-shadow:0 0 8px red;
-    border: 3px solid red;
+    box-shadow: none;
+    border: none;
 }
