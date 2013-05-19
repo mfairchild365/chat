@@ -16,7 +16,8 @@ class Controller
         ),
         'external_plugins' => array(
             'home',
-            'gravatar'
+            'gravatar',
+            'notifications'
         )
     );
 
