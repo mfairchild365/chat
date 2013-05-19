@@ -148,24 +148,12 @@ var core_chat = {
         }
     },
 
-    setUserStatus: function(user)
-    {
-        var elements = $('.user-' + user['id'] + '.avatar');
-
-        //update status
-        elements.removeClass('online');
-        elements.removeClass('offline');
-        elements.removeClass('busy');
-        elements.addClass(user['chat_status'].toLowerCase());
-    },
-
     addUser: function(user)
     {
         var elementId = core_chat.getUserElementId(user);
 
         //Only append if it does not already exist
         if ($('#' + elementId).length != 0) {
-            core_chat.setUserStatus(user);
             return;
         }
 

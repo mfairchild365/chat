@@ -62,9 +62,21 @@ var app = {
         $(document).on('USER_CONNECTED', function(event, data) {
             //Add the user to our internal users array.
             app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
+            app.setUserStatus(data['Chat\\User\\User']);
         });
 
         $(document).trigger('REGISTER_PLUGINS');
+    },
+
+    setUserStatus: function(user)
+    {
+        var elements = $('.user-' + user['id'] + '.avatar');
+
+        //update status
+        elements.removeClass('online');
+        elements.removeClass('offline');
+        elements.removeClass('busy');
+        elements.addClass(user['chat_status'].toLowerCase());
     },
 
     displayPageMessage : function(type, title, contents) {
