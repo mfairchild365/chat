@@ -57,7 +57,7 @@ var core_chat = {
         });
 
         $(document).on('USER_DISCONNECTED', function(event, data) {
-            core_chat.setUserStatus(data['Chat\\User\\User']);
+            app.setUserStatus(data['Chat\\User\\User']);
         });
 
         $(document).on('USER_INFORMATION', function(event, data) {
