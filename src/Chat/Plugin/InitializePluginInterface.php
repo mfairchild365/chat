@@ -1,5 +1,5 @@
 <?php
-namespace Chat;
+namespace Chat\Plugin;
 
 interface InitializePluginInterface
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Chat;
+namespace Chat\Plugin;
 
 class PluginManager
 {
@@ -42,5 +42,27 @@ class PluginManager
         }
 
         return self::$eventsManager->dispatch($eventName, $event);
+    }
+
+    public static function autoRegisterExternalPlugins()
+    {
+        foreach (new \DirectoryIterator(dirname(dirname(dirname(__DIR__))) . '/plugins') as $fileInfo) {
+            if ($fileInfo->isDir() && file_exists($fileInfo->getPath() . '/' .$fileInfo->getFilename() . '/src/Plugin.php')) {
+                self::registerExternalPlugin($fileInfo->getFilename());
+            }
+        }
+    }
+
+    public static function registerExternalPlugin($name)
+    {
+        self::$options['external_plugins'][] = $name;
+
+        //Make sure we only have unique values.
+        self::$options['external_plugins'] = array_unique(self::$options['external_plugins']);
+    }
+
+    public static function getExternalPlugins()
+    {
+        return self::$options['external_plugins'];
     }
 }

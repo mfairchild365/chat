@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php
-    $js = \Chat\PluginManager::dispatchEvent(
+    $js = \Chat\Plugin\PluginManager::dispatchEvent(
         \Chat\Events\CSSCompile::EVENT_NAME,
         new \Chat\Events\CSSCompile($context->output->getRawObject())
     );
@@ -30,7 +30,7 @@
     </script>
 
     <?php
-    $js = \Chat\PluginManager::dispatchEvent(
+    $js = \Chat\Plugin\PluginManager::dispatchEvent(
         \Chat\Events\JavascriptCompile::EVENT_NAME,
         new \Chat\Events\JavascriptCompile($context->output->getRawObject())
     );
@@ -47,7 +47,7 @@
                 <a class="brand" href="<?php echo Chat\Config::Get('URL')?>"><?php echo \Chat\Setting\Service::getSettingValue("SITE_NAME") ?></a>
 
                 <?php
-                $mainNav = \Chat\PluginManager::dispatchEvent(
+                $mainNav = \Chat\Plugin\PluginManager::dispatchEvent(
                     \Chat\Events\NavigationMainCompile::EVENT_NAME,
                     new \Chat\Events\NavigationMainCompile()
                 );
@@ -81,7 +81,7 @@
         <h2><?php echo $context->output->getPageTitle() ?></h2>
         <?php
 
-        $subNav = \Chat\PluginManager::dispatchEvent(
+        $subNav = \Chat\Plugin\PluginManager::dispatchEvent(
             \Chat\Events\NavigationSubCompile::EVENT_NAME,
             new \Chat\Events\NavigationSubCompile($context->output->getRawObject())
         );
@@ -110,7 +110,5 @@
             </div>
         </div>
     </div>
-
-
 </body>
 </html>

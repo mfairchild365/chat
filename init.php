@@ -49,3 +49,6 @@ spl_autoload_register("pluginAutoload");
 
 //Establish a connection to the DB.
 \Chat\Util::connectDB();
+
+//Register Plugins
+\Chat\Plugin\PluginManager::autoRegisterExternalPlugins();

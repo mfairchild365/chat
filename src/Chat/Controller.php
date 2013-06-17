@@ -26,7 +26,7 @@ class Controller
         $this->options = $options + $this->options;
         $this->options['current_url'] = $this->getCurrentURL();;
 
-        PluginManager::initialize($this->options);
+        \Chat\Plugin\PluginManager::initialize($this->options);
 
         $this->route();
 
@@ -49,7 +49,7 @@ class Controller
 
     public function getPluginRoutes()
     {
-        $event = \Chat\PluginManager::dispatchEvent('routes.compile', new \Chat\Events\RoutesCompile(array()));
+        $event = \Chat\Plugin\PluginManager::dispatchEvent('routes.compile', new \Chat\Events\RoutesCompile(array()));
 
         return $event->getRoutes();
     }

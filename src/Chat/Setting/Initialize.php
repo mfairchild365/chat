@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Setting;
 
-class Initialize implements \Chat\InitializePluginInterface
+class Initialize implements \Chat\Plugin\InitializePluginInterface
 {
     public function __construct(array $options)
     {
