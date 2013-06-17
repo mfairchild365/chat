@@ -16,4 +16,18 @@ interface PluginInterface
      * @return mixed
      */
     public function onUnInstall();
+
+    /**
+     * Returns the long name of the plugin
+     *
+     * @return mixed
+     */
+    public function getName();
+
+    /**
+     * Returns a description of the plugin
+     *
+     * @return mixed
+     */
+    public function getDescription();
 }
