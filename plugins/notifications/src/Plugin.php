@@ -1,5 +1,5 @@
 <?php
-namespace Chat\Plugins\Gravatar;
+namespace Chat\Plugins\Notifications;
 
 class Plugin implements \Chat\Plugin\PluginInterface
 {
@@ -15,11 +15,11 @@ class Plugin implements \Chat\Plugin\PluginInterface
 
     public function getName()
     {
-        return 'Gravatar Support';
+        return 'Extended Notifications';
     }
 
     public function getDescription()
     {
-        return 'Enabled gravatar support though out the system.';
+        return 'Enable desktop and sound notifications';
     }
 }
