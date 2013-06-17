@@ -12,7 +12,8 @@ class Controller
             'Chat',
             'Message',
             'Setting',
-            'User'
+            'User',
+            'Plugin',
         ),
         'external_plugins' => array(
             'home',
