@@ -59,6 +59,17 @@ CREATE  TABLE IF NOT EXISTS `DEFAULTDATABASENAME`.`settings` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `DEFAULTDATABASENAME`.`plugins`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `DEFAULTDATABASENAME`.`plugins` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
