@@ -35,10 +35,15 @@ class Plugin extends \Chat\Record
 
     public function __set($var, $value)
     {
-        if (!isset($this->$var)) {
+        if (!property_exists(get_called_class(), $var)) {
             throw new \Chat\Exception("Trying to set the value of a non-existent field");
         }
 
         $this->$var = $value;
+    }
+
+    public function getInfo()
+    {
+        return PluginManager::getPluginInfo($this->name);
     }
 }
