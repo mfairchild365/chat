@@ -82,19 +82,58 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
             return false;
         }
 
-        return $parts[2];
+        return strtolower($parts[2]);
+    }
+
+    public static function getPluginNamespaceFromName($name)
+    {
+        return '\\Chat\\Plugins\\' . strtoupper($name) . '\\';
+    }
+
+    public static function getPluginInfo($name) {
+        $class = self::getPluginNamespaceFromName($name) . 'Plugin';
+
+        return new $class();
     }
 
     public function handlePost($get, $post, $files)
     {
-        print_r($post);
-        echo "handling post"; exit();
+        if (!isset($post['enabled_plugins'])) {
+            $post['enabled_plugins'] = array();
+        }
 
-        //TODO:  Check against current plugins.  Enable currently disabled plugins.  Disable currently Enabled plugins
+        //Find out which ones we need to install, and install them.
+        foreach ($post['enabled_plugins'] as $name) {
+            $info = self::getPluginInfo($name);
 
-        //TODO: Change to abstract, with the following methods.
-        $plugin->install();
-        $plugin->uninstall();
+            //Skip because it is already installed.
+            if ($info->isInstalled()) {
+                continue;
+            }
+
+            if ($info->install()) {
+               \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('success', $info->getName() . ' was installed'));
+            } else {
+               \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('error', 'There was an error installing ' . $info->getName()));
+           }
+        }
+
+        //Uninstall plugins
+        foreach (PluginList::getAllPlugins() as $plugin) {
+            if (!in_array($plugin->name, $post['enabled_plugins'])) {
+                $info = $plugin->getInfo();
+                if ($info->uninstall()) {
+                    \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('success', $info->getName() . ' was uninstalled'));
+                } else {
+                    \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('error', 'There was an error uninstalling ' . $info->getName()));
+                }
+            }
+        }
+
+        \Chat\Controller::redirect(
+            $this->getEditURL(),
+            new \Chat\FlashBagMessage('success',  'Finished Updating Plugins')
+        );
     }
 
     public function getPageTitle()
