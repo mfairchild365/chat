@@ -21,15 +21,28 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
         }
     }
 
-    /**
-     * @param array $options
-     */
-    public static function initialize($options = array())
+    public static function initializeIncludePaths()
     {
         set_include_path(
             implode(PATH_SEPARATOR, array(get_include_path())) . PATH_SEPARATOR
                 .dirname(dirname(dirname(__DIR__))).'/plugins'
         );
+
+        //Include plugin vendor directories
+        foreach (self::getInstalledPlugins() as $name=>$plugin) {
+            set_include_path(
+                implode(PATH_SEPARATOR, array(get_include_path())) . PATH_SEPARATOR
+                    .dirname(dirname(dirname(__DIR__))).'/plugins/' . $name . '/vendor'
+            );
+        }
+    }
+
+    /**
+     * @param array $options
+     */
+    public static function initialize($options = array())
+    {
+        self::initializeIncludePaths();
 
         self::$eventsManager = new \Symfony\Component\EventDispatcher\EventDispatcher();
 
