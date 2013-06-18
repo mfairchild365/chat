@@ -44,7 +44,7 @@ abstract class PluginInterface
     public function install()
     {
         //is it already installed?
-        if ($plugin = Plugin::getByName($this->getMachineName())) {
+        if ($this->insInstalled()) {
             return false;
         }
 
@@ -75,5 +75,14 @@ abstract class PluginInterface
         }
 
         return $this->onUnInstall();
+    }
+
+    public function isInstalled()
+    {
+        if (!$plugin = Plugin::getByName($this->getMachineName())) {
+            return false;
+        }
+
+        return true;
     }
 }
