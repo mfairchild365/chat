@@ -36,8 +36,8 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
 
     public static function initializePlugins($baseNamespace, array $plugins)
     {
-        foreach ($plugins as $plugin) {
-            $class = $baseNamespace . ucfirst($plugin) . "\\Initialize";
+        foreach ($plugins as $name=>$info) {
+            $class = $baseNamespace . ucfirst($name) . "\\Initialize";
             $plugin = new $class(self::$options);
             $plugin->initialize();
             foreach ($plugin->getEventListeners() as $listener) {
@@ -66,10 +66,8 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
 
     public static function registerExternalPlugin($name)
     {
-        self::$options['external_plugins'][] = $name;
-
-        //Make sure we only have unique values.
-        self::$options['external_plugins'] = array_unique(self::$options['external_plugins']);
+        $class = '\\Chat\\Plugins\\' . strtoupper($name) . '\\Plugin';
+        self::$options['external_plugins'][$name] = new $class;
     }
 
     public static function getExternalPlugins()
@@ -77,9 +75,26 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
         return self::$options['external_plugins'];
     }
 
+    public static function getPluginNameFromClass($class) {
+        $parts = explode('\\', $class);
+
+        if (!isset($parts[2])) {
+            return false;
+        }
+
+        return $parts[2];
+    }
+
     public function handlePost($get, $post, $files)
     {
+        print_r($post);
         echo "handling post"; exit();
+
+        //TODO:  Check against current plugins.  Enable currently disabled plugins.  Disable currently Enabled plugins
+
+        //TODO: Change to abstract, with the following methods.
+        $plugin->install();
+        $plugin->uninstall();
     }
 
     public function getPageTitle()

@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Plugins\Gravatar;
 
-class Plugin implements \Chat\Plugin\PluginInterface
+class Plugin extends \Chat\Plugin\PluginInterface
 {
     public function onInstall()
     {
