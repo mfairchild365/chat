@@ -70,7 +70,7 @@ abstract class PluginInterface
             return false;
         }
 
-        if ($plugin->delete()) {
+        if (!$plugin->delete()) {
             return false;
         }
 
