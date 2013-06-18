@@ -9,16 +9,11 @@ class Controller
         'model'  => false,
         'format' => 'html',
         'internal_plugins' => array(
-            'Chat',
-            'Message',
-            'Setting',
-            'User',
-            'Plugin',
-        ),
-        'external_plugins' => array(
-            'home',
-            'gravatar',
-            'notifications'
+            'Chat' => array(), //TODO:: make these actually reference their Plugin classes.
+            'Message' => array(),
+            'Setting' => array(),
+            'User' => array(),
+            'Plugin' => array(),
         )
     );
 
