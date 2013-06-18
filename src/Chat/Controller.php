@@ -99,11 +99,16 @@ class Controller
         return \Chat\User\Service::getSession()->getFlashBag()->all();
     }
 
+    public static function addFlashBagMessage(\Chat\FlashBagMessage $message)
+    {
+        $session = \Chat\User\Service::getSession();
+        $session->getFlashBag()->add('alert', $message);
+    }
+
     public static function redirect($url, \Chat\FlashBagMessage $message = NULL, $exit = true)
     {
         if ($message) {
-            $session = \Chat\User\Service::getSession();
-            $session->getFlashBag()->add('alert', $message);
+            self::addFlashBagMessage($message);
         }
 
         header('Location: '.$url);
