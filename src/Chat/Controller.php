@@ -7,22 +7,13 @@ class Controller
 
     public $options = array(
         'model'  => false,
-        'format' => 'html',
-        'internal_plugins' => array(
-            'Chat' => array(), //TODO:: make these actually reference their Plugin classes.
-            'Message' => array(),
-            'Setting' => array(),
-            'User' => array(),
-            'Plugin' => array(),
-        )
+        'format' => 'html'
     );
 
     public function __construct($options = array())
     {
         $this->options = $options + $this->options;
-        $this->options['current_url'] = $this->getCurrentURL();;
-
-        \Chat\Plugin\PluginManager::initialize($this->options);
+        $this->options['current_url'] = $this->getCurrentURL();
 
         $this->route();
 

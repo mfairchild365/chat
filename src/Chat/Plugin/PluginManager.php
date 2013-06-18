@@ -26,6 +26,11 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
      */
     public static function initialize($options = array())
     {
+        set_include_path(
+            implode(PATH_SEPARATOR, array(get_include_path())) . PATH_SEPARATOR
+                .dirname(dirname(dirname(__DIR__))).'/plugins'
+        );
+
         self::$eventsManager = new \Symfony\Component\EventDispatcher\EventDispatcher();
 
         self::$options = $options + self::$options;
@@ -107,6 +112,36 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
         $class = self::getPluginNamespaceFromName($name) . 'Plugin';
 
         return new $class();
+    }
+
+    public static function autoload($class)
+    {
+        //take of the plugin namespace
+        $tmp = str_replace("Chat\\Plugins\\", "", $class, $count);
+
+        //if the plugin namespace wasn't found... don't continue
+        if (!$count) {
+            return false;
+        }
+
+        $parts = explode("\\", $tmp);
+
+        //If there is nothing after the plugin, don't continue.
+        if (!$plugin = array_shift($parts)) {
+            return false;
+        }
+
+        //start the starting directory (plugin/src/) for plugin classes
+        $file = strtolower($plugin) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
+
+        //convert the namespace to a path
+        $file .=  implode(DIRECTORY_SEPARATOR, $parts).'.php';
+
+        if ($fullpath = stream_resolve_include_path($file)) {
+            include $fullpath;
+            return true;
+        }
+        return false;
     }
 
     public function handlePost($get, $post, $files)
