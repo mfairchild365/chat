@@ -97,8 +97,6 @@ var core_chat = {
             "</li>");
 
         core_chat.scrollMessages();
-
-        plugin_notifications.notify('LAN: New Message', message['message']);
     },
 
     addUser: function(user)

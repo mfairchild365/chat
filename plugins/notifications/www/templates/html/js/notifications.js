@@ -24,6 +24,10 @@ var plugin_notifications = {
         $([window, document]).focus(function () {
             plugin_notifications.visible = true;
         });
+
+        $(document).on('MESSAGE_NEW', function(event, data) {
+            plugin_notifications.notify('LAN: New Message', data['Chat\\Message\\Message']['message']);
+        });
     },
 
     notify: function(title, message)
