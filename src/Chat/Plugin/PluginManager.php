@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Plugin;
 
-class PluginManager
+class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterface
 {
     protected static $eventsManager = false;
 
@@ -9,6 +9,17 @@ class PluginManager
         'internal_plugins' => array(),
         'external_plugins' => array()
     );
+
+    function __construct($options = array())
+    {
+        if (!$user = \Chat\User\Service::getCurrentUser()) {
+            throw new \Chat\User\RequiredLoginException();
+        }
+
+        if ($user->role != 'ADMIN') {
+            throw new \Chat\User\NotAuthorizedException();
+        }
+    }
 
     /**
      * @param array $options
@@ -64,5 +75,25 @@ class PluginManager
     public static function getExternalPlugins()
     {
         return self::$options['external_plugins'];
+    }
+
+    public function handlePost($get, $post, $files)
+    {
+        echo "handling post"; exit();
+    }
+
+    public function getPageTitle()
+    {
+        return 'Manage Plugins';
+    }
+
+    public function getURL()
+    {
+        return $this->getEditURL();
+    }
+
+    public function getEditURL()
+    {
+        return \Chat\Config::get('URL') . 'admin/plugins';
     }
 }

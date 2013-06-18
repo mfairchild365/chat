@@ -32,7 +32,18 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
 
                 //Only add the admin navigation link if they can use it
                 if ($user && $user->role == 'ADMIN') {
-                    $event->addNavigationItem(\Chat\Config::get('URL') . 'admin', 'Admin');
+                    $event->addNavigationItem(\Chat\Config::get('URL') . 'admin/settings', 'Admin');
+                }
+            }
+        );
+
+        $listeners[] = array(
+            'event'    => \Chat\Events\NavigationSubCompile::EVENT_NAME,
+            'listener' => function (\Chat\Events\NavigationSubCompile $event) {
+                $class = get_class($event->getView());
+
+                if (strpos($class, 'Chat\Setting\\')  === 0) {
+                    $event->addNavigationItem($event->getView()->getURL(), 'Settings');
                 }
             }
         );
