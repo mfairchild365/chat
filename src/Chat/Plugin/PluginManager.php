@@ -31,7 +31,20 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
         self::$options = $options + self::$options;
 
         self::initializePlugins("Chat\\", self::$options['internal_plugins']);
-        self::initializePlugins("Chat\\Plugins\\", self::$options['external_plugins']);
+        self::initializePlugins("Chat\\Plugins\\", self::getInstalledPlugins());
+    }
+
+    public static function getInstalledPlugins()
+    {
+        $records = PluginList::getAllPlugins();
+
+        $plugins = array();
+
+        foreach ($records as $record) {
+            $plugins[$record->name] = $record->getInfo();
+        }
+
+        return $plugins;
     }
 
     public static function initializePlugins($baseNamespace, array $plugins)
