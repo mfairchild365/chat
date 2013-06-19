@@ -5,9 +5,11 @@ class Plugin extends \Chat\Plugin\PluginInterface
 {
     public function onInstall()
     {
-        //TODO: add the steam_id column to the users table
         $sql = 'ALTER TABLE users
                 ADD steam_id_64 VARCHAR(256)';
+
+        $db = \Chat\Util::getDB();
+        $db->query($sql);
 
         /**
          * TODO: add hooks to db class, so that $user->steam_id_64 is accessible.
@@ -15,16 +17,18 @@ class Plugin extends \Chat\Plugin\PluginInterface
          * It won't show up as a property in the code, but it should work like this.
          */
 
-        return false;
+        return true;
     }
 
     public function onUninstall()
     {
-        //TODO: remove the steam_id column from the users table
         $sql = 'ALTER TABLE users
                 DROP COLUMN steam_id_64';
 
-        return false;
+        $db = \Chat\Util::getDB();
+        $db->query($sql);
+
+        return true;
     }
 
     public function getName()
