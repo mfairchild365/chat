@@ -20,7 +20,7 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
         $listeners[] = array(
             'event'    => \Chat\Events\RoutesCompile::EVENT_NAME,
             'listener' => function (\Chat\Events\RoutesCompile $event) {
-                $event->addRoute('/^admin\/plugins$/', __NAMESPACE__ . '\PluginManager');
+                $event->addRoute('/^admin\/plugins$/', __NAMESPACE__ . '\EditPlugins');
             }
         );
 
