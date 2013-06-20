@@ -1,6 +1,6 @@
 <form action="<?php echo $context->getEditURL()?>" method="post" class="form-horizontal">
     <?php
-    foreach (\Chat\Plugin\PluginManager::getExternalPlugins() as $name=>$plugin)
+    foreach (\Chat\Plugin\PluginManager::getManager()->getExternalPlugins() as $name=>$plugin)
     {
         $checked = "";
         if ($plugin->isInstalled()) {

@@ -1,27 +1,51 @@
 <?php
 namespace Chat\Plugin;
 
-class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterface
+class PluginManager
 {
-    protected static $eventsManager = false;
+    protected $eventsManager = false;
 
-    protected static $options = array(
+    protected $options = array(
         'internal_plugins' => array(),
         'external_plugins' => array()
     );
 
-    function __construct($options = array())
-    {
-        if (!$user = \Chat\User\Service::getCurrentUser()) {
-            throw new \Chat\User\RequiredLoginException();
-        }
+    protected static $singleton = false;
 
-        if ($user->role != 'ADMIN') {
-            throw new \Chat\User\NotAuthorizedException();
-        }
+    protected function __construct($eventsManager, $options = array())
+    {
+        $this->options = $options + $this->options;
+
+        $this->eventsManager = $eventsManager;
+
+        $this->initializeIncludePaths();
+
+        \Chat\Plugin\PluginManager::autoRegisterExternalPlugins();
+
+        $this->initializePlugins("Chat\\", $this->options['internal_plugins']);
+
+        $this->initializePlugins("Chat\\Plugins\\", $this->getInstalledPlugins());
     }
 
-    public static function initializeIncludePaths()
+    public static function getManager()
+    {
+        if (!self::$singleton) {
+            throw new \Chat\Exception("Plugin Manager has not been initialized yet", 500);
+        }
+
+        return self::$singleton;
+    }
+
+    public static function initialize($eventsManager, $options = array())
+    {
+        if (self::$singleton) {
+            throw new \Chat\Exception("Plugin Manager can only be initialized once", 500);
+        }
+
+        self::$singleton = new self($eventsManager, $options);
+    }
+
+    protected function initializeIncludePaths()
     {
         set_include_path(
             implode(PATH_SEPARATOR, array(get_include_path())) . PATH_SEPARATOR
@@ -29,7 +53,7 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
         );
 
         //Include plugin vendor directories
-        foreach (self::getInstalledPlugins() as $name=>$plugin) {
+        foreach ($this->getInstalledPlugins() as $name=>$plugin) {
             set_include_path(
                 implode(PATH_SEPARATOR, array(get_include_path())) . PATH_SEPARATOR
                     .dirname(dirname(dirname(__DIR__))).'/plugins/' . $name . '/vendor'
@@ -37,76 +61,57 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
         }
     }
 
-    /**
-     * @param array $options
-     */
-    public static function initialize($options = array())
-    {
-        self::initializeIncludePaths();
-
-        self::$eventsManager = new \Symfony\Component\EventDispatcher\EventDispatcher();
-
-        self::$options = $options + self::$options;
-
-        self::initializePlugins("Chat\\", self::$options['internal_plugins']);
-        self::initializePlugins("Chat\\Plugins\\", self::getInstalledPlugins());
-    }
-
-    public static function getInstalledPlugins()
+    public function getInstalledPlugins()
     {
         $records = PluginList::getAllPlugins();
 
         $plugins = array();
 
         foreach ($records as $record) {
-            $plugins[$record->name] = $record->getInfo();
+            $plugins[$record->name] = $this->getPluginInfo($record->name);
         }
 
         return $plugins;
     }
 
-    public static function initializePlugins($baseNamespace, array $plugins)
+    protected function initializePlugins($baseNamespace, array $plugins)
     {
         foreach ($plugins as $name=>$info) {
             $class = $baseNamespace . ucfirst($name) . "\\Initialize";
-            $plugin = new $class(self::$options);
+            $plugin = new $class($this->options);
             $plugin->initialize();
             foreach ($plugin->getEventListeners() as $listener) {
-                self::$eventsManager->addListener($listener['event'], $listener['listener']);
+                $this->eventsManager->addListener($listener['event'], $listener['listener']);
             }
         }
     }
 
-    public static function dispatchEvent($eventName, \Symfony\Component\EventDispatcher\Event $event = null)
+    public function dispatchEvent($eventName, \Symfony\Component\EventDispatcher\Event $event = null)
     {
-        if (!self::$eventsManager) {
-            throw new \Chat\Exception("Plugin Manager has not been initialized yet", 500);
-        }
-
-        return self::$eventsManager->dispatch($eventName, $event);
+        return $this->eventsManager->dispatch($eventName, $event);
     }
 
-    public static function autoRegisterExternalPlugins()
+    protected function autoRegisterExternalPlugins()
     {
         foreach (new \DirectoryIterator(dirname(dirname(dirname(__DIR__))) . '/plugins') as $fileInfo) {
             if ($fileInfo->isDir() && file_exists($fileInfo->getPath() . '/' .$fileInfo->getFilename() . '/src/Plugin.php')) {
-                self::registerExternalPlugin($fileInfo->getFilename());
+                $this->registerExternalPlugin($fileInfo->getFilename());
             }
         }
     }
 
-    public static function registerExternalPlugin($name)
+    protected function registerExternalPlugin($name)
     {
         $class = '\\Chat\\Plugins\\' . strtoupper($name) . '\\Plugin';
-        self::$options['external_plugins'][$name] = new $class;
+        $this->options['external_plugins'][$name] = new $class;
     }
 
-    public static function getExternalPlugins()
+    public function getExternalPlugins()
     {
-        return self::$options['external_plugins'];
+        return $this->options['external_plugins'];
     }
 
-    public static function getPluginNameFromClass($class) {
+    public function getPluginNameFromClass($class) {
         $parts = explode('\\', $class);
 
         if (!isset($parts[2])) {
@@ -116,13 +121,13 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
         return strtolower($parts[2]);
     }
 
-    public static function getPluginNamespaceFromName($name)
+    public function getPluginNamespaceFromName($name)
     {
         return '\\Chat\\Plugins\\' . strtoupper($name) . '\\';
     }
 
-    public static function getPluginInfo($name) {
-        $class = self::getPluginNamespaceFromName($name) . 'Plugin';
+    public function getPluginInfo($name) {
+        $class = $this->getPluginNamespaceFromName($name) . 'Plugin';
 
         return new $class();
     }
@@ -155,60 +160,5 @@ class PluginManager implements \Chat\PostHandlerInterface, \Chat\ViewableInterfa
             return true;
         }
         return false;
-    }
-
-    public function handlePost($get, $post, $files)
-    {
-        if (!isset($post['enabled_plugins'])) {
-            $post['enabled_plugins'] = array();
-        }
-
-        //Find out which ones we need to install, and install them.
-        foreach ($post['enabled_plugins'] as $name) {
-            $info = self::getPluginInfo($name);
-
-            //Skip because it is already installed.
-            if ($info->isInstalled()) {
-                continue;
-            }
-
-            if ($info->install()) {
-               \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('success', $info->getName() . ' was installed'));
-            } else {
-               \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('error', 'There was an error installing ' . $info->getName()));
-           }
-        }
-
-        //Uninstall plugins
-        foreach (PluginList::getAllPlugins() as $plugin) {
-            if (!in_array($plugin->name, $post['enabled_plugins'])) {
-                $info = $plugin->getInfo();
-                if ($info->uninstall()) {
-                    \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('success', $info->getName() . ' was uninstalled'));
-                } else {
-                    \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('error', 'There was an error uninstalling ' . $info->getName()));
-                }
-            }
-        }
-
-        \Chat\Controller::redirect(
-            $this->getEditURL(),
-            new \Chat\FlashBagMessage('success',  'Finished Updating Plugins')
-        );
-    }
-
-    public function getPageTitle()
-    {
-        return 'Manage Plugins';
-    }
-
-    public function getURL()
-    {
-        return $this->getEditURL();
-    }
-
-    public function getEditURL()
-    {
-        return \Chat\Config::get('URL') . 'admin/plugins';
     }
 }

@@ -14,19 +14,15 @@ require_once $config_file;
 //Register the plugin autoloader
 spl_autoload_register('\Chat\Plugin\PluginManager::autoload');
 
-
-\Chat\Plugin\PluginManager::initialize(array(
-    'internal_plugins' => array(
-        'Chat' => array(), //TODO:: make these actually reference their Plugin classes.
-        'Message' => array(),
-        'Setting' => array(),
-        'User' => array(),
-        'Plugin' => array(),
+\Chat\Plugin\PluginManager::initialize(
+    new \Symfony\Component\EventDispatcher\EventDispatcher(),
+    array(
+        'internal_plugins' => array(
+            'Chat' => array(), //TODO:: make these actually reference their Plugin classes.
+            'Message' => array(),
+            'Setting' => array(),
+            'User' => array(),
+            'Plugin' => array(),
+        )
     )
-));
-
-//Register Plugins
-\Chat\Plugin\PluginManager::autoRegisterExternalPlugins();
-
-
-
+);

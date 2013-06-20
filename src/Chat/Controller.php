@@ -36,7 +36,7 @@ class Controller
 
     public function getPluginRoutes()
     {
-        $event = \Chat\Plugin\PluginManager::dispatchEvent('routes.compile', new \Chat\Events\RoutesCompile(array()));
+        $event = \Chat\Plugin\PluginManager::getManager()->dispatchEvent('routes.compile', new \Chat\Events\RoutesCompile(array()));
 
         return $event->getRoutes();
     }

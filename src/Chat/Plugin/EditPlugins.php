@@ -22,7 +22,7 @@ class EditPlugins implements \Chat\PostHandlerInterface, \Chat\ViewableInterface
 
         //Find out which ones we need to install, and install them.
         foreach ($post['enabled_plugins'] as $name) {
-            $info = PluginManager::getPluginInfo($name);
+            $info = PluginManager::getManager()->getPluginInfo($name);
 
             //Skip because it is already installed.
             if ($info->isInstalled()) {
@@ -39,7 +39,7 @@ class EditPlugins implements \Chat\PostHandlerInterface, \Chat\ViewableInterface
         //Uninstall plugins
         foreach (PluginList::getAllPlugins() as $plugin) {
             if (!in_array($plugin->name, $post['enabled_plugins'])) {
-                $info = $plugin->getInfo();
+                $info = PluginManager::getManager()->getPluginInfo($plugin->name);
                 if ($info->uninstall()) {
                     \Chat\Controller::addFlashBagMessage(new \Chat\FlashBagMessage('success', $info->getName() . ' was uninstalled'));
                 } else {

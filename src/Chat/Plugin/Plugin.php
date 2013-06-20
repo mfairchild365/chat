@@ -41,9 +41,4 @@ class Plugin extends \Chat\Record
 
         $this->$var = $value;
     }
-
-    public function getInfo()
-    {
-        return PluginManager::getPluginInfo($this->name);
-    }
 }
