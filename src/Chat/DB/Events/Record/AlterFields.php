@@ -3,7 +3,7 @@ namespace Chat\DB\Events\Record;
 
 class AlterFields extends \Symfony\Component\EventDispatcher\Event
 {
-    const EVENT_BASE_NAME = 'db.record.alter.fields';
+    const EVENT_NAME = 'db.record.alter.fields';
 
     public $fields;
     protected $record;
@@ -26,6 +26,6 @@ class AlterFields extends \Symfony\Component\EventDispatcher\Event
 
     public function getRecord()
     {
-        return $this->view;
+        return $this->record;
     }
 }
