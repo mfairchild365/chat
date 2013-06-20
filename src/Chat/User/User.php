@@ -74,22 +74,6 @@ class User extends \Chat\Record implements \Chat\Renderable
         return $data;
     }
 
-    public function __get($var)
-    {
-        if (isset($this->$var)) {
-            return $this->$var;
-        }
-    }
-
-    public function __set($var, $value)
-    {
-        if (!property_exists(__CLASS__, $var)) {
-            throw new \Chat\Exception("Trying to set the value of a non-existent field");
-        }
-
-        $this->$var = $value;
-    }
-
     public function getURL()
     {
         if (!$this->id) {
