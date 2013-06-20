@@ -12,21 +12,25 @@ class PluginManager
 
     protected static $singleton = false;
 
+    /**
+     * Initialize the signleton
+     *
+     * @param $eventsManager
+     * @param array $options
+     */
     protected function __construct($eventsManager, $options = array())
     {
         $this->options = $options + $this->options;
 
         $this->eventsManager = $eventsManager;
-
-        $this->initializeIncludePaths();
-
-        \Chat\Plugin\PluginManager::autoRegisterExternalPlugins();
-
-        $this->initializePlugins("Chat\\", $this->options['internal_plugins']);
-
-        $this->initializePlugins("Chat\\Plugins\\", $this->getInstalledPlugins());
     }
 
+    /**
+     * Get the plugin manager singleton
+     *
+     * @return bool | \Chat\Plugin\PluginManager
+     * @throws \Chat\Exception
+     */
     public static function getManager()
     {
         if (!self::$singleton) {
@@ -36,6 +40,28 @@ class PluginManager
         return self::$singleton;
     }
 
+    /**
+     * Preform tasks that are usually preformed on load such as,
+     * set up include paths and initialize plugins.
+     */
+    public function load()
+    {
+        $this->initializeIncludePaths();
+
+        \Chat\Plugin\PluginManager::autoRegisterExternalPlugins();
+
+        $this->initializePlugins("Chat\\", $this->options['internal_plugins']);
+
+        $this->initializePlugins("Chat\\Plugins\\", $this->getInstalledPlugins());
+    }
+
+    /**
+     * Initialize the singleton
+     *
+     * @param $eventsManager
+     * @param array $options
+     * @throws \Chat\Exception
+     */
     public static function initialize($eventsManager, $options = array())
     {
         if (self::$singleton) {
@@ -43,8 +69,12 @@ class PluginManager
         }
 
         self::$singleton = new self($eventsManager, $options);
+        self::$singleton->load();
     }
 
+    /**
+     * Set up include paths for plugins and libraries
+     */
     protected function initializeIncludePaths()
     {
         set_include_path(
@@ -61,6 +91,11 @@ class PluginManager
         }
     }
 
+    /**
+     * Get a list of installed plugins
+     *
+     * @return array
+     */
     public function getInstalledPlugins()
     {
         $records = PluginList::getAllPlugins();
@@ -74,6 +109,12 @@ class PluginManager
         return $plugins;
     }
 
+    /**
+     * Initializes a set of plugins.
+     *
+     * @param $baseNamespace
+     * @param array $plugins
+     */
     protected function initializePlugins($baseNamespace, array $plugins)
     {
         foreach ($plugins as $name=>$info) {
@@ -86,6 +127,13 @@ class PluginManager
         }
     }
 
+    /**
+     * Dispatch an event
+     *
+     * @param $eventName
+     * @param \Symfony\Component\EventDispatcher\Event $event
+     * @return mixed
+     */
     public function dispatchEvent($eventName, \Symfony\Component\EventDispatcher\Event $event = null)
     {
         return $this->eventsManager->dispatch($eventName, $event);
