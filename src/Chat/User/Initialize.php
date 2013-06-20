@@ -22,8 +22,8 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             'listener' => function (\Chat\Events\RoutesCompile $event) {
                 $event->addRoute('/^users\/(?P<id>[\d]+)\/edit$/i', __NAMESPACE__ . '\Edit');
                 $event->addRoute('/^register$/i', __NAMESPACE__ . '\Register');
-                $event->addRoute('/^logout/i', __NAMESPACE__ . '\Logout');
-                $event->addRoute('/^login/i', __NAMESPACE__ . '\Login');
+                $event->addRoute('/^logout$/i', __NAMESPACE__ . '\Logout');
+                $event->addRoute('/^login$/i', __NAMESPACE__ . '\Login');
                 $event->addRoute('/^users\/(?P<id>[\d]+)$/i', __NAMESPACE__ . '\View');
             }
         );
