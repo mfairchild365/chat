@@ -8,7 +8,7 @@ abstract class Record extends \DB\Record
         $fields = parent::getFields();
 
         $result = \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
-            \Chat\DB\Events\Record\AlterFields::EVENT_BASE_NAME,
+            \Chat\DB\Events\Record\AlterFields::EVENT_NAME,
             new \Chat\DB\Events\Record\AlterFields($this, $fields)
         );
 
