@@ -29,4 +29,10 @@ class Edit implements \Chat\ViewableInterface
     {
         return \Chat\Config::get('URL') . 'users/' . $this->options['users_id'] . '/edit/steam';
     }
+
+    public function getSteamUser()
+    {
+        $user = \Chat\User\User::getByID($this->options['users_id']);
+        return Service::getAPI()->getUser($user->steam_id_64);
+    }
 }
