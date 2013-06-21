@@ -182,6 +182,14 @@ class PluginManager
 
     public static function autoload($class)
     {
+        //try a basic PSR-0 load first
+
+        $file = str_replace(array('_', '\\'), '/', $class).'.php';
+        if ($fullpath = stream_resolve_include_path($file)) {
+            include $fullpath;
+            return true;
+        }
+
         //take of the plugin namespace
         $tmp = str_replace("Chat\\Plugins\\", "", $class, $count);
 
@@ -207,6 +215,7 @@ class PluginManager
             include $fullpath;
             return true;
         }
+
         return false;
     }
 }
