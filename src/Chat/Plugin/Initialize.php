@@ -27,11 +27,12 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
         $listeners[] = array(
             'event'    => \Chat\Events\NavigationSubCompile::EVENT_NAME,
             'listener' => function (\Chat\Events\NavigationSubCompile $event) {
-                $class = get_class($event->getView());
-
-                if (strpos($class, 'Chat\Setting\\')  === 0) {
-                    $event->addNavigationItem(\Chat\Config::get('URL') . 'admin/plugins', 'Plugins');
+                //Check against the current URL
+                if (!preg_match('/\/admin/', \Chat\Util::getCurrentURL(), $matches)) {
+                    return;
                 }
+
+                $event->addNavigationItem(\Chat\Config::get('URL') . 'admin/plugins', 'Plugins');
             }
         );
 
