@@ -1,0 +1,1 @@
+<a href="<?php echo $context->getEditURL(); ?>">Connect with steam</a>

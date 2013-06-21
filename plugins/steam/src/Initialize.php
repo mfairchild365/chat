@@ -40,6 +40,32 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             'event'    => \Chat\Events\RoutesCompile::EVENT_NAME,
             'listener' => function (\Chat\Events\RoutesCompile $event) {
                 $event->addRoute('/^login\/steam$/', 'Chat\Plugins\Steam\Login');
+                $event->addRoute('/^users\/(?P<users_id>[\d]+)\/edit\/steam$/i', __NAMESPACE__ . '\Edit');
+            }
+        );
+
+        $listeners[] = array(
+            'event'    => \Chat\Events\NavigationSubCompile::EVENT_NAME,
+            'listener' => function (\Chat\Events\NavigationSubCompile $event) {
+
+                //Only add the edit link if we have access to edit.
+                if (!$user = \Chat\User\Service::getCurrentUser()) {
+                   return;
+                }
+
+                //Try to parse the user ID out of the current url.
+                if (!preg_match('/users\/(\d+)/', \Chat\Util::getCurrentURL(), $matches)) {
+                    return;
+                }
+
+                $userID = $matches[1];
+
+                //Make sure they have permission
+                if ($user->id != $userID && $user->role == 'ADMIN') {
+                    return;
+                }
+
+                $event->addNavigationItem(\Chat\Config::get('URL') . 'users/' . $userID . '/edit/steam', 'Edit Steam Info');
             }
         );
 
