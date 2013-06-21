@@ -13,7 +13,7 @@ class Controller
     public function __construct($options = array())
     {
         $this->options = $options + $this->options;
-        $this->options['current_url'] = $this->getCurrentURL();
+        $this->options['current_url'] = Util::getCurrentURL();
 
         $this->route();
 
@@ -25,13 +25,6 @@ class Controller
         } catch (\Exception $e) {
             $this->output = $e;
         }
-    }
-
-    public function getCurrentURL()
-    {
-        $requestURI = substr($_SERVER['REQUEST_URI'], strlen(parse_url(\Chat\Config::get('URL'), PHP_URL_PATH)));
-
-        return \Chat\Config::get('URL') . $requestURI;
     }
 
     public function getPluginRoutes()

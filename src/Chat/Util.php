@@ -56,4 +56,11 @@ class Util
     public static function makeClickableLinks($text) {
         return preg_replace('@((https?|file)://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#+%-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $text);
     }
+
+    public static function getCurrentURL()
+    {
+        $requestURI = substr($_SERVER['REQUEST_URI'], strlen(parse_url(\Chat\Config::get('URL'), PHP_URL_PATH)));
+
+        return \Chat\Config::get('URL') . $requestURI;
+    }
 }
