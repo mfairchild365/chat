@@ -1,7 +1,7 @@
 <?php
 namespace QuickSteam;
 
-class User
+class User extends Record
 {
     const BASE_API_URL = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/';
 
@@ -29,15 +29,4 @@ class User
     public $loccountrycode;
     public $locstatecode;
     public $loccityid;
-
-    public function syncWithData($data)
-    {
-        if (is_object($data)) {
-            $data = (array)$data;
-        }
-
-        foreach ($data as $key=>$value) {
-            $this->$key = $value;
-        }
-    }
 }
