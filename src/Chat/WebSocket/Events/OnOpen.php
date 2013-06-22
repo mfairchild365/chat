@@ -1,7 +1,7 @@
 <?php
 namespace Chat\WebSocket\Events;
 
-class OnConnect extends \Symfony\Component\EventDispatcher\Event
+class OnOpen extends \Symfony\Component\EventDispatcher\Event
 {
     const EVENT_NAME = 'websocket.onconnect';
 
