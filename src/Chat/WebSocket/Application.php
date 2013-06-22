@@ -58,20 +58,14 @@ class Application implements MessageComponentInterface {
     }
 
     public function onError(ConnectionInterface $connection, \Exception $e) {
-        $user = self::$connections[$connection->resourceId]->getUser();
-        
         echo "--------ERROR--------" . PHP_EOL;
 
-        //May not be a set connection if an error happened during connection.
-        if (isset(self::$connections[$connection->resourceId])) {
-            echo "ID  : " . $user->id . PHP_EOL;
-        }
-
-        if ($e instanceof \Chat\WebSocket\Renderable) {
-            self::sendMessageToClient($connection, "ERROR", $e);
-        }
-
         echo "error: " . $e->getMessage() . PHP_EOL;
+
+        \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
+            \Chat\WebSocket\Events\OnError::EVENT_NAME,
+            new \Chat\WebSocket\Events\OnError(self::$connections[$connection->resourceId], $e)
+        );
 
         $connection->close();
     }
