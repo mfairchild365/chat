@@ -15,18 +15,9 @@ class Application implements MessageComponentInterface {
             \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
             new \Chat\WebSocket\Events\OnOpen(self::$connections[$connection->resourceId])
         );
-
-        //Display connection on server.
-        echo "--------NEW CONNECTION--------" . PHP_EOL;
-        echo "Resource ID  : " . self::$connections[$connection->resourceId]->getConnection()->resourceId . PHP_EOL;
     }
 
     public function onMessage(ConnectionInterface $connection, $msg) {
-        $user = self::$connections[$connection->resourceId]->getUser();
-        
-        echo "--------ACTION--------" . PHP_EOL;
-        echo "ID  : " . $user->id . PHP_EOL;
-
         $data = json_decode($msg, true);
 
         if (!isset($data['action'])) {
@@ -44,8 +35,6 @@ class Application implements MessageComponentInterface {
     }
 
     public function onClose(ConnectionInterface $connection) {
-        echo "--------CONNECTION CLOSED--------" . PHP_EOL;
-
         \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
             \Chat\WebSocket\Events\OnClose::EVENT_NAME,
             new \Chat\WebSocket\Events\OnClose(self::$connections[$connection->resourceId])
