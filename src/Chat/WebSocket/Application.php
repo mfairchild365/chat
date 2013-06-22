@@ -12,8 +12,8 @@ class Application implements MessageComponentInterface {
         self::$connections[$connection->resourceId] = new ConnectionContainer($connection);
 
         \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
-            \Chat\WebSocket\Events\OnConnect::EVENT_NAME,
-            new \Chat\WebSocket\Events\OnConnect(self::$connections[$connection->resourceId])
+            \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
+            new \Chat\WebSocket\Events\OnOpen(self::$connections[$connection->resourceId])
         );
 
         //Display connection on server.
