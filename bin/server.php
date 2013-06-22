@@ -26,8 +26,6 @@ $server = IoServer::factory(
     \Chat\Config::get('SERVER_ADDR')
 );
 
-$server->run();
-
 $server->loop->addPeriodicTimer(1, function($app) {
     //Dispatch loop event
 });
