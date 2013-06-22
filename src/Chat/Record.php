@@ -15,11 +15,9 @@ abstract class Record extends \DB\Record
         return $result->getFields();
     }
 
-    public function __get($var)
+    public function &__get($var)
     {
-        if (isset($this->$var)) {
-            return $this->$var;
-        }
+        return $this->$var;
     }
 
     public function __set($var, $value)
