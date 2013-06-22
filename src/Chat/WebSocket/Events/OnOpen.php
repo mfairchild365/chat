@@ -3,7 +3,7 @@ namespace Chat\WebSocket\Events;
 
 class OnOpen extends \Symfony\Component\EventDispatcher\Event
 {
-    const EVENT_NAME = 'websocket.onconnect';
+    const EVENT_NAME = 'websocket.onopen';
 
     protected $connection;
 
