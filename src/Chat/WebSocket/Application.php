@@ -1,5 +1,5 @@
 <?php
-namespace Chat;
+namespace Chat\WebSocket;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
@@ -27,7 +27,7 @@ class Application implements MessageComponentInterface {
         echo "Users.id : " .  self::$connections[$connection->resourceId]->getUser()->id . PHP_EOL;
 
         //Update the client's list with all users currently online.
-        foreach (User\RecordList::getAll() as $data) {
+        foreach (\Chat\User\RecordList::getAll() as $data) {
             self::$connections[$connection->resourceId]->send('USER_CONNECTED', $data);
         }
 
@@ -40,7 +40,7 @@ class Application implements MessageComponentInterface {
         }
 
         //Get the user up to date on the conversation
-        foreach (Message\RecordList::getAllMessages() as $message) {
+        foreach (\Chat\Message\RecordList::getAllMessages() as $message) {
             self::$connections[$connection->resourceId]->send('MESSAGE_NEW', $message);
         }
     }
@@ -117,7 +117,7 @@ class Application implements MessageComponentInterface {
             echo "ID  : " . $user->id . PHP_EOL;
         }
 
-        if ($e instanceof \Chat\Renderable) {
+        if ($e instanceof \Chat\WebSocket\Renderable) {
             self::sendMessageToClient($connection, "ERROR", $e);
         }
 
@@ -189,7 +189,7 @@ class Application implements MessageComponentInterface {
         $message['action'] = $action;
 
         //Render the data if we can.
-        if ($data instanceof \Chat\Renderable) {
+        if ($data instanceof \Chat\WebSocket\Renderable) {
             $newData                   = array();
             $newData[get_class($data)] = $data->render();
 

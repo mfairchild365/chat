@@ -1,5 +1,5 @@
 <?php
-namespace Chat;
+namespace Chat\WebSocket;
 
 interface ActionHandlerInterface
 {
@@ -8,5 +8,5 @@ interface ActionHandlerInterface
      *
      * @return mixed, (array['action'] and array['data'] defined to send a message to everyone, otherwise null.
      */
-    public function handle($action, $data, \Chat\ConnectionContainer $editor);
+    public function handle($action, $data, \Chat\WebSocket\ConnectionContainer $editor);
 }

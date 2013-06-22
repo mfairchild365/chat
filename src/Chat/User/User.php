@@ -1,7 +1,7 @@
 <?php
 namespace Chat\User;
 
-class User extends \Chat\Record implements \Chat\Renderable
+class User extends \Chat\Record implements \Chat\WebSocket\Renderable
 {
     protected $id;           //INT(32)
     protected $first_name;   //VARCHAR(256)

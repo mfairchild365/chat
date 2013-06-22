@@ -1,9 +1,9 @@
 <?php
 namespace Chat\Message;
 
-class ActionHandler implements \Chat\ActionHandlerInterface
+class ActionHandler implements \Chat\WebSocket\ActionHandlerInterface
 {
-    public function handle($action, $data, \Chat\ConnectionContainer $editor)
+    public function handle($action, $data, \Chat\WebSocket\ConnectionContainer $editor)
     {
 
         $message = nl2br(trim(strip_tags($data)));

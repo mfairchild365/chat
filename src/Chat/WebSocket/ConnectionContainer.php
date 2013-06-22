@@ -1,5 +1,5 @@
 <?php
-namespace Chat;
+namespace Chat\WebSocket;
 
 class ConnectionContainer
 {
@@ -26,7 +26,7 @@ class ConnectionContainer
      */
     public function getUser()
     {
-        return User\User::getByID($this->connection->Session->get('user.id'));
+        return \Chat\User\User::getByID($this->connection->Session->get('user.id'));
     }
 
     /**

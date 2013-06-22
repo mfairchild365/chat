@@ -9,7 +9,7 @@ use Ratchet\Session\SessionProvider;
 // we are the parent
 echo "Starting Server..." . PHP_EOL;
 
-$app = &new \Chat\Application();
+$app = &new \Chat\WebSocket\Application();
 
 $memcache = new Memcache;
 $memcache->connect('localhost');

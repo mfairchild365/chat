@@ -1,5 +1,5 @@
 <?php
-namespace Chat;
+namespace Chat\WebSocket;
 
 interface Renderable
 {
