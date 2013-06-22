@@ -84,6 +84,28 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             'priority' => 10
         );
 
+        //Handle 'SEND_CHAT_MESSAGE'
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\OnMessage::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\OnMessage $event) {
+                if (!isset($event->getData()['id'])) {
+                    throw new \Chat\Exception("ID must be passed.");
+                }
+
+                if ($event->getData()['id'] != $event->getConnection()->getUser->id) {
+                    throw new \Chat\Exception("ID must be passed.");
+                }
+
+                $object = User::getByID($event->getData()['id']);
+
+                $object->synchronizeWithArray($event->getData());
+
+                $object->save();
+
+                \Chat\WebSocket\Application::sendToAll('USER_UPDATED', $object);
+            }
+        );
+
         return $listeners;
     }
 }

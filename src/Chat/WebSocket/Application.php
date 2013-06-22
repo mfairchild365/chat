@@ -33,26 +33,14 @@ class Application implements MessageComponentInterface {
             throw new Exception("An action must be passed.");
         }
 
-        $class = '';
-
-        switch ($data['action']) {
-            case 'UPDATE_USER':
-                $class = '\Chat\User\ActionHandler';
-                break;
-            case 'SEND_CHAT_MESSAGE':
-                $class = '\Chat\Message\ActionHandler';
-                break;
-            default:
-                throw new Exception("Unknown action submitted by client", 400);
-        }
-
-        $handler = new $class;
-
-        $result = $handler->handle($data['action'], $data['data'], self::$connections[$connection->resourceId]);
-
-        if ($result) {
-            self::sendToAll($result['action'], $result['data']);
-        }
+        \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
+            \Chat\WebSocket\Events\OnMessage::EVENT_NAME,
+            new \Chat\WebSocket\Events\OnMessage(
+                self::$connections[$connection->resourceId],
+                $data['action'],
+                $data['data']
+            )
+        );
     }
 
     public function onClose(ConnectionInterface $connection) {
