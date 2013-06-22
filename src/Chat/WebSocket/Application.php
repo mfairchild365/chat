@@ -44,31 +44,17 @@ class Application implements MessageComponentInterface {
     }
 
     public function onClose(ConnectionInterface $connection) {
-        $user = self::$connections[$connection->resourceId]->getUser();
-        
         echo "--------CONNECTION CLOSED--------" . PHP_EOL;
-        
-        //May not be a set connection if an error happened during connection.
-        if (isset(self::$connections[$connection->resourceId]) && $user) {
-            echo "ID  : " . $user->id . PHP_EOL;
 
-            if ($this->getUserConnectionCount($user->id) == 1) {
-                self::sendToAll("USER_DISCONNECTED", $user);
-            }
-
-            //Set as offline
-            $user->chat_status = "OFFLINE";
-            $user->save();
-        }
+        \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
+            \Chat\WebSocket\Events\OnClose::EVENT_NAME,
+            new \Chat\WebSocket\Events\OnClose(self::$connections[$connection->resourceId])
+        );
 
         $connection = self::$connections[$connection->resourceId];
 
         // The connection is closed, remove it, as we can no longer send it messages
         unset(self::$connections[$connection->getConnection()->resourceId]);
-
-        if ($user) {
-            self::sendToAll("USER_DISCONNECTED", $user);
-        }
     }
 
     public function onError(ConnectionInterface $connection, \Exception $e) {

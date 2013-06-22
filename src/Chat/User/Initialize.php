@@ -110,6 +110,24 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\OnClose::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\OnClose $event) {
+                //May not be a set connection if an error happened during connection.
+                if (!$user = $event->getConnection()->getUser()) {
+                    return;
+                }
+
+                //Set as offline
+                $user->chat_status = "OFFLINE";
+                $user->save();
+
+                if (\Chat\WebSocket\Application::getUserConnectionCount($user->id) == 1) {
+                    \Chat\WebSocket\Application::sendToAll("USER_DISCONNECTED", $user);
+                }
+            }
+        );
+
         return $listeners;
     }
 }
