@@ -122,7 +122,12 @@ class PluginManager
             $plugin = new $class($this->options);
             $plugin->initialize();
             foreach ($plugin->getEventListeners() as $listener) {
-                $this->eventsManager->addListener($listener['event'], $listener['listener']);
+                $priority = 0;
+                if (isset($listener['priority'])) {
+                    $priority = $listener['priority'];
+                }
+
+                $this->eventsManager->addListener($listener['event'], $listener['listener'], $priority);
             }
         }
     }
