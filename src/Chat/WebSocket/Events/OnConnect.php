@@ -12,6 +12,9 @@ class OnConnect extends \Symfony\Component\EventDispatcher\Event
         $this->connection = $connection;
     }
 
+    /**
+     * @return \Chat\WebSocket\ConnectionContainer
+     */
     public function getConnection()
     {
         return $this->connection;

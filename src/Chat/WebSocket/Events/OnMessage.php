@@ -16,6 +16,9 @@ class OnMessage extends \Symfony\Component\EventDispatcher\Event
         $this->data = $data;
     }
 
+    /**
+     * @return \Chat\WebSocket\ConnectionContainer
+     */
     public function getConnection()
     {
         return $this->connection;

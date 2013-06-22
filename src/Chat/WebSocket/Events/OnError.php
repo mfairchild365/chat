@@ -14,6 +14,9 @@ class OnError extends \Symfony\Component\EventDispatcher\Event
         $this->exception = $exception;
     }
 
+    /**
+     * @return \Chat\WebSocket\ConnectionContainer
+     */
     public function getConnection()
     {
         return $this->connection;
