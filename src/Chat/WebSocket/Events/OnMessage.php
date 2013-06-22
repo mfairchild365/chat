@@ -6,13 +6,13 @@ class OnMessage extends \Symfony\Component\EventDispatcher\Event
     const EVENT_NAME = 'websocket.onmessage';
 
     protected $connection;
-    protected $message;
+    protected $action;
     protected $data;
 
-    public function __construct(\Chat\WebSocket\ConnectionContainer $connection, $message, $data)
+    public function __construct(\Chat\WebSocket\ConnectionContainer $connection, $action, $data)
     {
         $this->connection = $connection;
-        $this->message = $message;
+        $this->action = $action;
         $this->data = $data;
     }
 
@@ -24,9 +24,9 @@ class OnMessage extends \Symfony\Component\EventDispatcher\Event
         return $this->connection;
     }
 
-    public function getMessage()
+    public function getAction()
     {
-        return $this->message;
+        return $this->action;
     }
 
     public function getData()
