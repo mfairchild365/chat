@@ -31,7 +31,7 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
 
                 //Add the steam_id_64 field
                 $fields = $event->getFields();
-                $fields['steam_id_64'] = null;
+                $fields['steam_id_64'] = $event->getRecord()->steam_id_64;
                 $event->setFields($fields);
             }
         );
