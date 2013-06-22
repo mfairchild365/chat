@@ -45,4 +45,11 @@ class ConnectionContainer
     {
         Application::sendMessageToClient($this->getConnection(), $action, $data);
     }
+
+    function __call($name, $arguments)
+    {
+        if (method_exists($this->connection, $name)) {
+            call_user_func_array($name, $this->connection, $arguments);
+        }
+    }
 }
