@@ -1,7 +1,7 @@
 <?php
 namespace Chat;
 
-class Exception extends \Exception implements WebSocket\Renderable, ViewableInterface
+class Exception extends \Exception implements ViewableInterface
 {
     public function __construct($message = "", $code = 0, $previous = NULL) {
         parent::__construct($message, $code, $previous);

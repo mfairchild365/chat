@@ -121,6 +121,11 @@ class Application implements MessageComponentInterface {
 
         $message['action'] = $action;
 
+        \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
+            \Chat\WebSocket\Events\AlterSendMessageData::EVENT_NAME,
+            new \Chat\WebSocket\Events\AlterSendMessageData(self::$connections[$connection->resourceId], $data)
+        );
+
         //Render the data if we can.
         if ($data instanceof \Chat\WebSocket\Renderable) {
             $newData                   = array();

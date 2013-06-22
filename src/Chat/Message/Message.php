@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Message;
 
-class Message extends \Chat\Record implements \Chat\WebSocket\Renderable
+class Message extends \Chat\Record
 {
     protected $id;           //INT(32)
     protected $users_id;     //VARCHAR(45)

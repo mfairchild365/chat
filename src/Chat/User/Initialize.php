@@ -128,6 +128,20 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\AlterSendMessageData::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\AlterSendMessageData $event) {
+                $data = $event->getData();
+
+                if (!$data instanceof \Chat\User\User) {
+                    return;
+                }
+
+                //Hide the password
+                $data->password = "";
+            }
+        );
+
         return $listeners;
     }
 }
