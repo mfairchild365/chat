@@ -53,6 +53,37 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
+                //Get the user
+                //Set as online.
+                if (!$user = $event->getConnection()->getUser()) {
+                    $event->getConnection()->send('ERROR_AUTH', array('message'=>'You must log in'));
+                    $event->getConnection()->close();
+                    $event->stopPropagation();
+                    return;
+                }
+
+                $user->chat_status = "ONLINE";
+                $user->save();
+
+                //Update the client's list with all users currently online.
+                foreach (\Chat\User\RecordList::getAll() as $data) {
+                    $event->getConnection()->send('USER_CONNECTED', $data);
+                }
+
+                //Send the client information about the logged in user
+                $event->getConnection()->send('USER_INFORMATION', $user);
+
+                //Tell everyone else that this guy just came online.
+                if (\Chat\WebSocket\Application::getUserConnectionCount($user->id) == 1) {
+                    \Chat\WebSocket\Application::sendToAll("USER_CONNECTED", $user);
+                }
+            },
+            'priority' => 10
+        );
+
         return $listeners;
     }
 }

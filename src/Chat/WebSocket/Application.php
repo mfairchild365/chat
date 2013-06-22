@@ -11,38 +11,14 @@ class Application implements MessageComponentInterface {
         //Save in array
         self::$connections[$connection->resourceId] = new ConnectionContainer($connection);
 
-        //Set as online.
-        if (!$user = self::$connections[$connection->resourceId]->getUser()) {
-            self::$connections[$connection->resourceId]->send('ERROR_AUTH', array('message'=>'You must log in'));
-            $connection->close();
-            return;
-        }
-
-        $user->chat_status = "ONLINE";
-        $user->save();
+        \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
+            \Chat\WebSocket\Events\OnConnect::EVENT_NAME,
+            new \Chat\WebSocket\Events\OnConnect(self::$connections[$connection->resourceId])
+        );
 
         //Display connection on server.
         echo "--------NEW CONNECTION--------" . PHP_EOL;
         echo "Resource ID  : " . self::$connections[$connection->resourceId]->getConnection()->resourceId . PHP_EOL;
-        echo "Users.id : " .  self::$connections[$connection->resourceId]->getUser()->id . PHP_EOL;
-
-        //Update the client's list with all users currently online.
-        foreach (\Chat\User\RecordList::getAll() as $data) {
-            self::$connections[$connection->resourceId]->send('USER_CONNECTED', $data);
-        }
-
-        //Send the client information about the logged in user
-        self::$connections[$connection->resourceId]->send('USER_INFORMATION', $user);
-
-        //Tell everyone else that this guy just came online.
-        if ($this->getUserConnectionCount($user->id) == 1) {
-            self::sendToAll("USER_CONNECTED", $user);
-        }
-
-        //Get the user up to date on the conversation
-        foreach (\Chat\Message\RecordList::getAllMessages() as $message) {
-            self::$connections[$connection->resourceId]->send('MESSAGE_NEW', $message);
-        }
     }
 
     public function onMessage(ConnectionInterface $connection, $msg) {
@@ -133,7 +109,7 @@ class Application implements MessageComponentInterface {
         }
     }
 
-    public function getUserConnectionCount($userID)
+    public static function getUserConnectionCount($userID)
     {
         $count = 0;
 
