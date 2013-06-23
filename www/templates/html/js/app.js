@@ -3,6 +3,7 @@ var app = {
     users      : [],
     baseURL    : '',
     connection : false,
+    debug      : false,
 
     init: function (serverAddress, baseURL)
     {
@@ -50,6 +51,10 @@ var app = {
             if (data['action'] == undefined) {
                 console.log('Error: No action provided');
                 return;
+            }
+
+            if (app.debug) {
+                console.log(data);
             }
 
             $(document).trigger(data['action'], data['data']);
