@@ -26,8 +26,16 @@ $server = IoServer::factory(
     \Chat\Config::get('SERVER_ADDR')
 );
 
-$server->loop->addPeriodicTimer(1, function($app) {
-    //Dispatch loop event
-});
+//Dispatch event to get timers
+$event = \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
+    \Chat\WebSocket\Events\AddPeriodicTimer::EVENT_NAME,
+    new \Chat\WebSocket\Events\AddPeriodicTimer()
+);
+
+$timers = $event->getTimers();
+
+foreach ($timers as $timer) {
+    $server->loop->addPeriodicTimer($timer['interval'], $timer['callback']);
+}
 
 $server->run();
