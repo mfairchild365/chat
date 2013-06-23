@@ -98,6 +98,14 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\Events\JavascriptCompile::EVENT_NAME,
+            'listener' => function (\Chat\Events\JavascriptCompile $event) {
+                //Add steam to every page
+                $event->addScript(\Chat\Config::get('URL') . 'plugins/steam/www/templates/html/js/steam.js');
+            }
+        );
+
         return $listeners;
     }
 
