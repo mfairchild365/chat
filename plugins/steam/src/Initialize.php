@@ -69,6 +69,35 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\AddPeriodicTimer::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\AddPeriodicTimer $event) {
+                $event->addTimer(30, function() {
+                    static $oldSteamUsers;
+
+                    $steamUsers = Service::getSteamUserInfo();
+
+                    //Skip sending data if its the same stuff as last time (waste of bandwidth).
+                    if ($oldSteamUsers == $steamUsers) {
+                        return;
+                    }
+
+                    $oldSteamUsers = $steamUsers;
+
+                    \Chat\WebSocket\Application::sendToAll('STEAM_USER_INFO', array($steamUsers));
+                });
+            }
+        );
+
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
+                $steamUsers = Service::getSteamUserInfo();
+
+                $event->getConnection()->send('STEAM_USER_INFO', $steamUsers);
+            }
+        );
+
         return $listeners;
     }
 
