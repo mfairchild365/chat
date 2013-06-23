@@ -114,12 +114,13 @@ var core_chat = {
         }
 
         var html = "<li id='" + elementId + "'>" +
+                       "<span class='avatar user-" + user['id'] + " " + user['chat_status'].toLowerCase() + "'></span> " +
                        "<ul>" +
                             "<li>" +
-                                "<span class='avatar user-" + user['id'] + " " + user['chat_status'].toLowerCase() + "'></span> " +
                                 "<span class='user-name'><a href='" + app.baseURL + 'users/' +user['id'] + "'>" + user['username'] + "</a></span>" +
                             "</li>" +
                         "</ul>" +
+                        "<div style='clear:both'></div>" +
                    "</li>";
 
         $('#user-list').append(html);
