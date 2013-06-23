@@ -3,17 +3,17 @@ namespace Chat\User;
 
 class User extends \Chat\Record
 {
-    protected $id;           //INT(32)
-    protected $first_name;   //VARCHAR(256)
-    protected $last_name;    //VARCHAR(256)
-    protected $date_created; //DATETIME
-    protected $date_edited;  //DATETIME
-    protected $email;        //VARCHAR(256)
+    public $id;           //INT(32)
+    public $first_name;   //VARCHAR(256)
+    public $last_name;    //VARCHAR(256)
+    public $date_created; //DATETIME
+    public $date_edited;  //DATETIME
+    public $email;        //VARCHAR(256)
     protected $password;     //VARCHAR(256)
-    protected $username;     //VARCHAR(256)
-    protected $role;         //ENUM('ADMIN', 'USER')
-    protected $status;       //ENUM('ACTIVE', 'BANNED');
-    protected $chat_status;  //ENUM('AVAILABLE', 'BUSY', 'OFFLINE')
+    public $username;     //VARCHAR(256)
+    public $role;         //ENUM('ADMIN', 'USER')
+    public $status;       //ENUM('ACTIVE', 'BANNED');
+    public $chat_status;  //ENUM('AVAILABLE', 'BUSY', 'OFFLINE')
 
     public static function getByID($id)
     {

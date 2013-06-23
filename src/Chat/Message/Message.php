@@ -3,11 +3,11 @@ namespace Chat\Message;
 
 class Message extends \Chat\Record
 {
-    protected $id;           //INT(32)
-    protected $users_id;     //VARCHAR(45)
-    protected $message;      //TEXT
-    protected $date_created; //DATETIME
-    protected $date_edited;  //DATETIME
+    public $id;           //INT(32)
+    public $users_id;     //VARCHAR(45)
+    public $message;      //TEXT
+    public $date_created; //DATETIME
+    public $date_edited;  //DATETIME
 
     public static function getByID($id)
     {
