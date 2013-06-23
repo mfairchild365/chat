@@ -43,10 +43,6 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
 
                 $object = Message::createNewMessage($event->getConnection()->getUser()->id, $message);
 
-                $returnData           = array();
-                $returnData['action'] = 'MESSAGE_NEW';
-                $returnData['data']   = $object;
-
                 \Chat\WebSocket\Application::sendToAll('MESSAGE_NEW', $object);
             }
         );

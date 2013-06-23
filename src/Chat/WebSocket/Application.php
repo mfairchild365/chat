@@ -126,14 +126,6 @@ class Application implements MessageComponentInterface {
             new \Chat\WebSocket\Events\AlterSendMessageData(self::$connections[$connection->resourceId], $data)
         );
 
-        //Render the data if we can.
-        if ($data instanceof \Chat\WebSocket\Renderable) {
-            $newData                   = array();
-            $newData[get_class($data)] = $data->render();
-
-            $data = $newData;
-        }
-
         $message['data'] = $data;
 
         $connection->send(json_encode($message));
