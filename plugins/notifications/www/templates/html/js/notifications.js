@@ -26,7 +26,7 @@ var plugin_notifications = {
         });
 
         $(document).on('MESSAGE_NEW', function(event, data) {
-            plugin_notifications.notify('LAN: New Message', data['Chat\\Message\\Message']['message']);
+            plugin_notifications.notify('LAN: New Message', data['message']);
         });
     },
 

@@ -29,11 +29,11 @@ var core_chat = {
 
         //Core Event Watchers
         $(document).on('USER_CONNECTED', function(event, data) {
-            core_chat.addUser(data['Chat\\User\\User']);
+            core_chat.addUser(data);
         });
 
         $(document).on('USER_DISCONNECTED', function(event, data) {
-            app.setUserStatus(data['Chat\\User\\User']);
+            app.setUserStatus(data);
         });
 
         $(document).on('USER_INFORMATION', function(event, data) {
@@ -44,17 +44,17 @@ var core_chat = {
         });
 
         $(document).on('USER_UPDATED', function(event, data) {
-            core_chat.updateUser(data['Chat\\User\\User']);
+            core_chat.updateUser(data);
 
             //Update the internal user,
-            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
+            app.users[data['id']] = data;
         });
 
         $(document).on('MESSAGE_NEW', function(event, data) {
-            core_chat.addMessage(data['Chat\\Message\\Message']);
+            core_chat.addMessage(data);
 
             //Add the message to the internal list of messages.
-            core_chat.messages[data['Chat\\Message\\Message']['id']] = data['Chat\\Message\\Message'];
+            core_chat.messages[data['id']] = data;
         });
 
         $(document).on('SOCKET_OPEN', function(event, data) {

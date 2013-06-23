@@ -5,8 +5,8 @@ var plugin_gravatar = {
     {
 
         $(document).on('MESSAGE_NEW', function(event, data) {
-            var messageID = "#message-" + data['Chat\\Message\\Message']['id'];
-            var users_id = data['Chat\\Message\\Message']['users_id'];
+            var messageID = "#message-" + data['id'];
+            var users_id = data['users_id'];
 
             if (app.users[users_id] == undefined) {
                 return;
@@ -23,7 +23,7 @@ var plugin_gravatar = {
         });
 
         $(document).on('USER_CONNECTED', function(event, data) {
-            var user = data['Chat\\User\\User'];
+            var user = data;
             var element = core_chat.getUserElementId(user);
             $('#' + element + ' .avatar').html('<img src="' + plugin_gravatar.getProfileImage(user.email, 30)  + '" />');
         });

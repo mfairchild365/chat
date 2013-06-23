@@ -51,18 +51,18 @@ var app = {
                 console.log('Error: No action provided');
                 return;
             }
-            console.log(data['action']);
+
             $(document).trigger(data['action'], data['data']);
         });
 
         $(document).on('USER_INFORMATION', function(event, data) {
-            app.user = data['Chat\\User\\User'];
+            app.user = data;
         });
 
         $(document).on('USER_CONNECTED', function(event, data) {
             //Add the user to our internal users array.
-            app.users[data['Chat\\User\\User']['id']] = data['Chat\\User\\User'];
-            app.setUserStatus(data['Chat\\User\\User']);
+            app.users[data['id']] = data;
+            app.setUserStatus(data);
         });
 
         $(document).trigger('REGISTER_PLUGINS');
