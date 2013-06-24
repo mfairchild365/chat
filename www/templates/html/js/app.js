@@ -57,7 +57,7 @@ var app = {
                 console.log(data);
             }
 
-            $(document).trigger(data['action'], data['data']);
+            $(document).trigger(data['action'], [data['data']]);
         });
 
         $(document).on('USER_INFORMATION', function(event, data) {
