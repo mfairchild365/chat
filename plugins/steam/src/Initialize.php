@@ -84,7 +84,7 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
 
                     $oldSteamUsers = $steamUsers;
 
-                    \Chat\WebSocket\Application::sendToAll('STEAM_USER_INFO', array($steamUsers));
+                    \Chat\WebSocket\Application::sendToAll('STEAM_USER_INFO', $steamUsers);
                 });
             }
         );
