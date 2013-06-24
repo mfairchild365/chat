@@ -75,9 +75,7 @@
         </div>
     </div>
 
-
-
-    <div id='main-content-container' class='row-fluid'>
+    <div id='main-content-header' class='row-fluid'>
         <h2><?php echo $context->output->getPageTitle() ?></h2>
         <?php
 
@@ -98,6 +96,9 @@
             }
             ?>
         </div>
+    </div>
+
+    <div id='main-content-container' class='row-fluid'>
         <?php
         echo $savvy->render($context->output);
         ?>

@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class='span3 well'>
+<div class='span4 well'>
     <ul id='user-list'>
 
     </ul>
