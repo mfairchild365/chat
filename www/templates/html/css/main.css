@@ -61,6 +61,15 @@ li.me {
     margin-right: 10px;
 }
 
+#user-list .avatar {
+    float: left;
+    margin-left: 5px;
+}
+
+#user-list>li {
+    margin-bottom: 10px;
+}
+
 .avatar.online img {
     box-shadow:0 0 8px green;
     border: 2px solid green;
@@ -69,4 +78,11 @@ li.me {
 .avatar.offline img {
     box-shadow: none;
     border: none;
+}
+
+.label {
+    min-height: 0px;
+    min-width: 0px;
+    color: black;
+    white-space: pre-wrap;
 }
