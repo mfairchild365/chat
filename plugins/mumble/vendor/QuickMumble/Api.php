@@ -19,7 +19,7 @@ class Api
     {
         $users = array();
 
-        if (!$data = json_decode(file_get_contents($this->api_url))) {
+        if (!$data = json_decode(@file_get_contents($this->api_url))) {
             //failed, return an empty object.
             return $users;
         }
@@ -47,7 +47,7 @@ class Api
     public function getServer()
     {
         $server = new Server();
-        if (!$data = json_decode(file_get_contents($this->api_url))) {
+        if (!$data = json_decode(@file_get_contents($this->api_url))) {
             //failed, return an empty object.
             $server->x_status = 'offline';
             return $server;

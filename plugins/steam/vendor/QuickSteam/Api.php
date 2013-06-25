@@ -30,7 +30,7 @@ class Api
 
         $users = array();
 
-        if (!$data = json_decode(file_get_contents($url))) {
+        if (!$data = json_decode(@file_get_contents($url))) {
             //failed, return an empty object.
             return $users;
         }
