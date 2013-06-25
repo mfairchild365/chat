@@ -4,6 +4,7 @@ namespace Chat\Plugins\Mumble;
 class Service
 {
     protected static $api = false;
+    const TTL = 30;
 
     public static function getAPI()
     {
@@ -27,6 +28,14 @@ class Service
 
     public static function getMumbleUserInfo()
     {
+        static $mumbleUsers;
+        static $lastAccess;
+
+        if ($mumbleUsers &&  time() <= $lastAccess + self::TTL) {
+            echo "cached" . PHP_EOL;
+            return $mumbleUsers;
+        }
+
         //Get steam stats for all users.
         $map = array();
 
@@ -57,6 +66,7 @@ class Service
             }
         }
 
+        $lastAccess = time();
         return $mumbleUsers;
     }
 }
