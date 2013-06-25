@@ -1,4 +1,4 @@
-<div class='span8 well'>
+<div id='chat' class='span8 well'>
     <div id='chat-container'>
         <ul id='message-list'>
 
@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class='span4 well'>
+<div id='other-info' class='span4 well'>
     <ul id='user-list'>
 
     </ul>
