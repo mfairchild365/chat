@@ -14,6 +14,17 @@ class Service
         return self::$api;
     }
 
+    protected static function userExists($mumbleName, $mumbleUsers)
+    {
+        foreach ($mumbleUsers as $user) {
+            if ($user->name == $mumbleName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static function getMumbleUserInfo()
     {
         //Get steam stats for all users.
@@ -31,7 +42,19 @@ class Service
         $mumbleUsers = Service::getAPI()->getUsers();
 
         foreach ($mumbleUsers as $key=>$mumbleUser) {
+            $mumbleUsers[$key]->status = 'online';
             $mumbleUsers[$key]->users_id = array_search($mumbleUser->name, $map);
+        }
+
+        foreach ($map as $id=>$name) {
+            if (!self::userExists($name, $mumbleUsers)) {
+                $user = new \QuickMumble\User();
+                $user->name = $name;
+                $user->users_id = $id;
+                $user->status = 'offline';
+
+                $mumbleUsers[] = $user;
+            }
         }
 
         return $mumbleUsers;

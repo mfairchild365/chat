@@ -67,7 +67,43 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             }
         );
 
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\AddPeriodicTimer::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\AddPeriodicTimer $event) {
+                $event->addTimer(30, function() {
+                    static $oldMumbleUsers;
+
+                    $mumbleUsers = Service::getMumbleUserInfo();
+
+                    //Skip sending data if its the same stuff as last time (waste of bandwidth).
+                    if ($oldMumbleUsers == $mumbleUsers) {
+                        return;
+                    }
+
+                    $oldSteamUsers = $mumbleUsers;
+
+                    \Chat\WebSocket\Application::sendToAll('MUMBLE_USER_INFO', $mumbleUsers);
+                });
+            }
+        );
+
+        $listeners[] = array(
+            'event'    => \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
+                $mumbleUsers = Service::getMumbleUserInfo();
+
+                $event->getConnection()->send('MUMBLE_USER_INFO', $mumbleUsers);
+            }
+        );
+
+        $listeners[] = array(
+            'event'    => \Chat\Events\JavascriptCompile::EVENT_NAME,
+            'listener' => function (\Chat\Events\JavascriptCompile $event) {
+                //Add mumble to every page
+                $event->addScript(\Chat\Config::get('URL') . 'plugins/mumble/www/templates/html/js/mumble.js');
+            }
+        );
+
         return $listeners;
     }
-
 }
