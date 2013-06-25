@@ -73,11 +73,11 @@ var plugin_mumble = {
         }
 
         if (mumbleUser.mute || mumbleUser.selfMute) {
-            return 'Deaf';
+            return 'Mute';
         }
 
         if (mumbleUser.deaf || mumbleUser.selfDeaf) {
-            return 'Mute';
+            return 'Deaf';
         }
 
         return 'Online';
