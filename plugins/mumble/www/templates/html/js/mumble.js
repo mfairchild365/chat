@@ -2,9 +2,6 @@ var plugin_mumble = {
 
     init: function ()
     {
-        //Make sure we have a steam li for the user.
-
-
         $(document).on('MUMBLE_USER_INFO', function(event, data) {
             for (var i = 0; i < data.length; i++) {
                 var mumbleUser = data[i];
@@ -32,7 +29,6 @@ var plugin_mumble = {
     getUserSelector: function(mumbleUser)
     {
         if (mumbleUser.users_id) {
-            //Make sure we have a steam li for the user.
             if ($("#User-Record-" + mumbleUser.users_id + " ul .mumble").length == 0) {
                 $("#User-Record-" + mumbleUser.users_id + " ul").append("<li class='mumble'></li>");
             }
@@ -57,16 +53,7 @@ var plugin_mumble = {
             return $("#User-Record-" + info.users_id + " ul");
         }
 
-
-
         return $("#mumble-user-list");
-    },
-
-    updateNonUserStatus: function(mumbleUser) {
-        //Make sure we have a steam li for the user.
-        if ($("#User-Record-" + info.users_id + " ul .mumble").length == 0) {
-            $("#User-Record-" + info.users_id + " ul").append("<li class='mumble'></li>");
-        }
     },
 
     getTextualStatus: function(mumbleUser)
