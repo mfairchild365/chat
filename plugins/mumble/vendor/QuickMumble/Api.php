@@ -43,4 +43,20 @@ class Api
 
         return $users;
     }
+
+    public function getServer()
+    {
+        $server = new Server();
+        if (!$data = json_decode(file_get_contents($this->api_url))) {
+            //failed, return an empty object.
+            $server->x_status = 'offline';
+            return $server;
+        }
+
+        unset($data->root);
+        $server->syncWithData((array)$data);
+        $server->x_status = 'online';
+
+        return $server;
+    }
 }

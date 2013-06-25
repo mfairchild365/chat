@@ -92,6 +92,7 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
                 $mumbleUsers = Service::getMumbleUserInfo();
 
+                $event->getConnection()->send('MUMBLE_SERVER_INFO', Service::getAPI()->getServer());
                 $event->getConnection()->send('MUMBLE_USER_INFO', $mumbleUsers);
             }
         );
