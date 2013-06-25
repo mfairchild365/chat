@@ -21,7 +21,6 @@ class Service
         static $lastAccess;
 
         if ($steamUsers &&  time() <= $lastAccess + self::TTL) {
-            echo "cached" . PHP_EOL;
             return $steamUsers;
         }
 

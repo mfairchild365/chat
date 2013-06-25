@@ -32,7 +32,6 @@ class Service
         static $lastAccess;
 
         if ($mumbleUsers &&  time() <= $lastAccess + self::TTL) {
-            echo "cached" . PHP_EOL;
             return $mumbleUsers;
         }
 
