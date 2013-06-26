@@ -22,6 +22,7 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
             'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
                 //Get the user up to date on the conversation
                 foreach (\Chat\Message\RecordList::getAllMessages() as $message) {
+                    $message->message = \Chat\Util::makeClickableLinks($message->message);
                     $event->getConnection()->send('MESSAGE_NEW', $message);
                 }
             }
@@ -42,6 +43,8 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
                 }
 
                 $object = Message::createNewMessage($event->getConnection()->getUser()->id, $message);
+
+                $object->message = \Chat\Util::makeClickableLinks($object->message);
 
                 \Chat\WebSocket\Application::sendToAll('MESSAGE_NEW', $object);
             }
