@@ -4,7 +4,6 @@ namespace Chat\Plugins\Mumble;
 class Service
 {
     protected static $api = false;
-    const TTL = 30;
 
     public static function getAPI()
     {
@@ -28,13 +27,6 @@ class Service
 
     public static function getMumbleUserInfo()
     {
-        static $mumbleUsers;
-        static $lastAccess;
-
-        if ($mumbleUsers &&  time() <= $lastAccess + self::TTL) {
-            return $mumbleUsers;
-        }
-
         //Get steam stats for all users.
         $map = array();
 
@@ -65,7 +57,44 @@ class Service
             }
         }
 
-        $lastAccess = time();
         return $mumbleUsers;
+    }
+
+    public static function getCachedMumbleUserInfo()
+    {
+        $cacheFile = \Chat\Config::get('CACHE_DIR') . '/mumble_users.php';
+
+        if (!file_exists($cacheFile)) {
+            return false;
+        }
+
+        if (!$users = file_get_contents($cacheFile)) {
+            return false;
+        }
+
+        if (!$users = unserialize($users)) {
+            return false;
+        }
+
+        return $users;
+    }
+
+    public static function getCachedMumbleServerInfo()
+    {
+        $cacheFile = \Chat\Config::get('CACHE_DIR') . '/mumble_server.php';
+
+        if (!file_exists($cacheFile)) {
+            return false;
+        }
+
+        if (!$users = file_get_contents($cacheFile)) {
+            return false;
+        }
+
+        if (!$users = unserialize($users)) {
+            return false;
+        }
+
+        return $users;
     }
 }

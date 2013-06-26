@@ -70,19 +70,15 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
         $listeners[] = array(
             'event'    => \Chat\WebSocket\Events\AddPeriodicTimer::EVENT_NAME,
             'listener' => function (\Chat\WebSocket\Events\AddPeriodicTimer $event) {
-                $event->addTimer(30, function() {
+                $event->addTimer(15, function() {
                     static $oldMumbleUsers;
 
-                    $mumbleUsers = Service::getMumbleUserInfo();
-
-                    //Skip sending data if its the same stuff as last time (waste of bandwidth).
-                    if ($oldMumbleUsers == $mumbleUsers) {
-                        return;
+                    if ($mumbleUsers = Service::getCachedMumbleUserInfo()) {
+                        if ($oldMumbleUsers != $mumbleUsers) {
+                            \Chat\WebSocket\Application::sendToAll('MUMBLE_USER_INFO', $mumbleUsers);
+                            $oldMumbleUsers = $mumbleUsers;
+                        }
                     }
-
-                    $oldSteamUsers = $mumbleUsers;
-
-                    \Chat\WebSocket\Application::sendToAll('MUMBLE_USER_INFO', $mumbleUsers);
                 });
             }
         );
@@ -90,10 +86,13 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
         $listeners[] = array(
             'event'    => \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
             'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
-                $mumbleUsers = Service::getMumbleUserInfo();
+                if ($mumbleUsers = Service::getCachedMumbleUserInfo()) {
+                    $event->getConnection()->send('MUMBLE_USER_INFO', $mumbleUsers);
+                }
 
-                $event->getConnection()->send('MUMBLE_SERVER_INFO', Service::getAPI()->getServer());
-                $event->getConnection()->send('MUMBLE_USER_INFO', $mumbleUsers);
+                if ($server = Service::getCachedMumbleServerInfo()) {
+                    $event->getConnection()->send('MUMBLE_SERVER_INFO', $server);
+                }
             }
         );
 

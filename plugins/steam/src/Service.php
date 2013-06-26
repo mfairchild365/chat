@@ -4,7 +4,6 @@ namespace Chat\Plugins\Steam;
 class Service
 {
     protected static $api = false;
-    const TTL = 30;
 
     public static function getAPI()
     {
@@ -17,13 +16,6 @@ class Service
 
     public static function getSteamUserInfo()
     {
-        static $steamUsers;
-        static $lastAccess;
-
-        if ($steamUsers &&  time() <= $lastAccess + self::TTL) {
-            return $steamUsers;
-        }
-
         //Get steam stats for all users.
         $map = array();
 
@@ -42,7 +34,25 @@ class Service
             $steamUsers[$key]->users_id = array_search($steamUser->steamid, $map);
         }
 
-        $lastAccess = time();
         return $steamUsers;
+    }
+
+    public static function getCachedSteamUserInfo()
+    {
+        $cacheFile = \Chat\Config::get('CACHE_DIR') . '/steam_users.php';
+
+        if (!file_exists($cacheFile)) {
+            return false;
+        }
+
+        if (!$users = file_get_contents($cacheFile)) {
+            return false;
+        }
+
+        if (!$users = unserialize($users)) {
+            return false;
+        }
+
+        return $users;
     }
 }

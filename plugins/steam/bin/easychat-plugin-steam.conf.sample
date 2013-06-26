@@ -1,0 +1,22 @@
+description "easychat-plugin-mumble"
+author      "mfairchild365"
+
+# used to be: start on startup
+# until we found some mounts weren't ready yet while booting:
+start on started mountall
+stop on shutdown
+
+# Automatically Respawn:
+respawn
+respawn limit 99 5
+
+script
+    # Not sure why $HOME is needed, but we found that it is:
+    export HOME="/root"
+
+    exec php /var/www/easychat/plugins/steam/bin/server.php >> /var/log/easychat-plugin-steam.log 2>&1
+end script
+
+post-start script
+   # Optionally put a script here that will notifiy you node has (re)started
+end script

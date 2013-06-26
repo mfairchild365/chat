@@ -72,19 +72,20 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
         $listeners[] = array(
             'event'    => \Chat\WebSocket\Events\AddPeriodicTimer::EVENT_NAME,
             'listener' => function (\Chat\WebSocket\Events\AddPeriodicTimer $event) {
-                $event->addTimer(30, function() {
-                    static $oldSteamUsers;
+                $event->addTimer(15, function() {
+                    static $oldUsers;
 
-                    $steamUsers = Service::getSteamUserInfo();
-
-                    //Skip sending data if its the same stuff as last time (waste of bandwidth).
-                    if ($oldSteamUsers == $steamUsers) {
+                    if (!$users = Service::getCachedSteamUserInfo()) {
                         return;
                     }
 
-                    $oldSteamUsers = $steamUsers;
+                    if ($oldUsers == $users) {
+                        return;
+                    }
 
-                    \Chat\WebSocket\Application::sendToAll('STEAM_USER_INFO', $steamUsers);
+                    \Chat\WebSocket\Application::sendToAll('STEAM_USER_INFO', $users);
+
+                    $oldUsers = $users;
                 });
             }
         );
@@ -92,9 +93,11 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
         $listeners[] = array(
             'event'    => \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
             'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
-                $steamUsers = Service::getSteamUserInfo();
+                if (!$users = Service::getCachedSteamUserInfo()) {
+                    return;
+                }
 
-                $event->getConnection()->send('STEAM_USER_INFO', $steamUsers);
+                $event->getConnection()->send('STEAM_USER_INFO', $users);
             }
         );
 
