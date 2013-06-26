@@ -96,6 +96,8 @@ var core_chat = {
                 "</div>" +
             "</li>");
 
+        $(document).trigger('MESSAGE_ADDED', [message]);
+
         core_chat.scrollMessages();
     },
 
