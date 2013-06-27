@@ -17,13 +17,29 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
     {
         $listeners = array();
 
+        //Handle 'GET_CHAT_MESSAGES'
         $listeners[] = array(
-            'event'    => \Chat\WebSocket\Events\OnOpen::EVENT_NAME,
-            'listener' => function (\Chat\WebSocket\Events\OnOpen $event) {
-                //Get the user up to date on the conversation
-                foreach (\Chat\Message\RecordList::getAllMessages() as $message) {
-                    $message->message = \Chat\Util::makeClickableLinks($message->message);
-                    $event->getConnection()->send('MESSAGE_NEW', $message);
+            'event'    => \Chat\WebSocket\Events\OnMessage::EVENT_NAME,
+            'listener' => function (\Chat\WebSocket\Events\OnMessage $event) {
+                if ($event->getAction() != 'GET_CHAT_MESSAGES') {
+                    return;
+                }
+
+                $data= $event->getData();
+
+                if (!isset($data->last_message_id)) {
+                    //Get the latest set of messages
+                    $messages = RecordList::getLatestMessages();
+                } else {
+                    //get messages before the given id
+                    $messages = RecordList::getMessagesOlderThanID($data->last_message_id);
+                }
+
+                $timeRequested = time();
+
+                foreach ($messages as $message) {
+                    $message->time_requested = $timeRequested;
+                    \Chat\WebSocket\Application::sendToAll('MESSAGE_NEW', $message);
                 }
             }
         );

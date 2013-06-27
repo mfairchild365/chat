@@ -1,7 +1,9 @@
 var core_chat = {
-    messages              : [],
-    timeLoop              : false,
-    messageListAutoScroll : true, //auto scroll the message list
+    messages                   : [],
+    timeLoop                   : false,
+    messageListAutoScroll      : true, //auto scroll the message list
+    messageListLatestMessageID : 0,
+    latestTimeRequested        : 0,
 
     init: function ()
     {
@@ -52,13 +54,15 @@ var core_chat = {
 
         $(document).on('MESSAGE_NEW', function(event, data) {
             core_chat.addMessage(data);
-
-            //Add the message to the internal list of messages.
-            core_chat.messages[data['id']] = data;
         });
 
         $(document).on('SOCKET_OPEN', function(event, data) {
             $("#message").removeAttr('disabled');
+
+            //Check if we need to retrieve messages.
+            if (core_chat.messages.length == 0) {
+                app.send('GET_CHAT_MESSAGES', {latest_message_id: 0});
+            }
         });
 
         $(document).on('SOCKET_CLOSE', function(event, data) {
@@ -69,8 +73,6 @@ var core_chat = {
             console.log("Error");
 
             core_chat.onClose(data);
-
-            alert(data.data);
         });
 
         core_chat.timeLoop = setInterval('core_chat.updateMessageTimes()', 1000);
@@ -78,27 +80,58 @@ var core_chat = {
 
     addMessage: function(message)
     {
+        //Skip if it already exists
+        if (this.messages[message.id] !== undefined) {
+            return;
+        }
+
         var userClass = 'them';
 
         if (message['users_id'] == app.user['id']) {
             userClass = 'me';
         }
 
-        var time = moment(message['date_created']).fromNow()
+        var time = moment(message['date_created']).fromNow();
 
-        $('#message-list').append(
-            "<li id='message-" + message['id'] + "' class='" + userClass + "'>" +
-                "<span class='avatar user-" + message['users_id'] + " " + app.users[message['users_id']]['chat_status'].toLowerCase() + "'></span>"
-                + message['message'] + "" +
-                "<div class='info'>" +
-                    "<span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']].username + "</span>" +
-                    " - <span class='message-date'>" + time + "</span>" +
-                "</div>" +
-            "</li>");
+        html = "<li id='message-" + message['id'] + "' class='" + userClass + "'>" +
+            "<span class='avatar user-" + message['users_id'] + " " + app.users[message['users_id']]['chat_status'].toLowerCase() + "'></span>"
+            + message['message'] + "" +
+            "<div class='info'>" +
+            "<span class='user user-" + message['users_id'] + "'>" + app.users[message['users_id']].username + "</span>" +
+            " - <span class='message-date'>" + time + "</span>" +
+            "</div>" +
+            "</li>";
+
+        if (message.id > core_chat.messageListLatestMessageID) {
+            $("#message-list").append(html);
+        } else {
+            var closest_id = core_chat.messageListLatestMessageID;
+
+            //Go backwards from the most recent id to look where this message should be placed.
+            for (var i = core_chat.messageListLatestMessageID; i > message.id; i--) {
+                if (core_chat.messages[i] !== undefined) {
+                    closest_id = i;
+                }
+            }
+
+            $("#message-" + closest_id).before(html);
+       }
+
+        //Add the message to the internal list of messages.
+        core_chat.messages[message['id']] = message;
 
         $(document).trigger('MESSAGE_ADDED', [message]);
 
-        core_chat.scrollMessages();
+        if (message.id > core_chat.messageListLatestMessageID) {
+            core_chat.messageListLatestMessageID = message.id;
+            core_chat.latestTimeRequested = message.time_requested;
+            core_chat.scrollMessages();
+            $(document).trigger('NEW_MESSAGE_ADDED', [message]);
+        }
+
+        if (message.time_requested == core_chat.latestTimeRequested) {
+            core_chat.scrollMessages();
+        }
     },
 
     addUser: function(user)

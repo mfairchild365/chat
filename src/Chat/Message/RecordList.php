@@ -21,4 +21,27 @@ class RecordList extends \DB\RecordList
 
         return new self($options);
     }
+
+    public static function getLatestMessages($limit = 15, $options = array())
+    {
+        //Build the list
+        $options['sql'] = "SELECT id
+                           FROM messages
+                           ORDER BY id DESC
+                           LIMIT " . (int)$limit;
+
+        return new self($options);
+    }
+
+    public static function getMessagesOlderThanID($id, $limit = 15, $options = array())
+    {
+        //Build the list
+        $options['sql'] = "SELECT id
+                           FROM messages
+                           WHERE id < " . (int)$id ."
+                           ORDER BY id DESC
+                           LIMIT " . (int)$limit;
+
+        return new self($options);
+    }
 }

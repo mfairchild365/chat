@@ -25,8 +25,8 @@ var plugin_notifications = {
             plugin_notifications.visible = true;
         });
 
-        $(document).on('MESSAGE_NEW', function(event, data) {
-            plugin_notifications.notify('LAN: New Message', data['message']);
+        $(document).on('NEW_MESSAGE_ADDED', function(event, data) {
+            plugin_notifications.notify('New Message', data['message']);
         });
     },
 
