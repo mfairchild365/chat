@@ -119,13 +119,13 @@ var core_chat = {
             "</div>" +
             "</li>";
 
-        if (message.id > core_chat.messageListLatestMessageID) {
+        if (parseInt(message.id) > core_chat.messageListLatestMessageID) {
             $("#message-list").append(html);
         } else {
             var closest_id = core_chat.messageListLatestMessageID;
 
             //Go backwards from the most recent id to look where this message should be placed.
-            for (var i = core_chat.messageListLatestMessageID; i > message.id; i--) {
+            for (var i = core_chat.messageListLatestMessageID; i > parseInt(message.id); i--) {
                 if (core_chat.messages[i] !== undefined) {
                     closest_id = i;
                 }
@@ -135,7 +135,7 @@ var core_chat = {
        }
 
         //Add the message to the internal list of messages.
-        core_chat.messages[message['id']] = message;
+        core_chat.messages[parseInt(message['id'])] = message;
 
         $(document).trigger('MESSAGE_ADDED', [message]);
 
