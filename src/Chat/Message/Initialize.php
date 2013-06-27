@@ -38,7 +38,7 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
                 $timeRequested = time();
 
                 foreach ($messages as $message) {
-                    //print_r($message);
+                    $message->message = \Chat\Util::makeClickableLinks($message->message);
                     $message->time_requested = $timeRequested;
                     \Chat\WebSocket\Application::sendToAll('MESSAGE_NEW', $message);
                 }
