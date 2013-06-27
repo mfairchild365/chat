@@ -22,10 +22,6 @@ abstract class Record extends \DB\Record
 
     public function __set($var, $value)
     {
-        if (!in_array($var, array_keys($this->getFields()))) {
-            throw new \Chat\Exception("Trying to set the value of a non-existent field");
-        }
-
         $this->$var = $value;
     }
 }

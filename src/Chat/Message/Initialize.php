@@ -27,17 +27,18 @@ class Initialize implements \Chat\Plugin\InitializePluginInterface
 
                 $data= $event->getData();
 
-                if (!isset($data->last_message_id)) {
+                if (!isset($data['before_message_id'])) {
                     //Get the latest set of messages
                     $messages = RecordList::getLatestMessages();
                 } else {
                     //get messages before the given id
-                    $messages = RecordList::getMessagesOlderThanID($data->last_message_id);
+                    $messages = RecordList::getMessagesOlderThanID($data['before_message_id']);
                 }
 
                 $timeRequested = time();
 
                 foreach ($messages as $message) {
+                    //print_r($message);
                     $message->time_requested = $timeRequested;
                     \Chat\WebSocket\Application::sendToAll('MESSAGE_NEW', $message);
                 }

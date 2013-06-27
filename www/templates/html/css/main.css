@@ -86,3 +86,17 @@ li.me {
     color: black;
     white-space: pre-wrap;
 }
+
+#message-list #load-more-messages {
+    min-height: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 5px;
+    background-color: #C0D890;
+
+}
+
+#message-list #load-more-messages:hover {
+    background-color: #E3F0C9;
+    cursor: pointer;
+}

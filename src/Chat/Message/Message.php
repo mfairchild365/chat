@@ -50,16 +50,4 @@ class Message extends \Chat\Record
 
         return $record;
     }
-
-    public function render()
-    {
-        //Convert this object to an array
-        $data = $this->toArray();
-
-        $data['date_created'] = date('c', strtotime($data['date_created']));
-        $data['date_edited']  = date('c', strtotime($data['date_edited']));
-        $data['message']      = str_replace("&lt;br /&gt;", "<br />",  \Chat\Util::makeClickableLinks($data['message']));
-
-        return $data;
-    }
 }

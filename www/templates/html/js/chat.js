@@ -75,6 +75,23 @@ var core_chat = {
             core_chat.onClose(data);
         });
 
+        $(' #load-more-messages').click(function(){
+            var oldest_id = core_chat.messageListLatestMessageID;
+
+            //Go backwards from the most recent id to look where this message should be placed.
+            for (var i = core_chat.messageListLatestMessageID; i >= 0; i--) {
+                if (core_chat.messages[i] !== undefined) {
+                    oldest_id = i;
+                }
+            }
+
+            if (oldest_id == 1) {
+                return;
+            }
+
+            app.send('GET_CHAT_MESSAGES', {before_message_id: oldest_id});
+        });
+
         core_chat.timeLoop = setInterval('core_chat.updateMessageTimes()', 1000);
     },
 
@@ -199,7 +216,6 @@ var core_chat = {
 
             $('#message-' + id + " .message-date").html(time);
         }
-
     },
 
     scrollMessages:function () {
