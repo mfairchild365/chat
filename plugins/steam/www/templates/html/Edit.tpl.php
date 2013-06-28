@@ -1,7 +1,8 @@
 <?php
-$user = $context->getSteamUser();
-if ($user->personaname) {
-    echo "You are connected as " . $user->personaname;
+if ($user = $context->getSteamUser()) {
+    if ($user->personaname) {
+        echo "You are connected as " . $user->personaname;
+    }
 }
 ?>
 
