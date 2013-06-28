@@ -49,7 +49,7 @@ class ConnectionContainer
     function __call($name, $arguments)
     {
         if (method_exists($this->connection, $name)) {
-            call_user_func_array($name, $this->connection, $arguments);
+            call_user_func_array(array($this->connection, $name), $arguments);
         }
     }
 }
