@@ -20,14 +20,16 @@ var plugin_mumble = {
         var selector = plugin_mumble.getUserSelector(mumbleUser);
 
         var channel = "";
+        var statusClass = "offline";
 
         if (mumbleUser.status == 'online') {
             channel = "(" + mumbleUser.channelName + ")";
+            statusClass = "bade badge-success";
         }
 
         selector.html(
             "<span class='label'>" +
-                "<strong>Mumble:</strong> " + mumbleUser.name  + " - " + plugin_mumble.getTextualStatus(mumbleUser) + " " + channel +
+                "<strong>Mumble:</strong> " + mumbleUser.name  + " - <span class='" + statusClass + "'>" + plugin_mumble.getTextualStatus(mumbleUser) + "</span> " + channel +
             "</span>"
         );
     },
