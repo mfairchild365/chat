@@ -47,7 +47,8 @@ class Application implements MessageComponentInterface {
     }
 
     public function onError(ConnectionInterface $connection, \Exception $e) {
-        echo date("Y-m-d H:i:s") . "error: " . $e->getMessage() . PHP_EOL;
+        echo date("Y-m-d H:i:s") . ": error: " . $e->getMessage() . PHP_EOL;
+        echo date("Y-m-d H:i:s") . ": " . $e->getTraceAsString() . PHP_EOL;
 
         \Chat\Plugin\PluginManager::getManager()->dispatchEvent(
             \Chat\WebSocket\Events\OnError::EVENT_NAME,
