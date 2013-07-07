@@ -43,7 +43,7 @@ class Application implements MessageComponentInterface {
         $connection = self::$connections[$connection->resourceId];
 
         // The connection is closed, remove it, as we can no longer send it messages
-        unset(self::$connections[$connection->getConnection()->resourceId]);
+        unset(self::$connections[$connection->resourceId]);
     }
 
     public function onError(ConnectionInterface $connection, \Exception $e) {
