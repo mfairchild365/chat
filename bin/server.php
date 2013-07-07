@@ -7,7 +7,7 @@ use Ratchet\WebSocket\WsServer;
 use Ratchet\Session\SessionProvider;
 
 // we are the parent
-echo "Starting Server..." . PHP_EOL;
+echo date("Y-m-d H:i:s") . "Starting Server..." . PHP_EOL;
 
 $app = &new \Chat\WebSocket\Application();
 
