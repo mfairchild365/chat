@@ -40,8 +40,6 @@ class Application implements MessageComponentInterface {
             new \Chat\WebSocket\Events\OnClose(self::$connections[$connection->resourceId])
         );
 
-        $connection = self::$connections[$connection->resourceId];
-
         // The connection is closed, remove it, as we can no longer send it messages
         unset(self::$connections[$connection->resourceId]);
     }
