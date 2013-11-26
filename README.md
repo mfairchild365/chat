@@ -22,9 +22,9 @@ There are many ways to run this as a service.
 
 For testing, it works to simply run `php bin/server.php` from command line, but the terminal session must stay open.
 
-To solve this issue, it is good to runn the script as a service.  In Ubuntu you can use `upstart` (http://upstart.ubuntu.com/getting-started.html)
+To solve this issue, it is good to run the script as a service.  In Ubuntu you can use `upstart` (http://upstart.ubuntu.com/getting-started.html)
 
-Ussing upstart, you could create a script called something like `\etc\init\easychat.conf`:
+Using upstart, you could create a script called something like `\etc\init\easychat.conf`:
 ```
 description "easychat"
 author      "mfairchild365"
@@ -46,7 +46,7 @@ script
 end script
 
 post-start script
-   # Optionally put a script here that will notifiy you node has (re)started
+   # Optionally put a script here that will notify you node has (re)started
 end script
 ```
 The above script was taken largely from http://kvz.io/blog/2009/12/15/run-nodejs-as-a-service-on-ubuntu-karmic/
